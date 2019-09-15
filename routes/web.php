@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//-------------------- rotas referentes à RequisicoesController --------------------- //
+// data tables
+//Route::get('requisicoes/getdata', 'RequisicoesController@data_tables')->name('data_table_requisicoes');
+//ressource
+Route::resource('docente', 'DocenteController')->middleware('auth');
+//------------------------------------------------------------------------------//

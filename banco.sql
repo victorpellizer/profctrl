@@ -7,12 +7,6 @@
 -- Versão do servidor: 5.7.26
 -- versão do PHP: 7.2.18
 
-DROP DATABASE IF EXISTS profctrl;
-CREATE DAtaBASE profctrl;
-
-USE profctrl;
-
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -5715,7 +5709,6 @@ INSERT INTO `classe_docente` (`dataInicioClasse`, `Docente_idDocente`, `Classe_i
 --
 -- Estrutura da tabela `docente`
 --
-
 DROP TABLE IF EXISTS `docente`;
 CREATE TABLE IF NOT EXISTS `docente` (
   `idDocente` int(32) NOT NULL AUTO_INCREMENT,
@@ -6218,7 +6211,7 @@ CREATE TABLE IF NOT EXISTS `vw_titulo` (
 --
 DROP TABLE IF EXISTS `vw_classe`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_classe`  AS  select max(`classe_docente`.`Classe_idClasse`) AS `max(classe_idClasse)`,`classe_docente`.`Docente_idDocente` AS `docente_idDocente` from `classe_docente` group by `classe_docente`.`Docente_idDocente` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_classe`  AS  select max(`classe_docente`.`Classe_idClasse`) AS `max(classe_idClasse)`,`classe_docente`.`Docente_idDocente` AS `docente_idDocente` from `classe_docente` group by `classe_docente`.`Docente_idDocente` ;
 
 -- --------------------------------------------------------
 
@@ -6227,7 +6220,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_deslocamento`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_deslocamento`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'D') group by `beneficio`.`idBeneficio` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_deslocamento`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'D') group by `beneficio`.`idBeneficio` ;
 
 -- --------------------------------------------------------
 
@@ -6236,7 +6229,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_funcao`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_funcao`  AS  select `funcao`.`funcao` AS `funcao`,max(`funcao_docente`.`dataInicioFuncao`) AS `max(dataInicioFuncao)`,`funcao_docente`.`Docente_idDocente` AS `docente_idDocente` from (`funcao` join `funcao_docente`) where (`funcao`.`idFuncao` = `funcao_docente`.`Funcao_idFuncao`) group by `funcao_docente`.`Docente_idDocente` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_funcao`  AS  select `funcao`.`funcao` AS `funcao`,max(`funcao_docente`.`dataInicioFuncao`) AS `max(dataInicioFuncao)`,`funcao_docente`.`Docente_idDocente` AS `docente_idDocente` from (`funcao` join `funcao_docente`) where (`funcao`.`idFuncao` = `funcao_docente`.`Funcao_idFuncao`) group by `funcao_docente`.`Docente_idDocente` ;
 
 -- --------------------------------------------------------
 
@@ -6245,7 +6238,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_gratificacao`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_gratificacao`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'G') group by `beneficio`.`idBeneficio` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_gratificacao`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'G') group by `beneficio`.`idBeneficio` ;
 
 -- --------------------------------------------------------
 
@@ -6254,7 +6247,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_licenca`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_licenca`  AS  select `docente`.`nomeDocente` AS `nomeDocente`,`licenca`.`tipoLicenca` AS `tipoLicenca`,`licenca_docente`.`Licenca_idLicenca` AS `Licenca_idLicenca`,`licenca_docente`.`Docente_idDocente` AS `Docente_idDocente`,`licenca_docente`.`dataInicioLicenca` AS `dataInicioLicenca` from ((`docente` join `licenca`) join `licenca_docente`) where ((`licenca`.`idLicenca` = `licenca_docente`.`Licenca_idLicenca`) and (`docente`.`idDocente` = `licenca_docente`.`Docente_idDocente`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_licenca`  AS  select `docente`.`nomeDocente` AS `nomeDocente`,`licenca`.`tipoLicenca` AS `tipoLicenca`,`licenca_docente`.`Licenca_idLicenca` AS `Licenca_idLicenca`,`licenca_docente`.`Docente_idDocente` AS `Docente_idDocente`,`licenca_docente`.`dataInicioLicenca` AS `dataInicioLicenca` from ((`docente` join `licenca`) join `licenca_docente`) where ((`licenca`.`idLicenca` = `licenca_docente`.`Licenca_idLicenca`) and (`docente`.`idDocente` = `licenca_docente`.`Docente_idDocente`)) ;
 
 -- --------------------------------------------------------
 
@@ -6263,7 +6256,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_lotacao`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_lotacao`  AS  select `instituicao`.`nomeInstituicao` AS `nomeInstituicao`,`lotacao_docente`.`idLotacao_Docente` AS `idLotacao_Docente`,`lotacao_docente`.`Docente_idDocente` AS `docente_idDocente` from (`instituicao` join `lotacao_docente`) where (`instituicao`.`idInstituicao` = `lotacao_docente`.`Instituicao_idInstituicao`) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_lotacao`  AS  select `instituicao`.`nomeInstituicao` AS `nomeInstituicao`,`lotacao_docente`.`idLotacao_Docente` AS `idLotacao_Docente`,`lotacao_docente`.`Docente_idDocente` AS `docente_idDocente` from (`instituicao` join `lotacao_docente`) where (`instituicao`.`idInstituicao` = `lotacao_docente`.`Instituicao_idInstituicao`) ;
 
 -- --------------------------------------------------------
 
@@ -6272,7 +6265,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_nivel`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nivel`  AS  select max(`nivel`.`nivel`) AS `max(nivel)`,max(`nivel_docente`.`Nivel_idNivel`) AS `max(nivel_idNivel)`,`nivel_docente`.`Docente_idDocente` AS `docente_idDocente` from (`nivel` join `nivel_docente`) where (`nivel`.`idNivel` = `nivel_docente`.`Nivel_idNivel`) group by `nivel_docente`.`Docente_idDocente` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_nivel`  AS  select max(`nivel`.`nivel`) AS `max(nivel)`,max(`nivel_docente`.`Nivel_idNivel`) AS `max(nivel_idNivel)`,`nivel_docente`.`Docente_idDocente` AS `docente_idDocente` from (`nivel` join `nivel_docente`) where (`nivel`.`idNivel` = `nivel_docente`.`Nivel_idNivel`) group by `nivel_docente`.`Docente_idDocente` ;
 
 -- --------------------------------------------------------
 
@@ -6281,7 +6274,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_salarios`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_salarios`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'S') group by `beneficio`.`idBeneficio` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_salarios`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'S') group by `beneficio`.`idBeneficio` ;
 
 -- --------------------------------------------------------
 
@@ -6290,7 +6283,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_tempodeservico`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tempodeservico`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'TS') group by `beneficio`.`idBeneficio` ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_tempodeservico`  AS  select max(`beneficio`.`idBeneficio`) AS `max(idBeneficio)`,`beneficio`.`valorBeneficio` AS `valorBeneficio`,`beneficio`.`Docente_idDocente` AS `docente_idDocente` from `beneficio` where (`beneficio`.`tipoBeneficio` = 'TS') group by `beneficio`.`idBeneficio` ;
 
 -- --------------------------------------------------------
 
@@ -6299,7 +6292,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_titulo`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_titulo`  AS  select `docente`.`nomeDocente` AS `nomeDocente`,`titulo`.`tipoTitulo` AS `tipotitulo`,`titulo_docente`.`Titulo_idTitulo` AS `titulo_idtitulo`,`titulo_docente`.`Docente_idDocente` AS `Docente_idDocente`,`titulo_docente`.`dataTitulo` AS `datatitulo` from ((`docente` join `titulo`) join `titulo_docente`) where ((`titulo`.`idTitulo` = `titulo_docente`.`Titulo_idTitulo`) and (`docente`.`idDocente` = `titulo_docente`.`Docente_idDocente`)) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_titulo`  AS  select `docente`.`nomeDocente` AS `nomeDocente`,`titulo`.`tipoTitulo` AS `tipotitulo`,`titulo_docente`.`Titulo_idTitulo` AS `titulo_idtitulo`,`titulo_docente`.`Docente_idDocente` AS `Docente_idDocente`,`titulo_docente`.`dataTitulo` AS `datatitulo` from ((`docente` join `titulo`) join `titulo_docente`) where ((`titulo`.`idTitulo` = `titulo_docente`.`Titulo_idTitulo`) and (`docente`.`idDocente` = `titulo_docente`.`Docente_idDocente`)) ;
 
 --
 -- Constraints for dumped tables

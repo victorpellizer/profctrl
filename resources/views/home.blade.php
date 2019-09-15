@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Bem vindo ao Profctrl</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <button type="button" class="btn btn-info">Docente</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-info">Info</button>
+
                 </div>
             </div>
         </div>
