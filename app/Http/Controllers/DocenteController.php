@@ -72,9 +72,11 @@ class DocenteController extends Controller
      * @param  \App\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Docente $docente)
+    public function edit($id)
     {
-        //
+        $docente = Docente::find($id);
+
+        return view('docentes.editar')->with(compact('docente'));
     }
 
     /**
