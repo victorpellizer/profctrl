@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Docente;
+use App\Titulo;
 use Illuminate\Http\Request;
-use DB;
 
-class DocenteController extends Controller
+class TituloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class DocenteController extends Controller
      */
     public function index()
     {
-        $docente = new Docente();
-        $docentes = $docente->all();
-        return view('docentes.index')->with(compact('docentes'));
+        //
     }
 
     /**
@@ -27,7 +24,7 @@ class DocenteController extends Controller
      */
     public function create()
     {
-        return view('docentes.novo');
+        //
     }
 
     /**
@@ -38,30 +35,16 @@ class DocenteController extends Controller
      */
     public function store(Request $request)
     {
-        $docente = new Docente();
-        $docente->fill($request->all());
-        $docente->status = 1;
-
-        $cidade = DB::table('cidade')->where('nomeCidade','like',$request->cidade)->first();
-
-        $docente->cidadeIdCidade=$cidade->idCidade;
-        if($docente->save()){
-            return redirect()->back()->with('success', ['Cadastrado com sucesso!']);
-
-        }else{
-            return redirect()->back()->with('error', ['Não foi possível cadastrar!']);
-        }
-
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Docente  $docente
+     * @param  \App\Titulo  $titulo
      * @return \Illuminate\Http\Response
      */
-    public function show(Docente $docente)
+    public function show(Titulo $titulo)
     {
         //
     }
@@ -69,10 +52,10 @@ class DocenteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Docente  $docente
+     * @param  \App\Titulo  $titulo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Docente $docente)
+    public function edit(Titulo $titulo)
     {
         //
     }
@@ -81,10 +64,10 @@ class DocenteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Docente  $docente
+     * @param  \App\Titulo  $titulo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Docente $docente)
+    public function update(Request $request, Titulo $titulo)
     {
         //
     }
@@ -92,10 +75,10 @@ class DocenteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Docente  $docente
+     * @param  \App\Titulo  $titulo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Docente $docente)
+    public function destroy(Titulo $titulo)
     {
         //
     }
