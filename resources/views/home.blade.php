@@ -14,8 +14,8 @@
                         </div>
                     @endif
 
-                    <a href="{{action('DocenteController@index')}}"><button type="button" class="btn btn-info">Docente</button></a>
-                    <a href="{{action('DocenteController@index')}}"><button type="button" class="btn btn-info">Usuário</button></a>
+                    <a href="{{action('DocenteController@index')}}"><button type="button" class="btn btn-info">Lista de Docentes</button></a>
+                    <a href="{{action('ProgressaoController@index')}}"><button type="button" class="btn btn-info">Progressão de Carreira</button></a>
                     <a href="{{action('DocenteController@index')}}"><button type="button" class="btn btn-info">Função</button></a>
                     <a href="{{action('DocenteController@index')}}"><button type="button" class="btn btn-info">Licença</button></a>
                     <a href="{{action('DocenteController@index')}}"><button type="button" class="btn btn-info">Título</button></a>

@@ -46,16 +46,14 @@
                                         <th>
                                             <a href="{{route('docente.edit',$d->idDocente)}}"><button type="button" class="btn btn-warning">Editar</button></a>
                                             <a href="#"><button type="button" class="btn btn-danger">Excluir</button></a>
-
                                         </th>
                                         <th scope="row">{{$d->matricula}}</th>
                                         <td>{{$d->nomeDocente}}</td>
                                         <td>{{$d->cargo}}</td>
-                                        <td>{{$d->status}}</td>
+                                        <td><?php if($d->status == 1) echo "Ativo"; else echo "Inativo";?></td>
                                         <td>{{$d->pontosDeDesempenho}}</td>
                                         <td>{{$d->cargaHoraria}}</td>
                                         <td>{{$d->tempoDeServico}}</td>
-
                                     </tr>
 
 

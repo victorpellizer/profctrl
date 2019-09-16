@@ -4,21 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Docente;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use DB;
 
-class DocenteController extends Controller
+class ProgressaoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $docente = new Docente();
-        $docentes = $docente->all();
-        return view('docentes.index')->with(compact('docentes'));
-    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +22,7 @@ class DocenteController extends Controller
      */
     public function create()
     {
-        return view('docentes.novo');
+        //return view('docentes.novo');
     }
 
     /**
@@ -35,31 +31,12 @@ class DocenteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function index()
     {
         $docente = new Docente();
-        $docente->fill($request->all());
-        $docente->status = 1;
-        if(!$docente->classe)
-            $docente->classe = 1;
-        if(!$docente->nivel)
-            $docente->nivel = 'A';
-        if(!$docente->funcao)
-            $docente->funcao = 'Docente';
-        if(!$docente->cargo)
-            $docente->cargo = 'Professor';
-
-        $cidade = DB::table('cidade')->where('nomeCidade','like',$request->cidade)->first();
-
-        $docente->cidadeIdCidade=$cidade->idCidade;
-        if($docente->save()){
-            return redirect()->back()->with('success', ['Cadastrado com sucesso!']);
-
-        }else{
-            return redirect()->back()->with('error', ['Não foi possível cadastrar!']);
-        }
+        $docentes = $docente->all();
+        return view('progressao.index')->with(compact('docentes'));
     }
-
     /**
      * Display the specified resource.
      *
@@ -70,7 +47,22 @@ class DocenteController extends Controller
     {
         //
     }
+    public function progstore(Request $request)
+    {
+        $docente = new Docente();
+        $docente->fill($request->all());
+        $docente->status = 1;
 
+        $cidade = DB::table('cidade')->where('nomeCidade','like',$request->cidade)->first();
+
+        $docente->cidadeIdCidade=$cidade->idCidade;
+        if($docente->save()){
+            return redirect()->back()->with('success', ['Progressão atualizada com sucesso!']);
+
+        }else{
+            return redirect()->back()->with('error', ['Não foi possível atualizar a progressão!']);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *

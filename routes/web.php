@@ -25,4 +25,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('requisicoes/getdata', 'RequisicoesController@data_tables')->name('data_table_requisicoes');
 //ressource
 Route::resource('docente', 'DocenteController')->middleware('auth');
+Route::resource('progressao', 'ProgressaoController')->middleware('auth');
 //------------------------------------------------------------------------------//

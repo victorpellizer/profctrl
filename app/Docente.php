@@ -15,7 +15,20 @@ class Docente extends Model
     * @var array
     */
    protected $fillable = [
-       'matricula','nomeDocente','cargo','status','pontosDeDesempenho','cargaHoraria','tempoDeServico','cidadeIdCidade'
+       'matricula',
+       'nomeDocente',
+       'cargo',
+       'status',
+       'pontosDeDesempenho',
+       'cargaHoraria',
+       'tempoDeServico',
+       'cidadeIdCidade',
+       'nivel',
+       'titulo',
+       'classe',
+       'licenca',
+       'remuneracao',
+       'lotacao'
    ];
    /**
     * The attributes that should be hidden for arrays.
