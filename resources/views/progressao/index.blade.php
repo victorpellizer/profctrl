@@ -19,8 +19,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-
                     @if(isset($docentes))
                         <h3>Progressão de Carreira</h3>
                         <hr>
@@ -41,9 +39,23 @@
                                         <th scope="row">
                                             <a href="{{route('docente.edit',$d->idDocente)}}">{{$d->nomeDocente}}</a>
                                         </th>
-                                        <td>{{$d->classe}}</td>
-                                        <td>{{$d->nivel}}</td>
-                                        <td>{{$d->remuneracao}}</td>
+                                        <td>
+                                        @foreach($classes as $c)
+                                            @if($d->idDocente == $c->Docente_idDocente)
+                                            {{$c->Classe_idClasse}}
+                                            @endif
+                                        @endforeach()
+                                        </td>
+                                        <td>
+                                        @foreach($niveis as $n)
+                                            @if($d->idDocente == $n->Docente_idDocente)
+                                            {{$n->Nivel_idNivel}}
+                                            @endif
+                                        @endforeach()
+                                        </td>
+                                        <td>
+                                        <?php echo "R$1.214,00";?>
+                                        </td>
                                         <td><a href="{{route('docente.create',$d->idDocente)}}"><button type="button" class="btn btn-info"> </button></a></td>
                                         <td><a href="{{route('docente.create',$d->idDocente)}}"><button type="button" class="btn btn-info"> </button></a></td>
                                     </tr>

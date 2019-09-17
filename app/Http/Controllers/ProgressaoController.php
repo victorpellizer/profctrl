@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Classe;
+use App\Funcao;
+use App\Licenca;
+use App\Lotacao;
+use App\Nivel;
+use App\Titulo;
 use App\Docente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,91 +15,48 @@ use DB;
 
 class ProgressaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //return view('docentes.novo');
+        //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $docente = new Docente();
         $docentes = $docente->all();
-        return view('progressao.index')->with(compact('docentes'));
+        $classe = new Classe();
+        $classes = $classe->all();
+        $nivel = new Nivel();
+        $niveis = $nivel->all();
+        
+        return view('progressao.index')
+            ->with(compact('docentes'))
+            ->with(compact('niveis'))
+            ->with(compact('classes'));
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Docente  $docente
-     * @return \Illuminate\Http\Response
-     */
     public function show(Docente $docente)
     {
         //
     }
-    public function progstore(Request $request)
+    public function store(Request $request)
     {
         $docente = new Docente();
         $docente->fill($request->all());
-        $docente->status = 1;
-
-        $cidade = DB::table('cidade')->where('nomeCidade','like',$request->cidade)->first();
-
-        $docente->cidadeIdCidade=$cidade->idCidade;
         if($docente->save()){
             return redirect()->back()->with('success', ['Progressão atualizada com sucesso!']);
-
         }else{
             return redirect()->back()->with('error', ['Não foi possível atualizar a progressão!']);
         }
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Docente  $docente
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $docente = Docente::find($id);
 
         return view('docentes.editar')->with(compact('docente'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Docente  $docente
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Docente $docente)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Docente  $docente
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Docente $docente)
     {
         //
