@@ -6,17 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Licenca extends Model
 {
-    protected $table = 'licenca_docente';
+    protected $table = 'licenca';
+    protected $primaryKey = 'idLicenca';
     public $timestamps = false;
-
     protected $fillable = [
-        'dataInicioLicenca',
-        'Docente_idDocente',
-        'Licenca_idLicenca',
-        'Usuario_idUsuario'
+        'tipoLicenca',
+        'licencaRemunerada'
     ];
-    public function docente()
+    public function docentes()
     {
-        return $this->belongsTo('App\Docente');
+        return $this->belongsToMany('App\Docente');
     }
 }

@@ -25,36 +25,33 @@ class Docente extends Model
        'remuneracao',
        'lotacao'
    ];
+   public function classes()
+   {
+    return $this->belongsToMany('App\Classe','classe_docente');
+   }
    public function titulos()
    {
-       return $this->hasMany('App\Titulo','Docente_idDocente', 'idDocente');
+       return $this->belongsToMany('App\Titulo','titulo_docente');
    }
    public function licencas()
    {
-       return $this->hasMany('App\Licenca','Docente_idDocente', 'idDocente');
+       return $this->belongsToMany('App\Licenca','licenca_docente');
    }
-    //$licencas = Docente::find(1)->licencas;
-   // foreach($licencas as $licenca){}
-   public function classe()
+   public function niveis()
    {
-    return  $this->hasMany('App\Classe','Docente_idDocente', 'idDocente');
+       return $this->belongsToMany('App\Nivel','nivel_docente');
    }
-   public function nivel()
+   public function funcoes()
    {
-       return $this->hasMany('App\Nivel','Docente_idDocente', 'idDocente');
+       return $this->belongsToMany('App\Funcao','funcao_docente');
    }
-   public function funcao()
+   public function lotacoes()
    {
-       return $this->hasMany('App\Funcao','Docente_idDocente', 'idDocente');
+       return $this->belongsToMany('App\Lotacao','lotacao_docente','Instituicao_idInstituicao');
    }
-   public function lotacao()
+   public function remuneracoes()
    {
-       return $this->hasMany('App\Lotacao','Docente_idDocente', 'idDocente');
-   }
-
-   public function remuneracao()
-   {
-       return $this->hasMany('App\Remuneracao','Docente_idDocente', 'idDocente');
+       return $this->hasMany('App\Remuneracao','idBeneficio');
    }
    protected $hidden = [
        //

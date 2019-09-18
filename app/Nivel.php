@@ -6,17 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Nivel extends Model
 {
-    protected $table = 'nivel_docente';
+    protected $table = 'nivel';
+    protected $primaryKey = 'idNivel';
     public $timestamps = false;
-
     protected $fillable = [
-        'dataInicioNivel',
-        'Docente_idDocente',
-        'Nivel_idNivel',
-        'Usuario_idUsuario'
+        'nivel'
     ];
-    public function docente()
+    public function docentes()
     {
-        return $this->belongsTo('App\Docente');
+        return $this->belongsToMany('App\Docente');
     }
 }

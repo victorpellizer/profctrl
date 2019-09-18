@@ -6,18 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lotacao extends Model
 {
-    protected $table = 'lotacao_docente';
+    protected $table = 'instituicao';
+    protected $primaryKey = 'idInstituicao';
     public $timestamps = false;
-
     protected $fillable = [
-        'dataInicioLotacao',
-        'Docente_idDocente',
-        'Lotacao_idLotacao',
-        'Instituicao_idInstituicao',
-        'Usuario_idUsuario'
+        'contatoInstituicao',
+        'nomeInstituicao'
     ];
-    public function docente()
+    public function docentes()
     {
-        return $this->belongsTo('App\Docente');
+        return $this->belongsToMany('App\Docente','lotacao_docente','Instituicao_idInstituicao', 'Docente_idDocente');
     }
 }

@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Remuneracao extends Model
 {
-    protected $table = 'funcao_docente';
+    protected $table = 'beneficio';
+    protected $primaryKey = 'idBeneficio';
     public $timestamps = false;
-
     protected $fillable = [
-        'dataInicioFuncao',
-        'Docente_idDocente',
-        'Funcao_idFuncao',
-        'Usuario_idUsuario'
+        'dataInicioBeneficio',
+        'tipoBeneficio',
+        'valorBeneficio',
+        'Usuario_idUsuario',
+        'Docente_idDocente'
     ];
-    public function docente()
+    public function docentes()
     {
         return $this->belongsTo('App\Docente');
     }

@@ -29,43 +29,53 @@
                                     <th scope="col">Classe</th>
                                     <th scope="col">Nível</th>
                                     <th scope="col">Remuneração</th>
-                                    <th scope="col">Inserir Título</th>
-                                    <th scope="col">Inserir Licença</th>
+                                    <th scope="col">Lotação</th>
+                                    <th scope="col">Títulos</th>
+                                    <th scope="col">Licenças</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($docentes as $d)
                                     <tr>
                                         <th scope="row">
-                                            <a href="{{route('docente.edit',$d->idDocente)}}">{{$d->nomeDocente}}</a>
+                                            <a href="{{route('progressao.edit',$d->idDocente)}}">{{$d->nomeDocente}}</a>
                                         </th>
                                         <td>
-                                        @foreach($classes as $c)
-                                            @if($d->idDocente == $c->Docente_idDocente)
-                                            {{$c->Classe_idClasse}}
-                                            @endif
+                                        @foreach($d->classes as $c)
+                                            {{$c->classe}}
                                         @endforeach()
                                         </td>
                                         <td>
-                                        @foreach($niveis as $n)
-                                            @if($d->idDocente == $n->Docente_idDocente)
-                                            {{$n->Nivel_idNivel}}
-                                            @endif
+                                        @foreach($d->niveis as $n)
+                                            {{$n->nivel}}
                                         @endforeach()
                                         </td>
                                         <td>
-                                        <?php echo "R$1.214,00";?>
+                                        @foreach($d->remuneracoes as $r)
+                                            {{$r->valorBeneficio}}
+                                        @endforeach()
                                         </td>
-                                        <td><a href="{{route('docente.create',$d->idDocente)}}"><button type="button" class="btn btn-info"> </button></a></td>
-                                        <td><a href="{{route('docente.create',$d->idDocente)}}"><button type="button" class="btn btn-info"> </button></a></td>
+                                        <td>
+                                        @foreach($d->lotacoes as $l)
+                                            {{$l->nomeInstituicao}}
+                                        @endforeach()
+                                        </td>
+                                        <td>
+                                        @foreach($d->titulos as $t)
+                                            {{$t->titulo}}
+                                        @endforeach()
+                                        </td>
+                                        <td>
+                                        @foreach($d->licencas as $l)
+                                            {{$l->licenca}}
+                                        @endforeach()
+                                        </td>
                                     </tr>
                                 @endforeach()
                             </tbody>
                         </table>
                         <a href="{{route('docente.create')}}"><button type="button" class="btn btn-success">Imprimir relatório</button></a>
-                        <a href="{{route('docente.create')}}"><button type="button" class="btn btn-success">Voltar</button></a>
-                        <a href="{{route('docente.create')}}"><button type="button" class="btn btn-success">Salvar</button></a>
-                        <a href="{{route('docente.create')}}"><button type="button" class="btn btn-success">Cancelar</button></a>
+                        <a href="{{route('home')}}"><button type="button" class="btn btn-success">Voltar</button></a>
 
                     @endif
                 </div>

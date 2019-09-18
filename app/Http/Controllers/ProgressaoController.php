@@ -9,6 +9,7 @@ use App\Lotacao;
 use App\Nivel;
 use App\Titulo;
 use App\Docente;
+use App\Remuneracao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
@@ -23,15 +24,8 @@ class ProgressaoController extends Controller
     {
         $docente = new Docente();
         $docentes = $docente->all();
-        $classe = new Classe();
-        $classes = $classe->all();
-        $nivel = new Nivel();
-        $niveis = $nivel->all();
-        
         return view('progressao.index')
-            ->with(compact('docentes'))
-            ->with(compact('niveis'))
-            ->with(compact('classes'));
+            ->with(compact('docentes'));
     }
     public function show(Docente $docente)
     {
@@ -51,7 +45,7 @@ class ProgressaoController extends Controller
     {
         $docente = Docente::find($id);
 
-        return view('docentes.editar')->with(compact('docente'));
+        return view('progressao.editar')->with(compact('docente'));
     }
     public function update(Request $request, Docente $docente)
     {
