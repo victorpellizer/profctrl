@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -45,7 +45,6 @@
                                     <tr>
                                         <th>
                                             <a href="{{route('docente.edit',$d->idDocente)}}"><button type="button" class="btn btn-warning">Editar</button></a>
-                                            <a href="#"><button type="button" class="btn btn-danger">Excluir</button></a>
                                         </th>
                                         <th scope="row">{{$d->matricula}}</th>
                                         <td>{{$d->nomeDocente}}</td>
@@ -55,8 +54,6 @@
                                         <td>{{$d->cargaHoraria}}</td>
                                         <td>{{$d->tempoDeServico}}</td>
                                     </tr>
-
-
                                 @endforeach()
 
                             </tbody>

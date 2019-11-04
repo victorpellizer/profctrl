@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 
+
 class ProgressaoController extends Controller
 {
     public function create()
@@ -22,10 +23,8 @@ class ProgressaoController extends Controller
     }
     public function index()
     {
-        $docente = new Docente();
-        $docentes = $docente->all();
-        return view('progressao.index')
-            ->with(compact('docentes'));
+        $docentes = Docente::all();
+        return view('progressao.index')->with(compact('docentes'));
     }
     public function show(Docente $docente)
     {

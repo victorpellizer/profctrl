@@ -4,20 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClasseDocente extends Model
+class LicencaDocente extends Model
 {
-    protected $table = 'classe_docente';
+    protected $table = 'licenca_docente';
     public $timestamps = false;
 
     protected $fillable = [
-        'dataInicioClasse',
+        'dataInicioLicenca',
         'Docente_idDocente',
         //'Usuario_idUsuario',
-        'Classe_idClasse'
+        'Licenca_idLicenca'
     ];
-    public function classe()
+    public function licenca()
     {
-        return $this->belongsTo('App\Classe');
+        return $this->belongsTo('App\Licenca');
     }
     public function docente()
     {

@@ -12,8 +12,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    
                     <a href="{{action('DocenteController@index')}}"><button type="button" class="btn btn-info">Lista de Docentes</button></a>
                     <a href="{{action('ProgressaoController@index')}}"><button type="button" class="btn btn-info">Progressão de Carreira</button></a>
+                    <img src="imagem/logo.jpeg" alt="Logo">
                 </div>
             </div>
         </div>

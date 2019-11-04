@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -19,14 +19,15 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('progressao.store') }}">
+                    
+                    <form method="POST" action="{{ route('progressao.update',$docente->idDocente) }}">
                         @csrf
-
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="classe" class="col-md-4 col-form-label text-md-right">Classe</label>
 
                             <div class="col-md-2">
-                                <input id="classe" type="text" class="form-control @error('classe') is-invalid @enderror" name="classe" value="{{$docente->classe}}" required autocomplete="classe" autofocus>
+                                <input id="classe" type="text" class="form-control @error('classe') is-invalid @enderror" name="classe" value="{{$docente->classes}}" required autocomplete="classe" autofocus>
 
                                 @error('classe')
                                     <span class="invalid-feedback" role="alert">
@@ -41,7 +42,7 @@
                             <label for="nivel" class="col-md-4 col-form-label text-md-right">Nível</label>
 
                             <div class="col-md-6">
-                                <input id="nivel" type="text" class="form-control @error('nivel') is-invalid @enderror" name="nivel" value="{{ $docente->nivel }}" required autocomplete="nivel" autofocus>
+                                <input id="nivel" type="text" class="form-control @error('nivel') is-invalid @enderror" name="nivel" value="{{ $docente->niveis }}" required autocomplete="nivel" autofocus>
 
                                 @error('nivel')
                                     <span class="invalid-feedback" role="alert">
@@ -56,22 +57,9 @@
                             <label for="remuneracao" class="col-md-4 col-form-label text-md-right">Remuneração</label>
 
                             <div class="col-md-2">
-                                <input id="remuneracao" type="number" class="form-control @error('remuneracao') is-invalid @enderror" name="remuneracao" value="{{ $docente->remuneracao }}" required autocomplete="remuneracao" autofocus>
+                                <input id="remuneracao" type="number" class="form-control @error('remuneracao') is-invalid @enderror" name="remuneracao" value="{{ $docente->valorTotalRemuneracao() }}" required autocomplete="remuneracao" autofocus>
 
                                 @error('remuneracao')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="lotacao" class="col-md-4 col-form-label text-md-right">Lotação</label>
-                            <div class="col-md-2">
-                                <input id="lotacao" type="number" class="form-control @error('lotacao') is-invalid @enderror" name="lotacao" value="{{ $docente->lotacao }}" required autocomplete="lotacao" autofocus>
-
-                                @error('lotacao')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

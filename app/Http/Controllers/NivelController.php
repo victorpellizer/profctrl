@@ -7,78 +7,60 @@ use Illuminate\Http\Request;
 
 class NivelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Nivel  $nivel
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Nivel $nivel)
+    public function show(Funcao $funcao)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Nivel  $nivel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Nivel $nivel)
+    public function edit($id)
     {
-        //
+        $docente = Docente::find($id);
+        return view('nivel.editar')->with(compact('docente'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Nivel  $nivel
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Nivel $nivel)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $docente = Docente::find($id);
+        switch($request->nivel){
+            case 'A':
+                $idNivel = 1;
+                break;
+            case 'B':
+                $idNivel = 2;
+                break;
+            case 'C':
+                $idNivel = 3;
+                break;
+            case 'D':
+                $idNivel = 4;
+                break;
+            default:
+                $idNivel = 0;
+        }
+        $oldNivel = NivelDocente::where('Docente_idDocente', '=', $id)
+            ->orderBy('dataInicioNivel', 'desc')
+            ->first();
+        if($oldNivel->Nivel_idNivel != $idNivel && $idNivel){
+            $newNivel = new NivelDocente();
+            $newNivel->Nivel_idNivel = $idNivel;
+            $newNivel->Docente_idDocente = $docente->idDocente;
+        }
+        else return redirect()->back()->with('error', ['Não foi possível atualizar!']);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Nivel  $nivel
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Nivel $nivel)
+        $newNivel->save();
+        return redirect()->back()->with('success', ['Nível atualizado com sucesso!']);
+    }
+    public function destroy(Funcao $funcao)
     {
         //
     }

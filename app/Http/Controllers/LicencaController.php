@@ -7,78 +7,55 @@ use Illuminate\Http\Request;
 
 class LicencaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Licenca  $licenca
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Licenca $licenca)
+    public function show(Funcao $funcao)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Licenca  $licenca
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Licenca $licenca)
+    public function edit($id)
     {
-        //
+        $docente = Docente::find($id);
+        return view('licenca.editar')->with(compact('docente'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Licenca  $licenca
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Licenca $licenca)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $docente = Docente::find($id);
+        $idLicenca = $request->idLicenca;
+        switch($request->tipoLicenca){
+            case 'Afastamento':
+                $idLicenca = 1;
+                break;
+            case 'Maternidade':
+                $idLicenca = 2;
+                break;
+            case 'Atestado':
+                $idLicenca = 3;
+                break;
+            default:
+                $idLicenca = 0;
+        }
+        if($idLicenca){
+            $newLicenca = new LicencaDocente();
+            $newLicenca->Licenca_idLicenca = $idLicenca;
+            $newLicenca->Docente_idDocente = $docente->idDocente;
+        }
+        else return redirect()->back()->with('error', ['Não foi possível inserir nova licença!']);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Licenca  $licenca
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Licenca $licenca)
+        $newLicenca->save();
+        return redirect()->back()->with('success', ['Nova licença inserida com sucesso!']);
+    }
+    public function destroy(Funcao $funcao)
     {
         //
     }

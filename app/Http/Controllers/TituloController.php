@@ -7,78 +7,52 @@ use Illuminate\Http\Request;
 
 class TituloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Titulo  $titulo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Titulo $titulo)
+    public function show(Funcao $funcao)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Titulo  $titulo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Titulo $titulo)
+    public function edit($id)
     {
-        //
+        $docente = Docente::find($id);
+        return view('titulo.editar')->with(compact('docente'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Titulo  $titulo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Titulo $titulo)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $docente = Docente::find($id);
+        $idTitulo = $request->idTitulo;
+        switch($request->tipoTitulo){
+            case 'graduação':
+                $idTitulo = 1;
+                break;
+            case 'curso':
+                $idTitulo = 2;
+                break;
+            default:
+                $idTitulo = 0;
+        }
+        if($idTitulo){
+            $newTitulo = new TituloDocente();
+            $newTitulo->Titulo_idTitulo = $idLicenca;
+            $newTitulo->Docente_idDocente = $docente->idDocente;
+        }
+        else return redirect()->back()->with('error', ['Não foi possível inserir novo título!']);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Titulo  $titulo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Titulo $titulo)
+        $newTitulo->save();
+        return redirect()->back()->with('success', ['Novo título inserido com sucesso!']);
+    }
+    public function destroy(Funcao $funcao)
     {
         //
     }

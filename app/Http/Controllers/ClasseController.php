@@ -7,78 +7,72 @@ use Illuminate\Http\Request;
 
 class ClasseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Classe  $classe
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Classe $classe)
+    public function show(Funcao $funcao)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Classe  $classe
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Classe $classe)
+    public function edit($id)
     {
-        //
+        $docente = Docente::find($id);
+        return view('classe.editar')->with(compact('docente'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Classe  $classe
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Classe $classe)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $docente = Docente::find($id);
+        $classe = new ClasseDocente();
+        $classe->fill($request->all());
+        $classe->Docente_idDocente = $docente->idDocente;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Classe  $classe
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Classe $classe)
+        if($classe->save()){
+            return redirect()->back()->with('success', ['Classe atualizada com sucesso!']);
+        }else{
+            return redirect()->back()->with('error', ['Não foi possível atualizar!']);
+        }
+    }
+    {
+        $docente = Docente::find($id);
+        switch($request->nivel){
+            case 'A':
+                $idNivel = 1;
+                break;
+            case 'B':
+                $idNivel = 2;
+                break;
+            case 'C':
+                $idNivel = 3;
+                break;
+            case 'D':
+                $idNivel = 4;
+                break;
+            default:
+                $idNivel = 0;
+        }
+        $oldNivel = NivelDocente::where('Docente_idDocente', '=', $id)
+            ->orderBy('dataInicioNivel', 'desc')
+            ->first();
+        if($oldNivel->Nivel_idNivel != $idNivel && $idNivel){
+            $newNivel = new NivelDocente();
+            $newNivel->Nivel_idNivel = $idNivel;
+            $newNivel->Docente_idDocente = $docente->idDocente;
+        }
+        else return redirect()->back()->with('error', ['Não foi possível atualizar!']);
+
+        $newNivel->save();
+        return redirect()->back()->with('success', ['Nível atualizado com sucesso!']);
+    }
+    public function destroy(Funcao $funcao)
     {
         //
     }

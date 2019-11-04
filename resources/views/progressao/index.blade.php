@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -29,7 +29,6 @@
                                     <th scope="col">Classe</th>
                                     <th scope="col">Nível</th>
                                     <th scope="col">Remuneração</th>
-                                    <th scope="col">Lotação</th>
                                     <th scope="col">Títulos</th>
                                     <th scope="col">Licenças</th>
                                 </tr>
@@ -51,14 +50,7 @@
                                         @endforeach()
                                         </td>
                                         <td>
-                                        @foreach($d->remuneracoes as $r)
-                                            {{$r->valorBeneficio}}
-                                        @endforeach()
-                                        </td>
-                                        <td>
-                                        @foreach($d->lotacoes as $l)
-                                            {{$l->nomeInstituicao}}
-                                        @endforeach()
+                                            {{$d->valorTotalRemuneracao()}}
                                         </td>
                                         <td>
                                         @foreach($d->titulos as $t)

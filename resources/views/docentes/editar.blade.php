@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -12,7 +12,7 @@
                 </ol>
             </nav>
             <div class="card">
-                <div class="card-header">Cadastro de Docente</div>
+                <div class="card-header">Edição de Docente</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -20,11 +20,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-
-                    <form method="POST" action="{{ route('docente.store') }}">
-                        @csrf
-
+                    <form method="POST" action="{{ route('docente.update',$docente->idDocente) }}">
+                        @method('PUT')
+                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Matrícula</label>
 
@@ -114,7 +112,7 @@
                             <label for="cidade" class="col-md-4 col-form-label text-md-right">Cidade</label>
 
                             <div class="col-md-6">
-                                <input id="cidade" type="text" class="form-control @error('cidade') is-invalid @enderror" name="cidade" value="" required autocomplete="nomeDocente" autofocus>
+                                <input id="cidade" type="text" class="form-control @error('cidade') is-invalid @enderror" name="cidade" value="{{$docente->Cidade_idCidade}}" required autocomplete="nomeDocente" autofocus>
 
                                 @error('cidade')
                                     <span class="invalid-feedback" role="alert">
@@ -130,9 +128,7 @@
                                      Cadastrar
                                 </button>
                             </div>
-                        </div>
-                    </form>
-
+                        </div></form>
 
 
                 </div>

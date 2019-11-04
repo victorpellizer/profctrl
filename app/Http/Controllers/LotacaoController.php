@@ -7,78 +7,90 @@ use Illuminate\Http\Request;
 
 class LotacaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Lotacao  $lotacao
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Lotacao $lotacao)
+    public function show(Funcao $funcao)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Lotacao  $lotacao
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Lotacao $lotacao)
+    public function edit($id)
     {
-        //
+        $docente = Docente::find($id);
+        return view('lotacao.editar')->with(compact('docente'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Lotacao  $lotacao
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Lotacao $lotacao)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $docente = Docente::find($id);
+        switch($request->nomeInstituicao){
+            case 'Betânia':
+                $idInstituicao = 1;
+                break;
+            case 'Tônia Harms':
+                $idInstituicao = 2;
+                break;
+            case 'GERALDA HARMS':
+                $idInstituicao = 3;
+                break;
+            case 'FÁTIMA A. BOSA':
+                $idInstituicao = 4;
+                break;
+            case 'CANAÃ':
+                $idInstituicao = 5;
+                break;
+            case 'LIPO GRANDE':
+                $idInstituicao = 6;
+                break;
+            case 'SÃO JUDAS TADEU':
+                $idInstituicao = 7;
+                break;
+            case 'JOSÉ P. N. ROSAS':
+                $idInstituicao = 8;
+                break;
+            case 'SMEC':
+                $idInstituicao = 9;
+                break;
+            case 'STA RITA DE CÁSSIA':
+                $idInstituicao = 10;
+                break;
+            case 'THERESA G. SEIFARTH':
+                $idInstituicao = 11;
+                break;
+            case 'SANTA CRUZ':
+                $idInstituicao = 12;
+                break;
+            case 'DEP. ALIM. ESC':
+                $idInstituicao = 13;
+                break;
+            case 'BIBLIOTECA':
+                $idInstituicao = 14;
+                break;
+            default:
+                $idInstituicao = 0;
+        }
+        $oldInstituicao = LotacaoDocente::where('Docente_idDocente', '=', $id)
+            ->orderBy('dataInicioLotacao', 'desc')
+            ->first();
+        if($oldInstituicao->Instituicao_idInstituicao != $idInstituicao && $idInstituicao){
+            $newInstituicao = new LotacaoDocente();
+            $newInstituicao->Instituicao_idInstituicao = $idInstituicao;
+            $newInstituicao->Docente_idDocente = $docente->idDocente;
+        }
+        else return redirect()->back()->with('error', ['Não foi possível inserir nova licença!']);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Lotacao  $lotacao
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Lotacao $lotacao)
+        $newInstituicao->save();
+        return redirect()->back()->with('success', ['Lotação atualizada com sucesso!']);
+    }
+    public function destroy(Funcao $funcao)
     {
         //
     }
