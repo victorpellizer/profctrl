@@ -31,6 +31,7 @@ class NivelController extends Controller
     public function update(Request $request, $id)
     {
         $docente = Docente::find($id);
+        $idNivel = $request->idNivel;
         switch($request->nivel){
             case 'A':
                 $idNivel = 1;
