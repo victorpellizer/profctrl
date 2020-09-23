@@ -10,12 +10,16 @@ class Titulo extends Model
     protected $primaryKey = 'idTitulo';
     public $timestamps = false;
     protected $fillable = [
-        'caminho',
+        'nomeTitulo',
         'tipoTitulo',
-        'pontosDeFormacao'
+        'pontosDeDesempenhoT',
+        'dataTitulo',
+        'nomeArquivo',
+        //tamanhoArquivo,
+        'Docente_idDocente'
     ];
     public function docentes()
     {
-        return $this->belongsToMany('App\Docente');
+        return $this->belongsTo('App\Docente');
     }
 }

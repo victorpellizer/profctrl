@@ -12,7 +12,7 @@ class ClasseDocente extends Model
     protected $fillable = [
         'dataInicioClasse',
         'Docente_idDocente',
-        //'Usuario_idUsuario',
+        'Usuario_idUsuario',
         'Classe_idClasse'
     ];
     public function classe()

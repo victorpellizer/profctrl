@@ -16,5 +16,8 @@ class Classe extends Model
     {
         return $this->belongsToMany('App\Docente');
     }
+    public function classedocente()
+    {
+        return $this->hasMany('App\ClasseDocente');
+    }
 }
-

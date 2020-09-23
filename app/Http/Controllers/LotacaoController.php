@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Docente;
 use App\Lotacao;
+use App\LotacaoDocente;
+use App\User;
 use Illuminate\Http\Request;
 
 class LotacaoController extends Controller
 {
     public function index()
     {
-        //
+        
     }
     public function create()
     {
@@ -26,69 +29,51 @@ class LotacaoController extends Controller
     public function edit($id)
     {
         $docente = Docente::find($id);
-        return view('lotacao.editar')->with(compact('docente'));
+        $idDocente = $docente->idDocente;
+
+        $var = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('dataInicioLotacao', 'desc')
+            ->first();
+        $lot = Lotacao::where('idInstituicao', '=', $var['Instituicao_idInstituicao'])
+            ->first();
+        if(is_null($lot)){
+                $docente->lotacao = "Não possui";
+            } else $docente->lotacao = $lot['nomeInstituicao'];
+        $lotacoes = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('dataInicioLotacao', 'desc')
+            ->get();
+        foreach($lotacoes as $lotacao){
+            $var = Lotacao::where('idInstituicao', '=', $lotacao['Instituicao_idInstituicao'])
+                ->first();
+            $user = User::where('id', '=', $lotacao['Usuario_idUsuario'])
+                ->first();
+            $lotacao->usuario = $user['name'];
+            $lotacao->nome = $var['nomeInstituicao'];
+            $lotacao->data = $lotacao['dataInicioLotacao'];
+            
+        }
+        return view('lotacao.editar')->with(compact('docente','lotacoes'));
     }
     public function update(Request $request, $id)
     {
         $docente = Docente::find($id);
-        switch($request->nomeInstituicao){
-            case 'Betânia':
-                $idInstituicao = 1;
-                break;
-            case 'Tônia Harms':
-                $idInstituicao = 2;
-                break;
-            case 'GERALDA HARMS':
-                $idInstituicao = 3;
-                break;
-            case 'FÁTIMA A. BOSA':
-                $idInstituicao = 4;
-                break;
-            case 'CANAÃ':
-                $idInstituicao = 5;
-                break;
-            case 'LIPO GRANDE':
-                $idInstituicao = 6;
-                break;
-            case 'SÃO JUDAS TADEU':
-                $idInstituicao = 7;
-                break;
-            case 'JOSÉ P. N. ROSAS':
-                $idInstituicao = 8;
-                break;
-            case 'SMEC':
-                $idInstituicao = 9;
-                break;
-            case 'STA RITA DE CÁSSIA':
-                $idInstituicao = 10;
-                break;
-            case 'THERESA G. SEIFARTH':
-                $idInstituicao = 11;
-                break;
-            case 'SANTA CRUZ':
-                $idInstituicao = 12;
-                break;
-            case 'DEP. ALIM. ESC':
-                $idInstituicao = 13;
-                break;
-            case 'BIBLIOTECA':
-                $idInstituicao = 14;
-                break;
-            default:
-                $idInstituicao = 0;
-        }
-        $oldInstituicao = LotacaoDocente::where('Docente_idDocente', '=', $id)
+        $novalotacao = (int)$request->input('lotacao');
+        $idDocente = $docente->idDocente;
+        $idusuario = \Auth::user()->id;
+        $var = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
             ->orderBy('dataInicioLotacao', 'desc')
             ->first();
-        if($oldInstituicao->Instituicao_idInstituicao != $idInstituicao && $idInstituicao){
-            $newInstituicao = new LotacaoDocente();
-            $newInstituicao->Instituicao_idInstituicao = $idInstituicao;
-            $newInstituicao->Docente_idDocente = $docente->idDocente;
+        if($var['Instituicao_idInstituicao'] != $novalotacao){
+            $newLotacao = new LotacaoDocente();
+            $newLotacao->Instituicao_idInstituicao = $novalotacao;
+            $newLotacao->Docente_idDocente = $docente->idDocente;
+            $newLotacao->Usuario_idUsuario = $idusuario;
         }
-        else return redirect()->back()->with('error', ['Não foi possível inserir nova licença!']);
+        else return redirect()->back()->with('error', 'Não foi possível atualizar!');
 
-        $newInstituicao->save();
-        return redirect()->back()->with('success', ['Lotação atualizada com sucesso!']);
+        $newLotacao->save();
+        return redirect()->back()->with('success', 'Lotação atualizada com sucesso!');
+        
     }
     public function destroy(Funcao $funcao)
     {

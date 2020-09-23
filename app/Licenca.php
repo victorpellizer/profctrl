@@ -11,7 +11,10 @@ class Licenca extends Model
     public $timestamps = false;
     protected $fillable = [
         'tipoLicenca',
-        'licencaRemunerada'
+        'dataLicenca',
+        'nomeArquivo',
+        'nomeLicenca',
+        'Docente_idDocente'
     ];
     public function docentes()
     {

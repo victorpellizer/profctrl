@@ -19,7 +19,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>Este e-mail não é válido ou a senha está errada</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -33,7 +33,7 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>Senha incorreta.</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -54,14 +54,11 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('Login') }} <i class="fa fa-arrow-right"></i>
                                 </button>
+                                <a href="{{ route('register') }}" class="btn btn-primary">Registrar-se <i class="fa fa-user-o"></i></a>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Esqueceu a senha?') }}
-                                    </a>
-                                @endif
+                                
                             </div>
                         </div>
                     </form>

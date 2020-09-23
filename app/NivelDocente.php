@@ -12,7 +12,7 @@ class NivelDocente extends Model
     protected $fillable = [
         'dataInicioNivel',
         'Docente_idDocente',
-        //'Usuario_idUsuario',
+        'Usuario_idUsuario',
         'Nivel_idNivel'
     ];
     public function nivel()

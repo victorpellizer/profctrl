@@ -12,7 +12,7 @@ class LotacaoDocente extends Model
     protected $fillable = [
         'dataInicioLotacao',
         'Docente_idDocente',
-        //'Usuario_idUsuario',
+        'Usuario_idUsuario',
         'Instituicao_idInstituicao'
     ];
     public function lotacao()

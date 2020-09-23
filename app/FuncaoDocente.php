@@ -12,7 +12,7 @@ class FuncaoDocente extends Model
     protected $fillable = [
         'dataInicioFuncao',
         'Docente_idDocente',
-        //'Usuario_idUsuario',
+        'Usuario_idUsuario',
         'Funcao_idFuncao'
     ];
     public function funcao()

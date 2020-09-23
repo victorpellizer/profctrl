@@ -13,7 +13,7 @@ class Remuneracao extends Model
         'dataInicioBeneficio',
         'tipoBeneficio',
         'valorBeneficio',
-        //'Usuario_idUsuario',
+        'Usuario_idUsuario',
         'Docente_idDocente'
     ];
     public function docentes()

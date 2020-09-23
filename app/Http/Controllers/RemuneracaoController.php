@@ -2,7 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Classe;
+use App\Funcao;
+use App\Licenca;
+use App\Lotacao;
+use App\Nivel;
+use App\Titulo;
+use App\Docente;
 use App\Remuneracao;
+use App\ClasseDocente;
+use App\FuncaoDocente;
+use App\LicencaDocente;
+use App\LotacaoDocente;
+use App\NivelDocente;
+use App\TituloDocente;
+use App\User;
+use App\Regra;
 use Illuminate\Http\Request;
 
 class RemuneracaoController extends Controller
@@ -26,72 +41,142 @@ class RemuneracaoController extends Controller
     public function edit($id)
     {
         $docente = Docente::find($id);
-        return view('remuneracao.editar')->with(compact('docente'));
+        $idDocente = $docente->idDocente;
+
+        $var = ClasseDocente::where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('dataInicioClasse', 'desc')
+            ->first();
+        $cls = Classe::where('idClasse', '=', $var['Classe_idClasse'])
+            ->first();
+        if(is_null($cls)){
+            $docente->classe = "Não possui";
+        } else $docente->classe = $cls['classe'];
+
+        $var = NivelDocente::where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('dataInicioNivel', 'desc')
+            ->first();
+        $nvl = Nivel::where('idNivel', '=', $var['Nivel_idNivel'])
+            ->first();
+        if(is_null($nvl)){
+            $docente->nivel = "Não possui";
+        } else $docente->nivel = $nvl['nivel'];
+
+        $beneficioS = Remuneracao::where('tipoBeneficio', '=', 'S')
+            ->where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('idBeneficio', 'desc')
+            ->first();
+        if(is_null($beneficioS)){
+            $docente->beneficioS = 0;
+        } else $docente->beneficioS = $beneficioS->valorBeneficio;
+
+        $beneficioD = Remuneracao::where('tipoBeneficio', '=', 'D')
+            ->where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('idBeneficio', 'desc')
+            ->first();
+        if(is_null($beneficioD)){
+            $docente->beneficioD = 0;
+        } else $docente->beneficioD = $beneficioD->valorBeneficio;
+
+        $beneficioTS = Remuneracao::where('tipoBeneficio', '=', 'TS')
+            ->where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('idBeneficio', 'desc')
+            ->first();
+        if(is_null($beneficioTS)){
+            $docente->beneficioTS = 0;
+        } else $docente->beneficioTS = $beneficioTS->valorBeneficio;
+
+        $beneficioG = Remuneracao::where('tipoBeneficio', '=', 'G')
+            ->where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('idBeneficio', 'desc')
+            ->first();
+        if(is_null($beneficioG)){
+            $docente->beneficioG = 0;
+        } else $docente->beneficioG = $beneficioG->valorBeneficio;
+
+        $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
+
+        $remuneracoes = Remuneracao::where('Docente_idDocente', '=', $idDocente)
+            ->orderBy('idBeneficio', 'desc')
+            ->get();
+        foreach($remuneracoes as $remuneracao){
+            $user = User::where('id', '=', $remuneracao['Usuario_idUsuario'])
+                ->first();
+            $remuneracao->usuario = $user['name'];
+            if($remuneracao->tipoBeneficio == 'D'){
+                $remuneracao->tipoBeneficio = 'Deslocamento';
+            }
+            if($remuneracao->tipoBeneficio == 'G'){
+                $remuneracao->tipoBeneficio = 'Gratificação';
+            }
+            if($remuneracao->tipoBeneficio == 'S'){
+                $remuneracao->tipoBeneficio = 'Salário';
+            }
+            if($remuneracao->tipoBeneficio == 'TS'){
+                $remuneracao->tipoBeneficio = 'Bônus por T. de Serviço';
+            }
+        }
+        return view('remuneracao.editar')->with(compact('docente','remuneracoes'));
     }
     public function update(Request $request, $id)
     {
         $docente = Docente::find($id);
-        if($docente->pontosDeDesempenho >= 100){
-            $docente->pontosDeDesempenho -= 100;
-            if($docente->classe < 15){
-                $cls = new ClasseDocente();
-                $cls->Docente_idDocente = $docente->idDocente;
-                $cls->classe = $docente->classe + 1;
-                $cls->save();
-            }
-        }
-        $base = 725.5;
-        $base2 = 1451;
-        $classeA = 1.03;
-        $classeB = 1.3;
-        $classeC = 1.3*1.18;
-        $classeD = 1.3*1.18*1.3;
-        $remuneracaoS = new Remuneracao();
-        $remuneracaoS->Docente_idDocente = $docente->idDocente;
-        $remuneracaoS->tipoBeneficio = 'S';
-        //$remuneracao->dataInicioBeneficio = ?
-        if($docente->cargaHoraria == 20){
-            if($docente->nivel == 'A') $remuneracaoS->valorBeneficio = $base * $classeA ^ ($docente->classe - 1);
-            if($docente->nivel == 'B') $remuneracaoS->valorBeneficio = $base * $classeA ^ ($docente->classe - 1) * $classeB;
-            if($docente->nivel == 'C') $remuneracaoS->valorBeneficio = $base * $classeA ^ ($docente->classe - 1) * $classeC;
-            if($docente->nivel == 'D') $remuneracaoS->valorBeneficio = $base * $classeA ^ ($docente->classe - 1) * $classeD;
-        }
-        else if($docente->cargaHoraria == 40){
-            if($docente->nivel == 'A') $remuneracaoS->valorBeneficio = $base2 * $classeA ^ ($docente->classe - 1);
-            if($docente->nivel == 'B') $remuneracaoS->valorBeneficio = $base2 * $classeA ^ ($docente->classe - 1) * $classeB;
-            if($docente->nivel == 'C') $remuneracaoS->valorBeneficio = $base2 * $classeA ^ ($docente->classe - 1) * $classeC;
-            if($docente->nivel == 'D') $remuneracaoS->valorBeneficio = $base2 * $classeA ^ ($docente->classe - 1) * $classeD;
-        }
-        else $remuneracaoS->valorBeneficio = 0;
-        $remuneracaoS->save();
+        $novoDeslocamento = (float)$request->input('beneficioD');
+        $novaGratificacao = (float)$request->input('beneficioG');
+        //$novoPDD = (int)$request->input('pontosDeDesempenho');
+        $idusuario = \Auth::user()->id;
 
-        $remuneracaoTS = new Remuneracao();
-        $remuneracaoTS->Docente_idDocente = $docente->idDocente;
-        $remuneracaoTS->tipoBeneficio = 'TS';
-        $remuneracaoTS->valorBeneficio = $docente->tempoDeServico * $remuneracaoS->valorBeneficio / 100;
-        $remuneracaoTS->save();
+        $var = ClasseDocente::where('Docente_idDocente', '=', $docente->idDocente)
+            ->orderBy('dataInicioClasse', 'desc')
+            ->first();
+        $cls = Classe::where('idClasse', '=', $var['Classe_idClasse'])
+            ->first();
+        if(is_null($cls)){
+            $docente->classe = "Não possui";
+        } else $docente->classe = $cls['classe'];
 
-        $remuneracaoG = new Remuneracao();
-        $remuneracaoG->Docente_idDocente = $docente->idDocente;
-        $remuneracaoG->tipoBeneficio = 'G';
-        if(!is_null($request->valorGratificacao)){
-            $remuneracaoG->valorBeneficio = $request->valorGratificacao;
-        } else $remuneracaoG->valorBeneficio = 0;
-        $remuneracaoG->save();
+        $var = NivelDocente::where('Docente_idDocente', '=', $docente->idDocente)
+            ->orderBy('dataInicioNivel', 'desc')
+            ->first();
+        $nvl = Nivel::where('idNivel', '=', $var['Nivel_idNivel'])
+            ->first();
+        if(is_null($nvl)){
+            $docente->nivel = "Não possui";
+        } else $docente->nivel = $nvl['nivel'];
 
-        $remuneracaoD = new Remuneracao();
-        $remuneracaoD->Docente_idDocente = $docente->idDocente;
-        $remuneracaoD->tipoBeneficio = 'D';
-        if(!is_null($request->valorDeslocamento)){
-            $remuneracaoD->valorBeneficio = $request->valorDeslocamento;
-        } else $remuneracaoD->valorBeneficio = 0;
-        $remuneracaoD->save();
+        $beneficioG = Remuneracao::where('tipoBeneficio', '=', 'G')
+            ->where('Docente_idDocente', '=', $docente->idDocente)
+            ->orderBy('idBeneficio', 'desc')
+            ->first();
+        if(is_null($beneficioG)){
+            $docente->beneficioG = 0;
+        } else $docente->beneficioG = (float)$beneficioG->valorBeneficio;
 
-        if($remuneracaoS->save() || $remuneracaoTS->save() || $remuneracaoD->save() || $remuneracaoG->save()){
-            return redirect()->back()->with('success', ['Remuneração atualizada com sucesso!']);
-        }else{
-            return redirect()->back()->with('error', ['Não foi possível atualizar a remuneração!']);
+        $beneficioD = Remuneracao::where('tipoBeneficio', '=', 'D')
+            ->where('Docente_idDocente', '=', $docente->idDocente)
+            ->orderBy('idBeneficio', 'desc')
+            ->first();
+        if(is_null($beneficioD)){
+            $docente->beneficioD = 0;
+        } else $docente->beneficioD = (float)$beneficioD->valorBeneficio;
+
+        if($docente->beneficioG != $novaGratificacao){
+            $remuneracaoG = new Remuneracao();
+            $remuneracaoG->Docente_idDocente = $docente->idDocente;
+            $remuneracaoG->tipoBeneficio = 'G';
+            $remuneracaoG->Usuario_idUsuario = $idusuario;
+            $remuneracaoG->valorBeneficio = $novaGratificacao;
+            $remuneracaoG->save();
         }
+
+        if($docente->beneficioD != $novoDeslocamento){
+            $remuneracaoD = new Remuneracao();
+            $remuneracaoD->Docente_idDocente = $docente->idDocente;
+            $remuneracaoD->tipoBeneficio = 'D';
+            $remuneracaoD->Usuario_idUsuario = $idusuario;
+            $remuneracaoD->valorBeneficio = $novoDeslocamento;
+            $remuneracaoD->save();
+        }
+        return redirect()->back()->with('success', ['Remuneração atualizada com sucesso!']);
     }
     public function destroy(Remuneracao $remuneracao)
     {
