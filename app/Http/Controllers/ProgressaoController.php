@@ -25,6 +25,79 @@ class ProgressaoController extends Controller
     public function teste()
     {
         $docentes = Docente::select('idDocente', 'status','nomeDocente')->paginate(10);
+        foreach($docentes as $docente){
+            $idDocente = $docente->idDocente;
+            if($docente->status == 1)
+                $docente->status = "Ativo";
+            else $docente->status = "Inativo";
+
+            $var = ClasseDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioClasse', 'desc')
+                ->first();
+            $cls = Classe::where('idClasse', '=', $var['Classe_idClasse'])
+                ->first();
+            if(is_null($cls))
+                $docente->classe = "Não possui";
+            else $docente->classe = $cls['classe'];
+            $var = NivelDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioNivel', 'desc')
+                ->first();
+            $nvl = Nivel::where('idNivel', '=', $var['Nivel_idNivel'])
+                ->first();
+            if(is_null($nvl))
+                $docente->nivel = "Não possui";
+            else $docente->nivel = $nvl['nivel'];
+            /*$var = FuncaoDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioFuncao', 'desc')
+                ->first();
+            $func = Funcao::where('idFuncao', '=', $var['Funcao_idFuncao'])
+                ->first();
+            if(is_null($func)){
+                $docente->funcao = "Não possui";
+            } else $docente->funcao = $func['funcao'];*/
+
+            $var = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioLotacao', 'desc')
+                ->first();
+            $lot = Lotacao::where('idInstituicao', '=', $var['Instituicao_idInstituicao'])
+                ->first();
+            if(is_null($lot))
+                $docente->lotacao = "Não possui";
+            else $docente->lotacao = $lot['nomeInstituicao'];
+
+            $beneficioS = Remuneracao::where('tipoBeneficio', '=', 'S')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioS))
+                $docente->beneficioS = 0;
+            else $docente->beneficioS = $beneficioS->valorBeneficio;
+
+            $beneficioD = Remuneracao::where('tipoBeneficio', '=', 'D')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioD))
+                $docente->beneficioD = 0;
+            else $docente->beneficioD = $beneficioD->valorBeneficio;
+
+            $beneficioTS = Remuneracao::where('tipoBeneficio', '=', 'TS')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioTS))
+                $docente->beneficioTS = 0;
+            else $docente->beneficioTS = $beneficioTS->valorBeneficio;
+
+            $beneficioG = Remuneracao::where('tipoBeneficio', '=', 'G')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioG))
+                $docente->beneficioG = 0;
+            else $docente->beneficioG = $beneficioG->valorBeneficio;
+            $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
+        }
         return view('progressao.teste')->with(compact('docentes'));
     }
     public function create()
@@ -132,8 +205,7 @@ class ProgressaoController extends Controller
     {
         //
     }
-    public function progressaoList()
-    {
+    public function progressaoList()   {
      $docentes = Docente::all();
         foreach($docentes as $docente){
             $idDocente = $docente->idDocente;
@@ -212,5 +284,5 @@ class ProgressaoController extends Controller
         }
         return datatables()->of($docentes   )
             ->make(true);
-            }
+    }
 }

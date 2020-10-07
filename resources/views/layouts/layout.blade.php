@@ -51,7 +51,7 @@
                         <ul class="nav navbar-nav text-light" id="accordionSidebar">
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('HomeController@index')}}"><span><i class="fa fa-dashboard"></i>Home</span></a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('DocenteController@index')}}"><i class="fa fa-user-o"></i>Docentes</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('EventoController@index')}}"><i class="fa fa-user-o"></i>Progressão de Carreira</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('EventoController@index')}}"><i class="fa fa-user-o"></i>Eventos</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('ProgressaoController@index')}}"><i class="fa fa-list-ul"></i>Progressão</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('LicencaController@index')}}"><i class="fa fa-plus-square"></i>Licenças</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('TituloController@index')}}"><i class="fa fa-graduation-cap"></i>Títulos</a></li>
