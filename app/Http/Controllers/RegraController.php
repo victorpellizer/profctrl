@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Regra;
 use App\User;
+use App\Evento;
 use Illuminate\Http\Request;
 
 class RegraController extends Controller
@@ -31,15 +32,25 @@ class RegraController extends Controller
     }
     public function store(Request $request)
     {
+        $idusuario = \Auth::user()->id;
         $regra = new Regra();
         $regra->fill($request->all());
-        //dd($regra);
-        $regra->Usuario_idUsuario = \Auth::user()->id;
-        if($regra->save()){
-            return redirect()->back()->with('success', ['Atualizada com sucesso!']);
-        }else{
-            return redirect()->back()->with('error', ['Não foi possível atualizar!']);
-        }
+        $regra->Usuario_idUsuario = $idusuario;
+        $regra->save();
+        
+        $regraAntiga = Regra::where('idRegra', '=', $regra->idRegra-1)
+            ->first();
+    
+        $eventoT = new Evento();
+        $eventoT->Docente_idDocente = 96;
+        $eventoT->TipoEvento_idTipoEvento = 19;
+        $eventoT->valorAntigo = (string)$regraAntiga->idRegra;
+        $eventoT->valorNovo = (string)$regra->idRegra;
+        $eventoT->Regra_idRegra = $regra->idRegra;
+        $eventoT->Usuario_idUsuario = $idusuario;
+        $eventoT->save();
+
+        return redirect()->back()->with('success', ['Atualizada com sucesso!']);
     }
     public function show(Funcao $funcao)
     {

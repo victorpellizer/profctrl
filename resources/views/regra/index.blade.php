@@ -20,23 +20,23 @@
                             <td>R${{$regra->salarioBase}}</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Bônus por tempo de serviço">Bônus por Tempo de serviço</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Bônus por tempo de serviço">Bônus (%) por Tempo de serviço</th>
                             <td>{{$regra->aumentoTDS}}% a cada 5 anos de Tempo de Serviço.</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avanço de classe">Aumento de salário por Classe</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avanço de classe">Aumento (%) de salário por Classe</th>
                             <td>{{$regra->aumentoClasse}}%</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avançar do nível A para B">Aumento de salário do Nível A para B</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avançar do nível A para B">Aumento (%) de salário do Nível A para B</th>
                             <td>{{$regra->aumentoNivelB}}%</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avançar do nível B para C">Aumento de salário do Nível B para C</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avançar do nível B para C">Aumento (%) de salário do Nível B para C</th>
                             <td>{{$regra->aumentoNivelC}}%</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avançar do nível C para D">Aumento de salário do Nível C para D</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Aumento (em %) no salário por avançar do nível C para D">Aumento (%) de salário do Nível C para D</th>
                             <td>{{$regra->aumentoNivelD}}%</td>
                         </tr>
                         <tr>
@@ -44,23 +44,23 @@
                             <td>{{$regra->deslocamento}}%, que equivale a R${{$regra->valorDeslocamento}}</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte I">Gratificação para instituição Porte I</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte I">Gratificação (%) para instituição Porte I</th>
                             <td>{{$regra->gratificacao1}}%, que equivale a R${{$regra->valorGratificacao1}}</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte II">Gratificação para instituição Porte II</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte II">Gratificação (%) para instituição Porte II</th>
                             <td>{{$regra->gratificacao2}}%, que equivale a R${{$regra->valorGratificacao2}}</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte III">Gratificação para instituição Porte III</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte III">Gratificação (%) para instituição Porte III</th>
                             <td>{{$regra->gratificacao3}}%, que equivale a R${{$regra->valorGratificacao3}}</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte IV">Gratificação para instituição Porte IV</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte IV">Gratificação (%) para instituição Porte IV</th>
                             <td>{{$regra->gratificacao4}}%, que equivale a R${{$regra->valorGratificacao4}}</td>
                         </tr>
                         <tr>
-                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte V">Gratificação para instituição Porte V</th>
+                            <th data-toggle="tooltip" data-placement="top" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte V">Gratificação (%) para instituição Porte V</th>
                             <td>{{$regra->gratificacao5}}%, que equivale a R${{$regra->valorGratificacao5}}</td>
                         </tr>
                         <tr>

@@ -8,6 +8,7 @@ use App\Regra;
 use App\ClasseDocente;
 use App\NivelDocente;
 use App\Remuneracao;
+use App\Evento;
 use Illuminate\Http\Request;
 
 class TituloController extends Controller
@@ -35,7 +36,8 @@ class TituloController extends Controller
         $titulo->fill($request->all());
         $docente = Docente::find($titulo->Docente_idDocente);
         $docente->pontosDeDesempenho += $request->input('pontosDeDesempenhoT');
-
+        $idusuario = \Auth::user()->id;
+        $titulo->Usuario_idUsuario = $idusuario;
         if(!$request->pontosDeDesempenhoT){
             $titulo->pontosDeDesempenhoT = 0;
         } else {
@@ -107,6 +109,17 @@ class TituloController extends Controller
         } else $titulo->nomeArquivo = "Sem arquivo";
 
         if($titulo->save()){
+            $regra = Regra::orderBy('idRegra', 'desc')
+                ->first();
+
+            $eventoT = new Evento();
+            $eventoT->Docente_idDocente = $titulo->Docente_idDocente;
+            $eventoT->TipoEvento_idTipoEvento = 9;
+            $eventoT->valorAntigo = (string)"N/A";
+            $eventoT->valorNovo = (string)$titulo->nomeTitulo;
+            $eventoT->Regra_idRegra = $regra->idRegra;
+            $eventoT->Usuario_idUsuario = $idusuario;
+            $eventoT->save();
             return redirect()->back()->with('success', ['Titulo inserido com sucesso!']);
         }else{
             return redirect()->back()->with('error', ['Não foi possível inserir!']);
@@ -195,6 +208,17 @@ class TituloController extends Controller
             }
             $docente->save();
         }
+        $regra = Regra::orderBy('idRegra', 'desc')
+            ->first();
+
+        $eventoT = new Evento();
+        $eventoT->Docente_idDocente = $titulo->Docente_idDocente;
+        $eventoT->TipoEvento_idTipoEvento = 10;
+        $eventoT->valorAntigo = (string)$titulo->nomeTitulo;
+        $eventoT->valorNovo = (string)"N/A";
+        $eventoT->Regra_idRegra = $regra->idRegra;
+        $eventoT->Usuario_idUsuario = \Auth::user()->id;
+        $eventoT->save();
         $titulo->delete();
         return redirect()->back()->with('success', ['Titulo removido com sucesso!']);
     }

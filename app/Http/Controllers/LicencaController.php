@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Licenca;
 use App\Docente;
+use App\Regra;
+use App\Evento;
+use App\User;
 use Illuminate\Http\Request;
 
 class LicencaController extends Controller
@@ -29,7 +32,8 @@ class LicencaController extends Controller
     {
         $licenca = new Licenca();
         $licenca->fill($request->all());
-
+        $idusuario = \Auth::user()->id;
+        $licenca->Usuario_idUsuario = $idusuario;
         if($request->hasFile('arquivo') && $request->file('arquivo')->isValid()){
             $licenca->nomeArquivo = $request->arquivo->getClientOriginalName();
             $upload = $request->arquivo->storeAs('anexos_licencas', $licenca->nomeArquivo);
@@ -39,8 +43,19 @@ class LicencaController extends Controller
         } else $licenca->nomeArquivo = "Sem arquivo";
 
         if($licenca->save()){
+            $regra = Regra::orderBy('idRegra', 'desc')
+                ->first();
+
+            $eventoL = new Evento();
+            $eventoL->Docente_idDocente = $licenca->Docente_idDocente;
+            $eventoL->TipoEvento_idTipoEvento = 11;
+            $eventoL->valorAntigo = (string)"N/A";
+            $eventoL->valorNovo = (string)$licenca->nomeLicenca;
+            $eventoL->Regra_idRegra = $regra->idRegra;
+            $eventoL->Usuario_idUsuario = $idusuario;
+            $eventoL->save();
             return redirect()->back()->with('success', ['Licença inserida com sucesso!']);
-        }else{
+        } else {
             return redirect()->back()->with('error', ['Não foi possível inserir!']);
         }
     }
@@ -69,6 +84,17 @@ class LicencaController extends Controller
     public function destroy($id)
     {
         $licenca = Licenca::find($id);
+        $regra = Regra::orderBy('idRegra', 'desc')
+            ->first();
+
+        $eventoL = new Evento();
+        $eventoL->Docente_idDocente = $licenca->Docente_idDocente;
+        $eventoL->TipoEvento_idTipoEvento = 12;
+        $eventoL->valorAntigo = (string)$licenca->nomeLicenca;
+        $eventoL->valorNovo = (string)"N/A";
+        $eventoL->Regra_idRegra = $regra->idRegra;
+        $eventoL->Usuario_idUsuario = \Auth::user()->id;
+        $eventoL->save();
         $licenca->delete();
         return redirect()->back()->with('success', ['Licença removida com sucesso!']);
     }

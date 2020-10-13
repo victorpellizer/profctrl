@@ -10,6 +10,7 @@ use App\Docente;
 use App\Remuneracao;
 use App\User;
 use App\Regra;
+use App\Evento;
 use Illuminate\Http\Request;
 
 class NivelController extends Controller
@@ -88,6 +89,21 @@ class NivelController extends Controller
             $classeB = ($regra->aumentoNivelB/100) + 1;
             $classeC = $classeB * (($regra->aumentoNivelC/100) + 1);
             $classeD = $classeC * (($regra->aumentoNivelD/100) + 1);
+
+            $nvlAntigo = Nivel::where('idNivel', '=', $atualNivel['Nivel_idNivel'])
+                ->first();
+            $nvlNovo = Nivel::where('idNivel', '=', $novonivel)
+                ->first();
+
+            $eventoN = new Evento();
+            $eventoN->Docente_idDocente = $docente->idDocente;
+            $eventoN->TipoEvento_idTipoEvento = 2;
+            $eventoN->valorAntigo = (string)$nvlAntigo['nivel'];
+            $eventoN->valorNovo = (string)$nvlNovo['nivel'];
+            $eventoN->Regra_idRegra = $regra->idRegra;
+            $eventoN->Usuario_idUsuario = $idusuario;
+            $eventoN->save();
+            dd($eventoN);
 
             $remuneracaoS = new Remuneracao();
             $remuneracaoS->Docente_idDocente = $docente->idDocente;

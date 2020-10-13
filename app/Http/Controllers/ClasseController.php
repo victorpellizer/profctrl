@@ -11,6 +11,7 @@ use App\Docente;
 use App\ClasseDocente;
 use App\User;
 use App\Regra;
+use App\Evento;
 use Illuminate\Http\Request;
 
 class ClasseController extends Controller
@@ -93,6 +94,20 @@ class ClasseController extends Controller
             $classeC = $classeB * (($regra->aumentoNivelC/100) + 1);
             $classeD = $classeC * (($regra->aumentoNivelD/100) + 1);
             //dd($regra);
+
+            $clsAntiga = Classe::where('idClasse', '=', $atualClasse['Classe_idClasse'])
+                ->first();
+            $clsNova = Classe::where('idClasse', '=', $novaclasse)
+                ->first();
+
+            $eventoC = new Evento();
+            $eventoC->Docente_idDocente = $docente->idDocente;
+            $eventoC->TipoEvento_idTipoEvento = 1;
+            $eventoC->valorAntigo = (string)$clsAntiga['classe'];
+            $eventoC->valorNovo = (string)$clsNova['classe'];
+            $eventoC->Regra_idRegra = $regra->idRegra;
+            $eventoC->Usuario_idUsuario = $idusuario;
+            $eventoC->save();
 
             $remuneracaoS = new Remuneracao();
             $remuneracaoS->Docente_idDocente = $docente->idDocente;

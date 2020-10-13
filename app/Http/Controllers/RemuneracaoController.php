@@ -18,6 +18,7 @@ use App\NivelDocente;
 use App\TituloDocente;
 use App\User;
 use App\Regra;
+use App\Evento;
 use Illuminate\Http\Request;
 
 class RemuneracaoController extends Controller
@@ -159,6 +160,9 @@ class RemuneracaoController extends Controller
             $docente->beneficioD = 0;
         } else $docente->beneficioD = (float)$beneficioD->valorBeneficio;
 
+        $regra = Regra::orderBy('idRegra', 'desc')
+            ->first();
+
         if($docente->beneficioG != $novaGratificacao){
             $remuneracaoG = new Remuneracao();
             $remuneracaoG->Docente_idDocente = $docente->idDocente;
@@ -166,6 +170,15 @@ class RemuneracaoController extends Controller
             $remuneracaoG->Usuario_idUsuario = $idusuario;
             $remuneracaoG->valorBeneficio = $novaGratificacao;
             $remuneracaoG->save();
+
+            $eventoG = new Evento();
+            $eventoG->Docente_idDocente = $docente->idDocente;
+            $eventoG->TipoEvento_idTipoEvento = 17;
+            $eventoG->valorAntigo = (string)$docente->beneficioG;
+            $eventoG->valorNovo = (string)$novaGratificacao;
+            $eventoG->Regra_idRegra = $regra->idRegra;
+            $eventoG->Usuario_idUsuario = $idusuario;
+            $eventoG->save();
         }
 
         if($docente->beneficioD != $novoDeslocamento){
@@ -175,6 +188,15 @@ class RemuneracaoController extends Controller
             $remuneracaoD->Usuario_idUsuario = $idusuario;
             $remuneracaoD->valorBeneficio = $novoDeslocamento;
             $remuneracaoD->save();
+
+            $eventoD = new Evento();
+            $eventoD->Docente_idDocente = $docente->idDocente;
+            $eventoD->TipoEvento_idTipoEvento = 18;
+            $eventoD->valorAntigo = (string)$docente->beneficioD;
+            $eventoD->valorNovo = (string)$novoDeslocamento;
+            $eventoD->Regra_idRegra = $regra->idRegra;
+            $eventoD->Usuario_idUsuario = $idusuario;
+            $eventoD->save();
         }
         return redirect()->back()->with('success', ['Remuneração atualizada com sucesso!']);
     }

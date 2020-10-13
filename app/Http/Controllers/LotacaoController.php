@@ -6,6 +6,8 @@ use App\Docente;
 use App\Lotacao;
 use App\LotacaoDocente;
 use App\User;
+use App\Evento;
+use App\Regra;
 use Illuminate\Http\Request;
 
 class LotacaoController extends Controller
@@ -68,6 +70,22 @@ class LotacaoController extends Controller
             $newLotacao->Instituicao_idInstituicao = $novalotacao;
             $newLotacao->Docente_idDocente = $docente->idDocente;
             $newLotacao->Usuario_idUsuario = $idusuario;
+
+            $lotAntiga = Lotacao::where('idInstituicao', '=', $var['Instituicao_idInstituicao'])
+            ->first();
+            $lotNova = Lotacao::where('idInstituicao', '=', $novalotacao)
+                ->first();
+            $regra = Regra::orderBy('idRegra', 'desc')
+                ->first();
+
+            $eventoL = new Evento();
+            $eventoL->Docente_idDocente = $docente->idDocente;
+            $eventoL->TipoEvento_idTipoEvento = 15;
+            $eventoL->valorAntigo = (string)$lotAntiga['nomeInstituicao'];
+            $eventoL->valorNovo = (string)$lotNova['nomeInstituicao'];
+            $eventoL->Regra_idRegra = $regra->idRegra;
+            $eventoL->Usuario_idUsuario = $idusuario;
+            $eventoL->save();
         }
         else return redirect()->back()->with('error', 'Não foi possível atualizar!');
 

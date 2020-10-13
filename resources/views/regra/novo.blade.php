@@ -10,7 +10,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                    <li class="breadcrumb-item" href="{{action('RegraController@create')}}">Regra de definição salarial</li>
+                    <li class="breadcrumb-item"><a href="{{action('RegraController@index')}}">Lei de definição salarial</a></li>
                     <li class="breadcrumb-item">Nova regra</li>
                 </ol>
 
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="aumentoTDS" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O bônus deve conter somente números e ser positivo.">Bônus por Tempo de serviço:</label>
+                            <label for="aumentoTDS" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O bônus deve conter somente números e ser positivo.">Bônus (%) por Tempo de serviço:</label>
 
                             <div class="col-md-6">
                                 <input id="aumentoTDS" type="text" class="form-control @error('aumentoTDS') is-invalid @enderror" name="aumentoTDS" value="" required autocomplete="aumentoTDS" autofocus placeholder="Bônus por Tempo de serviço">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="aumentoClasse" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avanço de classe deve conter somente números e ser positivo.">Aumento de salário por Classe:</label>
+                            <label for="aumentoClasse" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avanço de classe deve conter somente números e ser positivo.">Aumento (%) de salário por Classe:</label>
 
                             <div class="col-md-6">
                                 <input id="aumentoClasse" type="text" class="form-control @error('aumentoClasse') is-invalid @enderror" name="aumentoClasse" value="" required autocomplete="aumentoClasse" autofocus placeholder="Aumento de salário por Classe">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="aumentoNivelB" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avançar do nível A para B deve conter somente números e ser positivo.">Aumento de salário do Nível A para B:</label>
+                            <label for="aumentoNivelB" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avançar do nível A para B deve conter somente números e ser positivo.">Aumento (%) de salário do Nível A para B:</label>
 
                             <div class="col-md-6">
                                 <input id="aumentoNivelB" type="text" class="form-control @error('aumentoNivelB') is-invalid @enderror" name="aumentoNivelB" value="" required autocomplete="aumentoNivelB" autofocus placeholder="Aumento de salário do Nível A para B">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="aumentoNivelC" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avançar do nível B para C deve conter somente números e ser positivo.">Aumento de salário do Nível B para C:</label>
+                            <label for="aumentoNivelC" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avançar do nível B para C deve conter somente números e ser positivo.">Aumento (%) de salário do Nível B para C:</label>
 
                             <div class="col-md-6">
                                 <input id="aumentoNivelC" type="text" class="form-control @error('aumentoNivelC') is-invalid @enderror" name="aumentoNivelC" value="" required autocomplete="aumentoNivelC" autofocus placeholder="Aumento de salário do Nível B para C">
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="aumentoNivelD" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avançar do nível C para D deve conter somente números e ser positivo.">Aumento de salário do Nível C para D:</label>
+                            <label for="aumentoNivelD" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O aumento (em %) no salário por avançar do nível C para D deve conter somente números e ser positivo.">Aumento (%) de salário do Nível C para D:</label>
 
                             <div class="col-md-6">
                                 <input id="aumentoNivelD" type="text" class="form-control @error('aumentoNivelD') is-invalid @enderror" name="aumentoNivelD" value="" required autocomplete="aumentoNivelD" autofocus placeholder="Aumento de salário do Nível C para D">
@@ -138,7 +138,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="gratificacao1" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte I, e deve conter somente números e ser positivo.">Gratificação para instituição Porte I:</label>
+                            <label for="gratificacao1" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte I, e deve conter somente números e ser positivo.">Gratificação (%) para instituição Porte I:</label>
 
                             <div class="col-md-6">
                                 <input id="gratificacao1" type="text" class="form-control @error('gratificacao1') is-invalid @enderror" name="gratificacao1" value="" required autocomplete="gratificacao1" autofocus placeholder="Gratificação para instituição Porte I">
@@ -151,7 +151,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="gratificacao2" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte II, e deve conter somente números e ser positivo.">Gratificação para instituição Porte II:</label>
+                            <label for="gratificacao2" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte II, e deve conter somente números e ser positivo.">Gratificação (%) para instituição Porte II:</label>
 
                             <div class="col-md-6">
                                 <input id="gratificacao2" type="text" class="form-control @error('gratificacao2') is-invalid @enderror" name="gratificacao2" value="" required autocomplete="gratificacao2" autofocus placeholder="Gratificação para instituição Porte II">
@@ -164,7 +164,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="gratificacao3" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte III, e deve conter somente números e ser positivo.">Gratificação para instituição Porte III:</label>
+                            <label for="gratificacao3" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte III, e deve conter somente números e ser positivo.">Gratificação (%) para instituição Porte III:</label>
 
                             <div class="col-md-6">
                                 <input id="gratificacao3" type="text" class="form-control @error('gratificacao3') is-invalid @enderror" name="gratificacao3" value="" required autocomplete="gratificacao3" autofocus placeholder="Gratificação para instituição Porte III">
@@ -177,7 +177,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="gratificacao4" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte IV, e deve conter somente números e ser positivo.">Gratificação para instituição Porte IV:</label>
+                            <label for="gratificacao4" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte IV, e deve conter somente números e ser positivo.">Gratificação (%) para instituição Porte IV:</label>
 
                             <div class="col-md-6">
                                 <input id="gratificacao4" type="text" class="form-control @error('gratificacao4') is-invalid @enderror" name="gratificacao4" value="" required autocomplete="gratificacao4" autofocus placeholder="Gratificação para instituição Porte IV">
@@ -190,7 +190,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="gratificacao5" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte V, e deve conter somente números e ser positivo.">Gratificação para instituição Porte V:</label>
+                            <label for="gratificacao5" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte V, e deve conter somente números e ser positivo.">Gratificação (%) para instituição Porte V:</label>
 
                             <div class="col-md-6">
                                 <input id="gratificacao5" type="text" class="form-control @error('gratificacao5') is-invalid @enderror" name="gratificacao5" value="" required autocomplete="gratificacao5" autofocus placeholder="Gratificação para instituição Porte V">

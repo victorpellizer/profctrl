@@ -20,24 +20,6 @@ class EventoController extends Controller
                 ->first();
             $evento->matricula = $docente['matricula'];
             $evento->nomeDocente = $docente['nomeDocente'];
-            if($evento->idEvento == 1){
-                $evento->tipoEvento = "Classe";
-            }
-            if($evento->idEvento == 2){
-                $evento->tipoEvento = "Nível";
-            }
-            if($evento->idEvento == 3){
-                $evento->tipoEvento = "Tempo de Serviço";
-            }
-            if($evento->idEvento == 4){
-                $evento->tipoEvento = "Deslocamento";
-            }
-            if($evento->idEvento == 5){
-                $evento->tipoEvento = "Alteração de classe";
-            }
-            if($evento->idEvento == 6){
-                $evento->tipoEvento = "Alteração de classe";
-            }
             $evento->usuario = $user['name'];
         }
         return view('eventos.index')->with(compact('eventos'));

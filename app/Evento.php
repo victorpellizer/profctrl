@@ -11,10 +11,11 @@ class Evento extends Model
     protected $primaryKey = 'idEvento';
 
     protected $fillable = [
-        'docente_idDocente',
-        'tipo_evento_idTipoEvento',
-        'valorEvento',
-        'regraVigente',
+        'Docente_idDocente',
+        'TipoEvento_idTipoEvento',
+        'valorAntigo',
+        'valorNovo',
+        'Regra_idRegra',
         'dataEvento',
         'Usuario_idUsuario'
     ];

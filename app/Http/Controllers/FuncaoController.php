@@ -6,6 +6,8 @@ use App\Docente;
 use App\Funcao;
 use App\FuncaoDocente;
 use App\User;
+use App\Regra;
+use App\Evento;
 use Illuminate\Http\Request;
 
 class FuncaoController extends Controller
@@ -68,6 +70,22 @@ class FuncaoController extends Controller
             $newFuncao->Funcao_idFuncao = $novonivel;
             $newFuncao->Docente_idDocente = $docente->idDocente;
             $newFuncao->Usuario_idUsuario = $idusuario;
+
+            $fncAntiga = Funcao::where('idFuncao', '=', $var['Funcao_idFuncao'])
+            ->first();
+            $fncNova = Funcao::where('idFuncao', '=', $novonivel)
+                ->first();
+            $regra = Regra::orderBy('idRegra', 'desc')
+                ->first();
+
+            $eventoF = new Evento();
+            $eventoF->Docente_idDocente = $docente->idDocente;
+            $eventoF->TipoEvento_idTipoEvento = 16;
+            $eventoF->valorAntigo = (string)$fncAntiga['funcao'];
+            $eventoF->valorNovo = (string)$fncNova['funcao'];
+            $eventoF->Regra_idRegra = $regra->idRegra;
+            $eventoF->Usuario_idUsuario = $idusuario;
+            $eventoF->save();
         }
         else return redirect()->back()->with('error', ['Não foi possível atualizar!']);
         

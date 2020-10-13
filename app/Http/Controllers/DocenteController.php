@@ -17,6 +17,7 @@ use App\LicencaDocente;
 use App\LotacaoDocente;
 use App\NivelDocente;
 use App\TituloDocente;
+use App\Evento;
 use App\User;
 use Illuminate\Http\Request;
 use Redirect,Response,Config;
@@ -298,7 +299,75 @@ class DocenteController extends Controller
         ]);
         $idusuario = \Auth::user()->id;
         $docente = Docente::find($id);
+        $regra = Regra::orderBy('idRegra', 'desc')
+            ->first();
+        $matricula = $docente->matricula;
+        $nome = $docente->nomeDocente;
+        $cargo = $docente->cargo;
+        $pontosDD = $docente->pontosDeDesempenho;
+        $cargaH = $docente->cargaHoraria;
+        $tempoDS = $docente->tempoDeServico;
         $docente->fill($request->all());
+        if($matricula != $docente->matricula){
+            $eventoM = new Evento();
+            $eventoM->Docente_idDocente = $docente->idDocente;
+            $eventoM->TipoEvento_idTipoEvento = 4;
+            $eventoM->valorAntigo = (string)$matricula;
+            $eventoM->valorNovo = (string)$docente->matricula;
+            $eventoM->Regra_idRegra = $regra->idRegra;
+            $eventoM->Usuario_idUsuario = $idusuario;
+            $eventoM->save();
+        }
+        if($nome != $docente->nomeDocente){
+            $eventoN = new Evento();
+            $eventoN->Docente_idDocente = $docente->idDocente;
+            $eventoN->TipoEvento_idTipoEvento = 3;
+            $eventoN->valorAntigo = (string)$nome;
+            $eventoN->valorNovo = (string)$docente->nomeDocente;
+            $eventoN->Regra_idRegra = $regra->idRegra;
+            $eventoN->Usuario_idUsuario = $idusuario;
+            $eventoN->save();
+        }
+        if($cargo != $docente->cargo){
+            $eventoC = new Evento();
+            $eventoC->Docente_idDocente = $docente->idDocente;
+            $eventoC->TipoEvento_idTipoEvento = 5;
+            $eventoC->valorAntigo = (string)$cargo;
+            $eventoC->valorNovo = (string)$docente->cargo;
+            $eventoC->Regra_idRegra = $regra->idRegra;
+            $eventoC->Usuario_idUsuario = $idusuario;
+            $eventoC->save();
+        }
+        if($pontosDD != $docente->pontosDeDesempenho){
+            $eventoP = new Evento();
+            $eventoP->Docente_idDocente = $docente->idDocente;
+            $eventoP->TipoEvento_idTipoEvento = 8;
+            $eventoP->valorAntigo = (string)$pontosDD;
+            $eventoP->valorNovo = (string)$docente->pontosDeDesempenho;
+            $eventoP->Regra_idRegra = $regra->idRegra;
+            $eventoP->Usuario_idUsuario = $idusuario;
+            $eventoP->save();
+        }
+        if($cargaH != $docente->cargaHoraria){
+            $eventoCH = new Evento();
+            $eventoCH->Docente_idDocente = $docente->idDocente;
+            $eventoCH->TipoEvento_idTipoEvento = 6;
+            $eventoCH->valorAntigo = (string)$cargaH;
+            $eventoCH->valorNovo = (string)$docente->cargaHoraria;
+            $eventoCH->Regra_idRegra = $regra->idRegra;
+            $eventoCH->Usuario_idUsuario = $idusuario;
+            $eventoCH->save();
+        }
+        if($tempoDS != $docente->tempoDeServico){
+            $eventoT = new Evento();
+            $eventoT->Docente_idDocente = $docente->idDocente;
+            $eventoT->TipoEvento_idTipoEvento = 7;
+            $eventoT->valorAntigo = (string)$tempoDS;
+            $eventoT->valorNovo = (string)$docente->tempoDeServico;
+            $eventoT->Regra_idRegra = $regra->idRegra;
+            $eventoT->Usuario_idUsuario = $idusuario;
+            $eventoT->save();
+        }
 
         $atualClasse = ClasseDocente::where('Docente_idDocente', '=', $docente->idDocente)
             ->orderBy('dataInicioClasse', 'desc')
@@ -309,8 +378,6 @@ class DocenteController extends Controller
             ->first();
         $nivel = $atualNivel['Nivel_idNivel'];
 
-        $regra = Regra::orderBy('idRegra', 'desc')
-            ->first();
         $base = $regra->salarioBase;
         $base2 = $base*2;
         $classeA = ($regra->aumentoClasse/100) + 1;
@@ -356,33 +423,52 @@ class DocenteController extends Controller
     {
         $docente = Docente::find($id);
         $idusuario = \Auth::user()->id;
+        $regra = Regra::orderBy('idRegra', 'desc')
+            ->first();
+
+
+
         if($docente->status == 1){
             $docente->status = 0;
             $docente->update();
+
+            $eventoS = new Evento();
+            $eventoS->Docente_idDocente = $docente->idDocente;
+            $eventoS->TipoEvento_idTipoEvento = 13;
+            $eventoS->valorAntigo = (string)1;
+            $eventoS->valorNovo = (string)$docente->status;
+            $eventoS->Regra_idRegra = $regra->idRegra;
+            $eventoS->Usuario_idUsuario = $idusuario;
+            $eventoS->save();
+
             $remuneracaoS = new Remuneracao();
             $remuneracaoS->Docente_idDocente = $docente->idDocente;
             $remuneracaoS->tipoBeneficio = 'S';
             $remuneracaoS->valorBeneficio = 0;
             $remuneracaoS->Usuario_idUsuario = $idusuario;
             $remuneracaoS->save();
+
             $remuneracaoD = new Remuneracao();
             $remuneracaoD->Docente_idDocente = $docente->idDocente;
             $remuneracaoD->tipoBeneficio = 'D';
             $remuneracaoD->valorBeneficio = 0;
             $remuneracaoD->Usuario_idUsuario = $idusuario;
             $remuneracaoD->save();
+
             $remuneracaoTS = new Remuneracao();
             $remuneracaoTS->Docente_idDocente = $docente->idDocente;
             $remuneracaoTS->tipoBeneficio = 'TS';
             $remuneracaoTS->valorBeneficio = 0;
             $remuneracaoTS->Usuario_idUsuario = $idusuario;
             $remuneracaoTS->save();
+
             $remuneracaoG = new Remuneracao();
             $remuneracaoG->Docente_idDocente = $docente->idDocente;
             $remuneracaoG->tipoBeneficio = 'G';
             $remuneracaoG->valorBeneficio = 0;
             $remuneracaoG->Usuario_idUsuario = $idusuario;
             $remuneracaoG->save();
+
             $lotacao = new LotacaoDocente();
             $lotacao->Instituicao_idInstituicao = 15;
             $lotacao->Docente_idDocente = $docente->idDocente;
@@ -392,6 +478,15 @@ class DocenteController extends Controller
             $docente->status = 1;
             $docente->update();
 
+            $eventoS = new Evento();
+            $eventoS->Docente_idDocente = $docente->idDocente;
+            $eventoS->TipoEvento_idTipoEvento = 14;
+            $eventoS->valorAntigo = (string)0;
+            $eventoS->valorNovo = (string)$docente->status;
+            $eventoS->Regra_idRegra = $regra->idRegra;
+            $eventoS->Usuario_idUsuario = $idusuario;
+            $eventoS->save();
+
             $atualClasse = ClasseDocente::where('Docente_idDocente', '=', $docente->idDocente)
                 ->orderBy('dataInicioClasse', 'desc')
                 ->first();
@@ -400,8 +495,6 @@ class DocenteController extends Controller
                 ->orderBy('dataInicioNivel', 'desc')
                 ->first();
             $nivel = $atualNivel['Nivel_idNivel'];
-            $regra = Regra::orderBy('idRegra', 'desc')
-                ->first();
             $base = $regra->salarioBase;
             $base2 = $base*2;
             $classeA = ($regra->aumentoClasse/100) + 1;
