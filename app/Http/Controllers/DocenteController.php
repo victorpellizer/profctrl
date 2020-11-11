@@ -28,14 +28,19 @@ class DocenteController extends Controller
 {
     public function index()
     {
+        $docentes = Docente::select('idDocente','nomeDocente','matricula','cargo','pontosDeDesempenho','cargaHoraria','tempoDeServico')->paginate(10);
+        return view('docentes.index')->with(compact('docentes'));
+    }
+    /*public function index()
+    {
         $docentes = Docente::all();
         foreach($docentes as $docente){
             if($docente->status == '1'){
                 $docente->status = "Ativo";
             } else $docente->status = "Inativo";
         }
-        return view('docentes.index')->with(compact('docentes'));
-    }
+        return view('docentes.indexAntigo')->with(compact('docentes'));
+    }*/
     public function create()
     {
         return view('docentes.novo');

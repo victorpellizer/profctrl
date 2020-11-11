@@ -23,6 +23,7 @@ class Regra extends Model
         'gratificacao2',
         'gratificacao3',
         'gratificacao4',
-        'gratificacao5'
+        'gratificacao5',
+        'descricao'
     ];
 }

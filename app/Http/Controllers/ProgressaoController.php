@@ -22,7 +22,7 @@ use DB;
 
 class ProgressaoController extends Controller
 {
-    public function teste()
+    public function index() //PAGINAÇÃO
     {
         $docentes = Docente::select('idDocente', 'status','nomeDocente')->paginate(10);
         foreach($docentes as $docente){
@@ -47,14 +47,14 @@ class ProgressaoController extends Controller
             if(is_null($nvl))
                 $docente->nivel = "Não possui";
             else $docente->nivel = $nvl['nivel'];
-            /*$var = FuncaoDocente::where('Docente_idDocente', '=', $idDocente)
-                ->orderBy('dataInicioFuncao', 'desc')
-                ->first();
-            $func = Funcao::where('idFuncao', '=', $var['Funcao_idFuncao'])
-                ->first();
-            if(is_null($func)){
-                $docente->funcao = "Não possui";
-            } else $docente->funcao = $func['funcao'];*/
+            //$var = FuncaoDocente::where('Docente_idDocente', '=', $idDocente)
+            //    ->orderBy('dataInicioFuncao', 'desc')
+            //    ->first();
+            //$func = Funcao::where('idFuncao', '=', $var['Funcao_idFuncao'])
+            //    ->first();
+            //if(is_null($func)){
+            //    $docente->funcao = "Não possui";
+            //} else $docente->funcao = $func['funcao'];
 
             $var = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
                 ->orderBy('dataInicioLotacao', 'desc')
@@ -98,13 +98,10 @@ class ProgressaoController extends Controller
             else $docente->beneficioG = $beneficioG->valorBeneficio;
             $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
         }
-        return view('progressao.teste')->with(compact('docentes'));
+        return view('progressao.index')->with(compact('docentes'));
     }
-    public function create()
-    {
-        //
-    }
-    public function index()
+    /*
+    public function index() //DATATABLES
     {
         //$docentes = Docente::all();
         $docentes = Docente::select('idDocente', 'status','nomeDocente')->get();
@@ -183,7 +180,11 @@ class ProgressaoController extends Controller
             else $docente->beneficioG = $beneficioG->valorBeneficio;
             $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
         }
-        return view('progressao.index')->with(compact('docentes'));
+        return view('progressao.indexAntigo')->with(compact('docentes'));
+    }*/
+    public function create()
+    {
+        //
     }
     public function show(Docente $docente)
     {

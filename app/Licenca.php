@@ -12,9 +12,11 @@ class Licenca extends Model
     protected $fillable = [
         'tipoLicenca',
         'dataLicenca',
+        'dataInsercao',
         'nomeArquivo',
         'nomeLicenca',
-        'Docente_idDocente'
+        'Docente_idDocente',
+        'Usuario_idUsuario'
     ];
     public function docentes()
     {

@@ -47,6 +47,13 @@
                         @csrf
 
                         <div class="form-group row">
+                            <label for="descricao" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Descreva a lei vigente a ser aplicada.">Descrição da lei:</label>
+
+                            <div class="col-md-6">
+                                <input id="descricao" type="text" class="form-control @error('descricao') is-invalid @enderror" name="descricao" value="" required autocomplete="descricao" autofocus placeholder="Lei vigente">
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="salarioBase" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="O salário base do docente deve conter somente números e ser positivo.">Salário base:</label>
 
                             <div class="col-md-6">
@@ -64,7 +71,7 @@
 
                             <div class="col-md-6">
                                 <input id="aumentoTDS" type="text" class="form-control @error('aumentoTDS') is-invalid @enderror" name="aumentoTDS" value="" required autocomplete="aumentoTDS" autofocus placeholder="Bônus por Tempo de serviço">
-
+    
                                 @error('aumentoTDS')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>Bônus inválido. Tente novamente digitando somente números não negativos.</strong>
@@ -125,7 +132,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="deslocamento" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será o adicional por deslocamento, e deve conter somente números e ser positivo.">Adicional de Deslocamento:</label>
+                            <label for="deslocamento" class="col-md-4 col-form-label text-md-right" data-toggle="tooltip" data-placement="right" title="Define a porcentagem do salário base que será o adicional por deslocamento, e deve conter somente números e ser positivo.">Parcela (%) do salário base que representa o adicional de Deslocamento:</label>
 
                             <div class="col-md-6">
                                 <input id="deslocamento" type="text" class="form-control @error('deslocamento') is-invalid @enderror" name="deslocamento" value="" required autocomplete="deslocamento" autofocus placeholder="Deslocamento">

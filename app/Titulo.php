@@ -14,9 +14,11 @@ class Titulo extends Model
         'tipoTitulo',
         'pontosDeDesempenhoT',
         'dataTitulo',
+        'dataInsercao',
         'nomeArquivo',
         //tamanhoArquivo,
-        'Docente_idDocente'
+        'Docente_idDocente',
+        'Usuario_idUsuario'
     ];
     public function docentes()
     {

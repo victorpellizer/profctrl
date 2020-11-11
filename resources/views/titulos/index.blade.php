@@ -23,18 +23,26 @@
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col" data-toggle="tooltip" data-placement="top" title="Nome completo do Docente.">Nome do docente</th>
-                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Tipo do Título.">Tipo do Título</th>
-                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Data de Inserção do Título.">Data de inserção</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Matrícula do Docente.">Matrícula</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Tipo do título.">Tipo de título</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Descrição do título.">Descrição</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Pontos de desempenho do título.">Pontos de desempenho</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Data de validez do título.">Data do título</th>
                     <th scope="col" data-toggle="tooltip" data-placement="top" title="Anexo do título.">Anexo</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Data de inserção do título.">Inserido por</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($titulos as $t)
                     <tr>
                     <td><a href="{{action('TituloController@show',$t->Docente_idDocente)}}">{{$t->nomeDocente}}</a></td>
+                    <td>{{$t->matricula}}</td>
                     <td>{{$t->tipoTitulo}}</td>
+                    <td>{{$t->nomeTitulo}}</td>
+                    <td>{{$t->pontosDeDesempenhoT}}</td>
                     <td>{{$t->dataTitulo}}</td>
-                    <td><a target="_blank" href="{{ url("storage/anexos_titulos/{$t->nomeArquivo}") }}">{{$t->anexo}}</a></td></td>
+                    <td><a target="_blank" href="{{ url("storage/anexos_titulos/{$t->nomeArquivo}") }}"><img width="40" src="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}"></a></td></td>
+                    <td>{{$t->usuario}} em {{$t->dataInsercao}}</td>
                     </tr>
                 @endforeach
                 </tbody>

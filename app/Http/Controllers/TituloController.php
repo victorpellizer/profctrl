@@ -9,6 +9,7 @@ use App\ClasseDocente;
 use App\NivelDocente;
 use App\Remuneracao;
 use App\Evento;
+use App\User;
 use Illuminate\Http\Request;
 
 class TituloController extends Controller
@@ -19,10 +20,11 @@ class TituloController extends Controller
         foreach($titulos as $titulo){
             $docente = Docente::where('idDocente', '=', $titulo->Docente_idDocente)
                 ->first();
+            $titulo->matricula = $docente->matricula;
             $titulo->nomeDocente = $docente->nomeDocente;
-            if($titulo->nomeArquivo == 'Sem arquivo'){
-                $titulo->anexo = null;
-            } else $titulo->anexo = '[anexo]';
+            $user = User::where('id', '=', $titulo['Usuario_idUsuario'])
+                ->first();
+            $titulo->usuario = $user['name'];
         }
         return view('titulos.index')->with(compact('titulos'));
     }
@@ -132,9 +134,9 @@ class TituloController extends Controller
             ->orderBy('dataTitulo', 'desc')
             ->get();
         foreach($titulos as $titulo){
-            if($titulo->nomeArquivo == 'Sem arquivo'){
-                $titulo->anexo = null;
-            } else $titulo->anexo = '[anexo]';
+            $user = User::where('id', '=', $titulo['Usuario_idUsuario'])
+                ->first();
+            $titulo->usuario = $user['name'];
         }
         return view('titulos.show')->with(compact('titulos','docente'));
     }

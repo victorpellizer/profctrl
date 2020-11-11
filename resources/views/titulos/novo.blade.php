@@ -48,6 +48,12 @@
 * Descrição do Título:
 <input id="nomeTitulo" type="text" class="form-control @error('nomeTitulo') is-invalid @enderror" name="nomeTitulo" value="" required autocomplete="nomeTitulo" autofocus>
 <br>
+
+* Data do titulo:
+                        <input id="dataTitulo" type="date"
+                            class="form-control @error('dataTitulo') is-invalid @enderror" name="dataTitulo" value=""
+                            required autofocus>
+                        <br>
 * Tipo do Título:
 <select class="form-control @error('tipoTitulo') is-invalid @enderror" name="tipoTitulo" style="width: 200px">
 	<option value="Graduação">Graduação</option>
@@ -64,7 +70,7 @@
 
 <br>
 Pontos de Desempenho:
-<input id="pontosDeDesempenhoT" type="number" class="form-control @error('pontosDeDesempenhoT') is-invalid @enderror" name="pontosDeDesempenhoT" value="" autocomplete="pontosDeDesempenhoT" style="width: 100px" autofocus min="0" max="99">
+<input id="pontosDeDesempenhoT" type="number" class="form-control @error('pontosDeDesempenhoT') is-invalid @enderror" name="pontosDeDesempenhoT" value="0" autocomplete="pontosDeDesempenhoT" style="width: 100px" autofocus min="0" max="99">
 <br>
 <button type="submit" class="btn btn-success">
     Cadastrar <i class="fa fa-save"></i>

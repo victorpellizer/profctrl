@@ -103,7 +103,6 @@ class NivelController extends Controller
             $eventoN->Regra_idRegra = $regra->idRegra;
             $eventoN->Usuario_idUsuario = $idusuario;
             $eventoN->save();
-            dd($eventoN);
 
             $remuneracaoS = new Remuneracao();
             $remuneracaoS->Docente_idDocente = $docente->idDocente;

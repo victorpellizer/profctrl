@@ -40,19 +40,22 @@
                 <table class="table display responsive no-wrap table-striped">
                 	<thead>
                 	<tr>
-                		<th data-toggle="tooltip" data-placement="top" title="Descrição da licença.">Descrição da Licença</th>
+                		<th data-toggle="tooltip" data-placement="top" title="Descrição da licença.">Descrição da licença</th>
                 		<th data-toggle="tooltip" data-placement="top" title="Tipo da licença.">Tipo</th>
                         <th data-toggle="tooltip" data-placement="top" title="Anexo da licença.">Anexo</th>
-                        <th data-toggle="tooltip" data-placement="top" title="Data que a licença foi inserida.">Data de Inserção</th>
+                        <th data-toggle="tooltip" data-placement="top" title="Data que a licença foi protocolada.">Data da licença</th>
+                		<th data-toggle="tooltip" data-placement="top" title="Data que a licença foi anexada e o usuário que inseriu.">Inserido por</th>
                 		<th data-toggle="tooltip" data-placement="top" title="Clique no 'X' para excluir a licença.">Excluir</th>
+                        
                 	</tr>
                 	</thead>
                 	<tbody>
                     @foreach($licencas as $l)
                 		<td>{{$l->nomeLicenca}}</td>
                 		<td>{{$l->tipoLicenca}}</td>
-                        <td><a target="_blank" href="{{ url("storage/anexos_licencas/{$l->nomeArquivo}") }}">{{$l->anexo}}</a></td>
+                        <td><a target="_blank" href="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}"><img alt="Sem arquivo" width="40" src="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}"></a></td></td>
                         <td>{{$l->dataLicenca}}</td>
+                        <td>{{$l->usuario}} em {{$l->dataInsercao}}</td>
                         <td style="text-align: center">
                         <form method="POST" action="{{action('LicencaController@destroy',$l->idLicenca)}}">
                         @csrf

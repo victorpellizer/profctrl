@@ -57,8 +57,7 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('TituloController@index')}}"><i class="fa fa-graduation-cap"></i>Títulos</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('InformacoesController@index')}}"><i class="fa fa-info-circle"></i>Informações Gerais</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="{{action('ContatoController@index')}}"><i class="fa fa-phone"></i>Contato</a></li>
-                            </a>
-                            </ul>
+                        </ul>
 
                             <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

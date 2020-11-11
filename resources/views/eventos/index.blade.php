@@ -15,50 +15,42 @@
             <div class="card">
 
                 <div class="card-body">
-                    <h3>Histórico de eventos</h3><br><br><br>
+                
+                    @if(isset($eventos))
+                        <h3>Histórico de eventos <i class="fa fa-info-circle btn btn-secundary" style="float: right"
+                                data-toggle="tooltip" data-placement="top"
+                                title=""></i>
+                        </h3>
                     <table class="table display responsive no-wrap table-striped" style="width: 1000px">
                         <thead>
                             <tr>
                                 <th>ID evento</th>
-                                <th>Matrícula</th>
-                                <th>Nome do docente</th>
-                                <th>Alteração feita em</th>
-                                <th>Novo Valor</th>
+                                <th>ID do docente</th>
+                                <th>Tipo de evento</th>
+                                <th>Valor antigo</th>
+                                <th>Valor novo</th>
                                 <th>Lei vigente</th>
                                 <th>Criado por</th>
                             </tr>
                         </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>1033</td>
-                                <td>3278110</td>
-                                <td>Victor Pellizer Iritsu</td>
-                                <td>Classe</td>
-                                <td>13</td>
-                                <td>Lei 2132152132 de 2022</td>
-                                <td>dev1 em 2020-10-06 00:20:44</td>
-                            </tr>
-                            <tr>
-                                <td>1033</td>
-                                <td>1111</td>
-                                <td>Victor Iritsu</td>
-                                <td>Nível</td>
-                                <td>B</td>
-                                <td>Lei 2132152132 de 2022</td>
-                                <td>dev1 em 2020-10-06 00:25:33</td>
-                            </tr>
-                            <tr>
-                                <td>1033</td>
-                                <td>999</td>
-                                <td>Victor Iritsu Pellizer</td>
-                                <td>Lotação</td>
-                                <td>Tônia Harms</td>
-                                <td>Lei 2132152132 de 2022</td>
-                                <td>dev1 em 2020-10-06 00:26:40</td>
-                            </tr>
+                        
+                        @foreach($eventos as $item)
+                        <tbody style="float: center;background-color: #fff">
+                            <th>{{$item->idEvento}}</th>
+                            <th>{{$item->Docente_idDocente}}</th>
+                            <th>{{$item->tipoEvento}}</th>
+                            <th>{{$item->valorAntigo}}</th>
+                            <th>{{$item->valorNovo}}</th>
+                            <th>{{$item->regraVigente}}</th>
+                            <th>{{$item->usuario}} em {{$item->dataEvento}}</th>
                         </tbody>
+                        @endforeach
+                    
                     </table>
+                    @endif
+                    <div>
+                        {{$eventos->links()}}
+                    </div>
                 </div>
             </div>
         </div>

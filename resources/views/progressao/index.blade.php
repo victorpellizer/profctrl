@@ -28,136 +28,87 @@
                     </h3>
 
                     <hr>
-                    <table id="tabela-progressao" class="table table-striped" width="
-                        100%">
+                    <table class="table table-striped" width="100%">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Nome completo do Docente.">Nome</th>
+                                    title="Nome completo do Docente.">
+                                    Nome
+                                </th>
                                 <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Nível do Docente (A-D).">Nível</th>
+                                    title="Nível do Docente (A-D).">
+                                    Nível
+                                </th>
                                 <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Classe do Docente (1-15).">Classe</th>
+                                    title="Classe do Docente (1-15).">
+                                    Classe
+                                </th>
                                 <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Instituição em que o Docente está lotado.">Lotação</th>
-
+                                    title="Instituição em que o Docente está lotado.">Lotação
+                                </th>
                                 <th scope="col" data-toggle="tooltip" data-placement="top"
                                     title="Remuneração do Docente, composta por Salário, Tempo de Serviço, Gratificação e Deslocamento.">
-                                    Remuneração</th>
-                                <!--
-                                        <th scope="col"data-toggle="tooltip" data-placement="top" title="Remuneração do Docente, composta por Salário, Tempo de Serviço, Gratificação e Deslocamento.">Salário</th>
-                                    <th scope="col"data-toggle="tooltip" data-placement="top" title="Remuneração do Docente, composta por Salário, Tempo de Serviço, Gratificação e Deslocamento.">Des</th>
-                                    <th scope="col"data-toggle="tooltip" data-placement="top" title="Remuneração do Docente, composta por Salário, Tempo de Serviço, Gratificação e Deslocamento.">TS</th>
-                                    <th scope="col"data-toggle="tooltip" data-placement="top" title="Remuneração do Docente, composta por Salário, Tempo de Serviço, Gratificação e Deslocamento.">Grat</th>
-                                   -->
+                                    Remuneração
+                                </th>
                                 <th scope="col" data-toggle="tooltip" data-placement="top" title="Status do Docente.">
-                                    Status</th>
+                                    Status
+                                </th>
                             </tr>
                         </thead>
-                        <tbody style="float: center">
-
+                        @foreach($docentes as $item)
+                        <tbody style="float: center;background-color: #fff">
+                            <th><a href="/docentes/{{$item->idDocente}}">{{$item->nomeDocente}}</a></th>
+                            <th>{{$item->nivel}}</th>
+                            <th>{{$item->classe}}</th>
+                            <th>{{$item->lotacao}}</th>
+                            <th>{{$item->beneficioTotal}}</th>
+                            <th>{{$item->status}}</th>
                         </tbody>
+                        @endforeach
+
                     </table>
                     @endif
+                    <div>
+                        {{$docentes->links()}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@push('scripts')
 <script>
-$(document).ready(function() {
-    var table = $('#tabela-progressao').DataTable({
-        ajax: {
-            url: '{!! route('progressaoList') !!}',
-            error: function(xhr, error, thrown) {
-                alert('Ocorreu algum erro. Recarregue a página.');
-            }
-        },
-        columns: [{
-                data: 'nomeDocente',
-                "render": function(data, type, row, meta) {
-                    if (type === 'display') {
-                        data = '<a href="/docentes/' + row.idDocente + '" >' + data + '</a>';
-                    }
-                    return data;
-                }
-            },
-            {
-                data: 'nivel',
-                name: 'nivel'
-            },
-            {
-                data: 'classe',
-                name: 'classe'
-            },
-            {
-                data: 'lotacao',
-                name: 'lotacao'
-            },
-            {
-                data: 'beneficioTotal',
-                name: 'beneficioTotal'
-            },
-            {
-                data: 'status',
-                name: 'status'
-            }
-            /*,
-                    { data: 'beneficioTotal', name: 'beneficioTotal'},
-                    { data: 'beneficioS', name: 'beneficioS'},
-                    { data: 'BeneficioD', name: 'BeneficioD'},
-                    { data: 'BeneficioTS', name: 'BeneficioTS'},
-                    { data: 'BeneficioG', name: 'BeneficioG'}
-/*
-                    { "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = '<a href="/titulos/' + row.idDocente + '" ><i class="fa fa-graduation-cap"></i></a>';
-                        }
-                    return data;
-                    }
-                    },
-                    { "render": function(data, type, row, meta){
-                        if(type === 'display'){
-                            data = '<a href="/licencas/' + row.idDocente + '" ><i class="fa fa-plus-square"></i></a>';
-                        }
-                    return data;
-                    }
-                    },
-                    
-                    { data: 'status', name: 'status'}
-                    */
-        ],
-        "order": [
-            [0, "asc"]
-        ],
-        "lengthMenu": [10, 20, 30],
-        "language": {
-            "lengthMenu": "Mostrando _MENU_ usuários por página",
-            "zeroRecords": "Nada encontrado",
-            "info": "Mostrando página _PAGE_ de _PAGES_ de um total de _MAX_ usuários",
-            "infoEmpty": "Nenhum usuário cadastrado",
-            "infoFiltered": "(filtrado de _MAX_ registros no total)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primeira",
-                "last": "Última",
-                "next": "Próxima",
-                "previous": "Anterior"
-            },
-            "loadingRecords": "Carregando...",
-            "processing": "Carregando...",
-            "emptyTable": "Nada Encontrado!"
-        },
+function fnExcelReport()
+{
+    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+    var textRange; var j=0;
+    tab = document.getElementById('headerTable'); // id of table
 
-        dom: 'Bfrtip',
-        buttons: [
-            'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-});
+    for(j = 0 ; j < tab.rows.length ; j++) 
+    {     
+        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+        //tab_text=tab_text+"</tr>";
+    }
+
+    tab_text=tab_text+"</table>";
+    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE "); 
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+    {
+        txtArea1.document.open("txt/html","replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus(); 
+        sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+    }  
+    else                 //other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+    return (sa);
+}
 </script>
-
-@endpush
 @endsection

@@ -17,11 +17,13 @@ class LicencaController extends Controller
         foreach($licencas as $licenca){
             $docente = Docente::where('idDocente', '=', $licenca->Docente_idDocente)
                 ->first();
+            $licenca->matricula = $docente->matricula;
             $licenca->nomeDocente = $docente->nomeDocente;
-            if($licenca->nomeArquivo == 'Sem arquivo'){
-                $licenca->anexo = null;
-            } else $licenca->anexo = '[anexo]';
+            $user = User::where('id', '=', $licenca['Usuario_idUsuario'])
+                ->first();
+            $licenca->usuario = $user['name'];
         }
+        
         return view('licencas.index')->with(compact('licencas'));
     }
     public function create()
@@ -66,9 +68,9 @@ class LicencaController extends Controller
             ->orderBy('dataLicenca', 'desc')
             ->get();
         foreach($licencas as $licenca){
-            if($licenca->nomeArquivo == 'Sem arquivo'){
-                $licenca->anexo = null;
-            } else $licenca->anexo = '[anexo]';
+            $user = User::where('id', '=', $licenca['Usuario_idUsuario'])
+                ->first();
+            $licenca->usuario = $user['name'];
         }
         return view('licencas.show')->with(compact('licencas','docente'));
     }
@@ -97,5 +99,16 @@ class LicencaController extends Controller
         $eventoL->save();
         $licenca->delete();
         return redirect()->back()->with('success', ['Licença removida com sucesso!']);
+    }
+    private function validateRequest(){
+        return tap(request()->validate([
+            'nomeLicenca' => 'required|min:5',
+        ]), function(){
+            if(request()->hasFile('arquivo')){
+                request()->validate([
+                    'arquivo' => 'file|max:5000'
+                ]);
+            }
+        });
     }
 }

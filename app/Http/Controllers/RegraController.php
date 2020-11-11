@@ -24,7 +24,18 @@ class RegraController extends Controller
         $user = User::where('id', '=', $regra->Usuario_idUsuario)
             ->first();
         $regra->usuario = $user['name'];
-        return view('regra.index')->with(compact('regra'));
+        $regra->salarioBase = str_replace(".", ",", $regra->salarioBase);
+        
+        $regras = Regra::orderBy('idRegra', 'desc')
+            ->get();
+        foreach($regras as $r){
+            $user = User::where('id', '=', $r['Usuario_idUsuario'])
+                ->first();
+            $r->usuario = $user['name'];
+            $r->nome = $regra['descricao'];
+            $r->data = $regra['dataRegra'];
+        }
+        return view('regra.index')->with(compact('regra','regras'));
     }
     public function create()
     {
@@ -35,20 +46,12 @@ class RegraController extends Controller
         $idusuario = \Auth::user()->id;
         $regra = new Regra();
         $regra->fill($request->all());
+        $regra->salarioBase = str_replace(",", ".", $request->salarioBase);
         $regra->Usuario_idUsuario = $idusuario;
         $regra->save();
-        
         $regraAntiga = Regra::where('idRegra', '=', $regra->idRegra-1)
             ->first();
     
-        $eventoT = new Evento();
-        $eventoT->Docente_idDocente = 96;
-        $eventoT->TipoEvento_idTipoEvento = 19;
-        $eventoT->valorAntigo = (string)$regraAntiga->idRegra;
-        $eventoT->valorNovo = (string)$regra->idRegra;
-        $eventoT->Regra_idRegra = $regra->idRegra;
-        $eventoT->Usuario_idUsuario = $idusuario;
-        $eventoT->save();
 
         return redirect()->back()->with('success', ['Atualizada com sucesso!']);
     }

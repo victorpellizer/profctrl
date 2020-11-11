@@ -40,11 +40,13 @@
                 <table class="table display responsive no-wrap table-striped">
                 	<thead>
                 	<tr>
-                		<th data-toggle="tooltip" data-placement="top" title="Descrição do título.">Descrição do Título</th>
+
+                		<th data-toggle="tooltip" data-placement="top" title="Descrição do título.">Descrição do título</th>
                 		<th data-toggle="tooltip" data-placement="top" title="Tipo do título.">Tipo</th>
                         <th data-toggle="tooltip" data-placement="top" title="Anexo do título.">Anexo</th>
                 		<th data-toggle="tooltip" data-placement="top" title="Pontos de Desempenho que o arquivo agrega.">Pontos de Desempenho</th>
-                        <th data-toggle="tooltip" data-placement="top" title="Data em que o título foi inserido.">Data de Inserção</th>
+                        <th data-toggle="tooltip" data-placement="top" title="Data que o título foi protocolado.">Data do título</th>
+                		<th data-toggle="tooltip" data-placement="top" title="Data que o título foi anexado e o usuário que inseriu.">Inserido por</th>
                 		<th style="text-align: center" data-toggle="tooltip" data-placement="top" title="Clique no 'X' para excluir o título.">Excluir</th>
                 	</tr>
                 	</thead>
@@ -52,9 +54,10 @@
                     @foreach($titulos as $t)
                 		<td>{{$t->nomeTitulo}}</td>
                 		<td>{{$t->tipoTitulo}}</td>
-                        <td><a target="_blank" href="{{ url("storage/anexos_titulos/{$t->nomeArquivo}") }}">{{$t->anexo}}</a></td>
+                        <td><a target="_blank" href="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}"><img alt="Sem arquivo" width="40" src="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}"></a></td>
                         <td>{{$t->pontosDeDesempenhoT}}</td>
                         <td>{{$t->dataTitulo}}</td>
+                        <td>{{$t->usuario}} em {{$t->dataInsercao}}</td>
                 		<td style="text-align: center">
                         <form method="POST" action="{{action('TituloController@destroy',$t->idTitulo)}}">
                         @csrf

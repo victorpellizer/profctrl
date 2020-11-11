@@ -6,21 +6,27 @@ use App\Evento;
 use App\TipoEvento;
 use App\Docente;
 use App\User;
+use App\Regra;
 use Illuminate\Http\Request;
 
 class EventoController extends Controller
 {
     public function index()
     {
-        $eventos = Evento::all();
+        $eventos = Evento::select('*')
+            ->orderBy('idEvento', 'desc')
+            ->paginate(50);
         foreach($eventos as $evento){
-            $docente = Docente::where('idDocente', '=', $evento->docente_idDocente)
+            $tipoEvento = TipoEvento::where('idTipoEvento', '=', $evento->TipoEvento_idTipoEvento)
                 ->first();
             $user = User::where('id', '=', $evento->Usuario_idUsuario)
                 ->first();
-            $evento->matricula = $docente['matricula'];
-            $evento->nomeDocente = $docente['nomeDocente'];
+            $regraVigente = Regra::select('descricao')
+                ->orderBy('dataRegra', 'desc')
+                ->first();
+            $evento->regraVigente = $regraVigente['descricao'];
             $evento->usuario = $user['name'];
+            $evento->tipoEvento = $tipoEvento['tipoEvento'];
         }
         return view('eventos.index')->with(compact('eventos'));
     }
