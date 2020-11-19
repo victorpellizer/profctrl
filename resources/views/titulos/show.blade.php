@@ -54,7 +54,13 @@
                     @foreach($titulos as $t)
                 		<td>{{$t->nomeTitulo}}</td>
                 		<td>{{$t->tipoTitulo}}</td>
-                        <td><a target="_blank" href="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}"><img alt="Sem arquivo" width="40" src="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}"></a></td>
+                        <td>
+                            <div class="{{$t->nomeArquivo}}">
+                                <a target="_blank" href="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}">
+                                    <img onerror="doSomething()" width="40" src="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}">
+                                </a>
+                            </div>
+                        </td>
                         <td>{{$t->pontosDeDesempenhoT}}</td>
                         <td>{{$t->dataTitulo}}</td>
                         <td>{{$t->usuario}} em {{$t->dataInsercao}}</td>
@@ -62,13 +68,22 @@
                         <form method="POST" action="{{action('TituloController@destroy',$t->idTitulo)}}">
                         @csrf
                         @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
+                            <button type="submit" onclick="return confirm('Tem certeza de que quer remover o título?')" class="btn btn-danger">
                                 X
                             </button>
                         </form>
                         </td> 
                 		</tbody>
                     @endforeach
+                    <script>
+                    var pai = document.getElementsByClassName('Sem arquivo');
+                    var i;
+                    function doSomething(){
+                        for(i = 0; i < pai.length; i++) {
+                            pai[i].style.display = "none";
+                        }
+                    }
+                    </script>
                 </table>
             <a href="{{action('TituloController@edit',$docente->idDocente)}}"><button type="button" class="btn btn-success">Inserir Título <i class="fa fa-graduation-cap"></i></button></a>
             <a class="btn btn-info" href="{{action('DocenteController@show',$docente->idDocente)}}">Voltar Para o Perfil <i class="fa fa-arrow-left"></i></a>

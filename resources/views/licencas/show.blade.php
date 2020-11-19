@@ -53,20 +53,35 @@
                     @foreach($licencas as $l)
                 		<td>{{$l->nomeLicenca}}</td>
                 		<td>{{$l->tipoLicenca}}</td>
-                        <td><a target="_blank" href="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}"><img alt="Sem arquivo" width="40" src="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}"></a></td></td>
+                        <td>
+                            <div class="{{$l->nomeArquivo}}">
+                                <a target="_blank" href="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}">
+                                    <img onerror="doSomething()" width="40" src="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}">
+                                </a>
+                            </div>
+                        </td>
                         <td>{{$l->dataLicenca}}</td>
                         <td>{{$l->usuario}} em {{$l->dataInsercao}}</td>
                         <td style="text-align: center">
                         <form method="POST" action="{{action('LicencaController@destroy',$l->idLicenca)}}">
                         @csrf
                         @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
+                            <button type="submit" onclick="return confirm('Tem certeza de que quer remover a licença?')" class="btn btn-danger">
                                 X
                             </button>
                         </form>
                         </td> 
                 		</tbody>
                     @endforeach
+                    <script>
+                    var pai = document.getElementsByClassName('Sem arquivo');
+                    var i;
+                    function doSomething(){
+                        for(i = 0; i < pai.length; i++) {
+                            pai[i].style.display = "none";
+                        }
+                    }
+                    </script>
                 </table>
             <a href="{{action('LicencaController@edit',$docente->idDocente)}}"><button type="button" class="btn btn-success">Inserir Licença <i class="fa fa-plus-square"></i></button></a>
             <a class="btn btn-info" href="{{action('DocenteController@show',$docente->idDocente)}}">Voltar Para o Perfil <i class="fa fa-arrow-left"></i></a>

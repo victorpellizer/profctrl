@@ -39,10 +39,25 @@
                     <td>{{$l->tipoLicenca}}</td>
                     <td>{{$l->nomeLicenca}}</td>
                     <td>{{$l->dataLicenca}}</td>
-                    <td><a target="_blank" href="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}"><img alt="Sem arquivo" width="40" src="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}"></a></td></td>
+                    <td>
+                        <div class="{{$l->nomeArquivo}}">
+                            <a target="_blank" href="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}">
+                                <img onerror="doSomething()" width="40" src="{{asset("storage/anexos_licencas/$l->nomeArquivo")}}">
+                            </a>
+                        </div>
+                    </td>
                     <td>{{$l->usuario}} em {{$l->dataInsercao}}</td>
                     </tr>
                 @endforeach
+                    <script>
+                    var pai = document.getElementsByClassName('Sem arquivo');
+                    var i;
+                    function doSomething(){
+                        for(i = 0; i < pai.length; i++) {
+                            pai[i].style.display = "none";
+                        }
+                    }
+                    </script>
                 </tbody>
             </table>
         </div>

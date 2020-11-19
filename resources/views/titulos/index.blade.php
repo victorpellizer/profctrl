@@ -41,10 +41,25 @@
                     <td>{{$t->nomeTitulo}}</td>
                     <td>{{$t->pontosDeDesempenhoT}}</td>
                     <td>{{$t->dataTitulo}}</td>
-                    <td><a target="_blank" href="{{ url("storage/anexos_titulos/{$t->nomeArquivo}") }}"><img width="40" src="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}"></a></td></td>
+                    <td>
+                        <div class="{{$t->nomeArquivo}}">
+                            <a target="_blank" href="{{ url("storage/anexos_titulos/{$t->nomeArquivo}") }}">
+                                <img onerror="doSomething()" width="40" src="{{asset("storage/anexos_titulos/$t->nomeArquivo")}}">
+                            </a>
+                        </div>
+                    </td>
                     <td>{{$t->usuario}} em {{$t->dataInsercao}}</td>
                     </tr>
                 @endforeach
+                    <script>
+                    var pai = document.getElementsByClassName('Sem arquivo');
+                    var i;
+                    function doSomething(){
+                        for(i = 0; i < pai.length; i++) {
+                            pai[i].style.display = "none";
+                        }
+                    }
+                    </script>
                 </tbody>
             </table>
         </div>
