@@ -4,28 +4,35 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center" style="width: 100%">
+    <div class="row">
         <div class="col-md-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Histórico de eventos</li>
+                    <li class="breadcrumb-item">Eventos</li>
                 </ol>
             </nav>
             <div class="card">
-
                 <div class="card-body">
-                
-                    @if(isset($eventos))
-                        <h3>Histórico de eventos <i class="fa fa-info-circle btn btn-secundary" style="float: right"
-                                data-toggle="tooltip" data-placement="top"
-                                title=""></i>
-                        </h3>
-                    <table class="table display responsive no-wrap table-striped" style="width: 1000px">
-                        <thead>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+                    <div class="row p-3">
+                        <div class="col-5">
+                            <h3>Eventos</h3>
+                        </div>  
+                        <div class="col-7 text-right">
+                            <a class="btn btn-primary" href="eventos/exportCSV">BAIXAR CSV</a>
+                            <a class="btn btn-primary" href="eventos/exportXLSX">BAIXAR XLSX</a>
+                        </div>
+                    </div>
+                    <table class="table table-striped w-100">
+                        <thead class="thead-dark">
                             <tr>
-                                <th>ID evento</th>
-                                <th>ID do docente</th>
+                                <th>Id evento</th>
+                                <th>Id do docente</th>
                                 <th>Tipo de evento</th>
                                 <th>Valor antigo</th>
                                 <th>Valor novo</th>
@@ -33,22 +40,23 @@
                                 <th>Criado por</th>
                             </tr>
                         </thead>
-                        
+                    @if(isset($eventos))
+                        <tbody>
                         @foreach($eventos as $item)
-                        <tbody style="float: center;background-color: #fff">
-                            <th>{{$item->idEvento}}</th>
-                            <th>{{$item->Docente_idDocente}}</th>
-                            <th>{{$item->tipoEvento}}</th>
-                            <th>{{$item->valorAntigo}}</th>
-                            <th>{{$item->valorNovo}}</th>
-                            <th>{{$item->regraVigente}}</th>
-                            <th>{{$item->usuario}} em {{$item->dataEvento}}</th>
-                        </tbody>
+                            <tr>
+                                <td>{{$item->idEvento}}</td>
+                                <td>{{$item->Docente_idDocente}}</td>
+                                <td>{{$item->tipoEvento}}</td>
+                                <td>{{$item->valorAntigo}}</td>
+                                <td>{{$item->valorNovo}}</td>
+                                <td>{{$item->regraVigente}}</td>
+                                <td>{{$item->usuario}} em {{$item->dataEvento}}</td>
+                            </tr>
                         @endforeach
-                    
+                        </tbody>
                     </table>
                     @endif
-                    <div>
+                    <div class="d-flex justify-content-center">
                         {{$eventos->links()}}
                     </div>
                 </div>

@@ -15,7 +15,8 @@ class LicencaController extends Controller
     {
         $licencas = Licenca::all();
         foreach($licencas as $licenca){
-            $docente = Docente::where('idDocente', '=', $licenca->Docente_idDocente)
+            $docente = Docente::select('nomeDocente','matricula')
+                ->where('idDocente', '=', $licenca->Docente_idDocente)
                 ->first();
             $licenca->matricula = $docente->matricula;
             $licenca->nomeDocente = $docente->nomeDocente;
@@ -23,7 +24,6 @@ class LicencaController extends Controller
                 ->first();
             $licenca->usuario = $user['name'];
         }
-        
         return view('licencas.index')->with(compact('licencas'));
     }
     public function create()

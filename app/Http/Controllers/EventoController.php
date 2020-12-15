@@ -9,6 +9,10 @@ use App\User;
 use App\Regra;
 use Illuminate\Http\Request;
 
+use App\Exports\EventosExportCSV;
+use App\Exports\EventosExportXLSX;
+use Maatwebsite\Excel\Facades\Excel;
+
 class EventoController extends Controller
 {
     public function index()
@@ -29,6 +33,14 @@ class EventoController extends Controller
             $evento->tipoEvento = $tipoEvento['tipoEvento'];
         }
         return view('eventos.index')->with(compact('eventos'));
+    }
+    public function exportCSV() 
+    {
+        return Excel::download(new EventosExportCSV, 'eventos.csv');
+    }
+    public function exportXLSX() 
+    {
+        return Excel::download(new EventosExportXLSX, 'eventos.xlsx');
     }
     public function create($id)
     {

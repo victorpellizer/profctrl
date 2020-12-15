@@ -4,71 +4,80 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="container-fluid">
-            <div class="card d-sm-flex justify-content-between">
-                <div class="card-header"><h3>Bem vindo ao Sistema Profctrl</h3><h2><i class="fa fa-info-circle btn btn-secundary" style="float: right" data-toggle="tooltip" data-placement="top" title="Esta é a tela principal, nela você pode encontrar todas as funções do sistema."></i></h2></div>
-                
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h2>PROFCTRL</h2>
+                    <h4>Esta é a tela principal, onde você pode acessar todas as funcionalidades do sistema
+                    </h4>
                 </div>
-                <div class="card">
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
                     <div class="row">
-                        <div class="col-xl-2 offset-xl-0 mx-auto" style="max-width: 16%; flex: 16%"><a class="btn btn-primary border rounded" role="button" href="{{action('RegraController@index')}}" style="width: 150px">Lei Salarial Vigente</a>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100" href="{{action('DocenteController@index')}}">Lista de docentes</a>
                         </div>
-                        <div class="col">
-                            <h5 style="padding-left: 50px">- Define a alteração salarial de acordo com a lei vigente</h5>
+                        <div class="col-8 my-1">
+                            <h5>- Exibe informações funcionais dos docentes</h5>
                         </div>
-    
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('EventoController@index')}}">Histórico de Eventos</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Exibe registro de todas alterações feitas no sistema</h5>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('ProgressaoController@index')}}">Dados profissionais</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Exibe informações referentes à carreira dos docentes</h5>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('LicencaController@index')}}">Licenças</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Exibe a lista das licenças cadastradas</h5>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('TituloController@index')}}">Títulos</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Exibe a lista dos títulos cadastrados</h5>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('RegraController@index')}}">Lei salarial vigente</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Define a alteração salarial de acordo com a lei vigente</h5>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('InformacoesController@index')}}">Informações gerais</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Exibe os dados do sistema</h5>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('ContatoController@index')}}">Contato</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Informações de contato dos desenvolvedores do sistema</h5>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xl-2 offset-xl-0 mx-auto" style="max-width: 16%; flex: 16%"><a class="btn btn-primary border rounded" role="button" href="{{action('DocenteController@index')}}" style="width: 150px">Lista de Docentes</a>
-                        </div>
-                        <div class="col">
-                            <h5 style="padding-left: 50px">- Exibe informações funcionais dos Docentes</h5>
-                        </div>
-                        <a href="{{action('DocenteController@create')}}"><button type="button" class="btn btn-success">Cadastrar Novo Docente <i class="fa fa-user-o"></i></button></a>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xl-2 offset-xl-0"><a class="btn btn-primary border rounded" role="button" href="{{action('ProgressaoController@index')}}" style="width: 150px">Progressão de Carreira</a></div>
-                        <div class="col">
-                            <h5 style="padding-left: 50px">- Exibe informações referentes à carreira dos Docentes</h5>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xl-2 offset-xl-0"><a class="btn btn-primary border rounded" role="button" href="{{action('LicencaController@index')}}" style="width: 150px">Licenças</a></div>
-                        <div class="col">
-                            <h5 style="padding-left: 50px">- Exibe a lista das Licenças cadastradas</h5>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xl-2 offset-xl-0"><a class="btn btn-primary border rounded" role="button" href="{{action('TituloController@index')}}" style="width: 150px">Títulos</a></div>
-                        <div class="col">
-                            <h5 style="padding-left: 50px">- Exibe a lista dos Títulos cadastrados</h5>
-                        </div>
-                    </div>
-<hr>
-                    <div class="row">
-                        <div class="col-xl-2 offset-xl-0"><a class="btn btn-primary border rounded"  role="button" href="{{action('InformacoesController@index')}}" style="width: 150px">Informações Gerais</a></div>
-                        <div class="col">
-                            <h5 style="padding-left: 50px">- Exibe os dados do sistema.</h5>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-
 @endsection

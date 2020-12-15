@@ -17,7 +17,7 @@ class Docente extends Model
        'pontosDeDesempenho',
        'cargaHoraria',
        'tempoDeServico',
-       'cidadeIdCidade',
+       'CidadeIdCidade',
    ];
    public function classes()
    {

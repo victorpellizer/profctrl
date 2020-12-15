@@ -40,7 +40,6 @@
                 <table class="table display responsive no-wrap table-striped">
                 	<thead>
                 	<tr>
-
                 		<th data-toggle="tooltip" data-placement="top" title="Descrição do título.">Descrição do título</th>
                 		<th data-toggle="tooltip" data-placement="top" title="Tipo do título.">Tipo</th>
                         <th data-toggle="tooltip" data-placement="top" title="Anexo do título.">Anexo</th>

@@ -24,12 +24,24 @@ use Redirect,Response,Config;
 use Datatables;
 use DB;
 
+use App\Exports\DocentesExportCSV;
+use App\Exports\DocentesExportXLSX;
+use Maatwebsite\Excel\Facades\Excel;
+
 class DocenteController extends Controller
 {
     public function index()
     {
         $docentes = Docente::select('idDocente','nomeDocente','matricula','cargo','pontosDeDesempenho','cargaHoraria','tempoDeServico')->paginate(10);
         return view('docentes.index')->with(compact('docentes'));
+    }
+    public function exportCSV() 
+    {
+        return Excel::download(new DocentesExportCSV, 'docentes.csv');
+    }
+    public function exportXLSX() 
+    {
+        return Excel::download(new DocentesExportXLSX, 'docentes.xlsx');
     }
     /*public function index()
     {

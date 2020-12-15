@@ -1,74 +1,76 @@
 @extends('layouts.layout')
 
-@section('title', 'Progressão de Carreira')
+@section('title', 'Dados profissionais')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{action('HomeController@index')}}">Home</a></li>
-                    <li class="breadcrumb-item">Progressão de Carreira</li>
-                    <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+                    <li class="breadcrumb-item">Dados profissionais</li>
                 </ol>
             </nav>
             <div class="card">
-
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                     @endif
-                    @if(isset($docentes))
-                    <h3>Progressão de Carreira <i class="fa fa-info-circle btn btn-secundary" style="float: right"
-                            data-toggle="tooltip" data-placement="top"
-                            title="Aqui estão as informações de progressão de carreira dos docentes, você pode navegar facilmente por todos eles e selecioná-los para edição."></i>
-                    </h3>
-
-                    <hr>
-                    <table class="table table-striped" width="100%">
+                    <div class="row p-3">
+                        <div class="col-5">
+                            <h3>Dados profissionais</h3>
+                        </div>  
+                        <div class="col-7 text-right">
+                            <a class="btn btn-primary" href="progressao/exportCSV">BAIXAR CSV</a>
+                            <a class="btn btn-primary" href="progressao/exportXLSX">BAIXAR XLSX</a>
+                        </div>
+                    </div>
+                    <table class="table table-striped w-100">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Nome completo do Docente.">
+                                <th title="Nome completo do docente">
                                     Nome
                                 </th>
-                                <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Nível do Docente (A-D).">
+                                <th title="Matrícula do docente">
+                                    Matrícula
+                                </th>
+                                <th title="Nível do docente (A-D)">
                                     Nível
                                 </th>
-                                <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Classe do Docente (1-15).">
+                                <th title="Classe do docente (1-15)">
                                     Classe
                                 </th>
-                                <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Instituição em que o Docente está lotado.">Lotação
+                                <th title="Instituição onde o docente está lotado">
+                                    Lotação
                                 </th>
-                                <th scope="col" data-toggle="tooltip" data-placement="top"
-                                    title="Remuneração do Docente, composta por Salário, Tempo de Serviço, Gratificação e Deslocamento.">
+                                <th title="Função do docente">
+                                    Função
+                                </th>
+                                <th title="Remuneração do docente, composta por salário, tempo de serviço, gratificação e deslocamento">
                                     Remuneração
-                                </th>
-                                <th scope="col" data-toggle="tooltip" data-placement="top" title="Status do Docente.">
-                                    Status
                                 </th>
                             </tr>
                         </thead>
+                    @if(isset($docentes))
+                        <tbody>
                         @foreach($docentes as $item)
-                        <tbody style="float: center;background-color: #fff">
-                            <th><a href="/docentes/{{$item->idDocente}}">{{$item->nomeDocente}}</a></th>
-                            <th>{{$item->nivel}}</th>
-                            <th>{{$item->classe}}</th>
-                            <th>{{$item->lotacao}}</th>
-                            <th>{{$item->beneficioTotal}}</th>
-                            <th>{{$item->status}}</th>
-                        </tbody>
+                            <tr>
+                                <td><a href="/docentes/{{$item->idDocente}}">{{$item->nomeDocente}}</a></td>
+                                <td>{{$item->matricula}}</td>
+                                <td>{{$item->nivel}}</td>
+                                <td>{{$item->classe}}</td>
+                                <td>{{$item->lotacao}}</td>
+                                <td>{{$item->funcao}}</td>
+                                <td>R${{$item->beneficioTotal}}</td>
+                            </tr>
                         @endforeach
-
+                        </tbody>
                     </table>
                     @endif
-                    <div>
+                    <div class="d-flex justify-content-center">
                         {{$docentes->links()}}
                     </div>
                 </div>

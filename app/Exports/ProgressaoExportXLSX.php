@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Exports;
 
 use App\Classe;
 use App\Funcao;
@@ -14,55 +14,47 @@ use App\ClasseDocente;
 use App\FuncaoDocente;
 use App\LotacaoDocente;
 use App\NivelDocente;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use DB;
 
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-use App\Exports\ProgressaoExportCSV;
-use App\Exports\ProgressaoExportXLSX;
-use Maatwebsite\Excel\Facades\Excel;
-
-class ProgressaoController extends Controller
+class ProgressaoExportXLSX implements FromCollection, WithHeadings
 {
-    public function index() //PAGINAÇÃO
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
     {
-        $docentes = Docente::select('idDocente', 'matricula','nomeDocente')->paginate(10);
-        foreach($docentes as $docente){
+        $docentes = Docente::select('idDocente','nomeDocente','matricula')
+            ->orderBy('idDocente', 'desc')
+            ->get();
+        foreach ($docentes as $docente) {
             $idDocente = $docente->idDocente;
             $var = ClasseDocente::where('Docente_idDocente', '=', $idDocente)
                 ->orderBy('dataInicioClasse', 'desc')
                 ->first();
             $cls = Classe::where('idClasse', '=', $var['Classe_idClasse'])
                 ->first();
-            if(is_null($cls))
-                $docente->classe = "Não possui";
-            else $docente->classe = $cls['classe'];
+            $docente->classe = $cls['classe'];
             $var = NivelDocente::where('Docente_idDocente', '=', $idDocente)
                 ->orderBy('dataInicioNivel', 'desc')
                 ->first();
             $nvl = Nivel::where('idNivel', '=', $var['Nivel_idNivel'])
                 ->first();
-            if(is_null($nvl))
-                $docente->nivel = "Não possui";
-            else $docente->nivel = $nvl['nivel'];
+            $docente->nivel = $nvl['nivel'];
             $var = FuncaoDocente::where('Docente_idDocente', '=', $idDocente)
                 ->orderBy('dataInicioFuncao', 'desc')
                 ->first();
             $func = Funcao::where('idFuncao', '=', $var['Funcao_idFuncao'])
                 ->first();
-            if(is_null($func)){
-                $docente->funcao = "Não possui";
-            } else $docente->funcao = $func['funcao'];
+            $docente->funcao = $func['funcao'];
 
             $var = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
                 ->orderBy('dataInicioLotacao', 'desc')
                 ->first();
             $lot = Lotacao::where('idInstituicao', '=', $var['Instituicao_idInstituicao'])
                 ->first();
-            if(is_null($lot))
-                $docente->lotacao = "Não possui";
-            else $docente->lotacao = $lot['nomeInstituicao'];
+            $docente->lotacao = $lot['nomeInstituicao'];
 
             $beneficioS = Remuneracao::where('tipoBeneficio', '=', 'S')
                 ->where('Docente_idDocente', '=', $idDocente)
@@ -97,38 +89,20 @@ class ProgressaoController extends Controller
             else $auxG = $beneficioG->valorBeneficio;
             $docente->beneficioTotal = $auxG + $auxTS + $auxD + $auxS;
         }
-        return view('progressao.index')->with(compact('docentes'));
+        return $docentes;
     }
-    public function exportCSV() 
+
+    public function headings(): array
     {
-        return Excel::download(new ProgressaoExportCSV, 'progressao.csv');
-    }
-    public function exportXLSX() 
-    {
-        return Excel::download(new ProgressaoExportXLSX, 'progressao.xlsx');
-    }
-    public function create()
-    {
-        //
-    }
-    public function show(Docente $docente)
-    {
-        //
-    }
-    public function store(Request $request)
-    {
-        //
-    }
-    public function edit($id)
-    {
-        //
-    }
-    public function update(Request $request, Docente $docente)
-    {
-        //
-    }
-    public function destroy(Docente $docente)
-    {
-        //
+        return [
+            'ID Docente',
+            'Nome docente',
+            'Matrícula',
+            'Classe',
+            'Nível',
+            'Função',
+            'Lotação',
+            'Remuneração'
+        ];
     }
 }

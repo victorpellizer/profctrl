@@ -31,6 +31,16 @@ Route::get('titulo-list', 'TituloController@tituloList')->name('tituloList');
 Route::get('docentes/create', 'DocenteController@create')->name('create'); 
 Route::get('docentes/{id}/show', 'DocenteController@show')->name('show'); 
 
+
+
+
+Route::get('docentes/exportCSV/', 'DocenteController@exportCSV');
+Route::get('docentes/exportXLSX/', 'DocenteController@exportXLSX');
+Route::get('progressao/exportCSV/', 'ProgressaoController@exportCSV');
+Route::get('progressao/exportXLSX/', 'ProgressaoController@exportXLSX');
+Route::get('eventos/exportCSV/', 'EventoController@exportCSV');
+Route::get('eventos/exportXLSX/', 'EventoController@exportXLSX');
+
 //-------------------- rotas referentes à RequisicoesController --------------------- //
 // data tables
 //Route::get('requisicoes/getdata', 'RequisicoesController@data_tables')->name('data_table_requisicoes');
@@ -51,5 +61,6 @@ Route::resource('eventos', 'EventoController')->middleware('auth');
 /*
 Route::resource('progressao', 'ProgressaoController')->middleware('auth');
 Route::resource('progressao', 'ProgressaoController')->middleware('auth');
+*/
 
 //------------------------------------------------------------------------------//
