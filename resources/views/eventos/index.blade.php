@@ -46,11 +46,11 @@
                             <tr>
                                 <td>{{$item->idEvento}}</td>
                                 <td>{{$item->Docente_idDocente}}</td>
-                                <td>{{$item->tipoEvento}}</td>
+                                <td>{{$item->TipoEvento_idTipoEvento}}</td>
                                 <td>{{$item->valorAntigo}}</td>
                                 <td>{{$item->valorNovo}}</td>
-                                <td>{{$item->regraVigente}}</td>
-                                <td>{{$item->usuario}} em {{$item->dataEvento}}</td>
+                                <td>{{$item->Regra_idRegra}}</td>
+                                <td>{{$item->Usuario_idUsuario}} em {{$item->dataEvento}}</td>
                             </tr>
                         @endforeach
                         </tbody>

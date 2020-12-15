@@ -26,11 +26,11 @@ class EventoController extends Controller
             $user = User::where('id', '=', $evento->Usuario_idUsuario)
                 ->first();
             $regraVigente = Regra::select('descricao')
-                ->orderBy('dataRegra', 'desc')
+                ->where('idRegra', '=', $evento->Regra_idRegra)
                 ->first();
-            $evento->regraVigente = $regraVigente['descricao'];
-            $evento->usuario = $user['name'];
-            $evento->tipoEvento = $tipoEvento['tipoEvento'];
+            $evento->Regra_idRegra = $regraVigente['descricao'];
+            $evento->Usuario_idUsuario = $user['name'];
+            $evento->TipoEvento_idTipoEvento = $tipoEvento['tipoEvento'];
         }
         return view('eventos.index')->with(compact('eventos'));
     }
