@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Dados profissionais')
+@section('title', 'Busca dados profissionais de docentes')
 
 @section('content')
 <div class="container">
@@ -9,7 +9,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{action('HomeController@index')}}">Home</a></li>
-                    <li class="breadcrumb-item">Dados profissionais</li>
+                    <li class="breadcrumb-item"><a href="/progressao">Dados profissionais</a></li>
+                    <li class="breadcrumb-item">Busca</li>
                 </ol>
             </nav>
             <div class="card">
@@ -23,25 +24,15 @@
                         <div class="col-6">
                             <h3>Dados profissionais</h3>
                         </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-12 pb-3 d-flex justify-content-end">
-                                    <form action="{{url('/progressao/busca')}}" class="w-100" type="get">
-                                        <div class="row">
-                                            <div class="col-9 text-right">
-                                                <input name="query" type="search" class="form-control" placeholder="Buscar docente">
-                                            </div>
-                                            <div class="col-3">
-                                                <button class="btn btn-primary" type="submit">Buscar</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                        <div class="col-6 d-flex justify-content-end">
+                            <form action="{{url('/progressao/busca')}}" class="w-100" type="get">
+                                <div class="row">
+                                    <div class="col-9 text-right">
+                                        <input name="query" type="search" class="form-control" placeholder="Buscar docente">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
                                 </div>
-                                <div class="col-12 text-right">
-                            <a class="btn btn-primary" href="progressao/exportCSV">BAIXAR CSV</a>
-                            <a class="btn btn-primary" href="progressao/exportXLSX">BAIXAR XLSX</a>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <table class="table table-striped w-100">
@@ -94,39 +85,4 @@
         </div>
     </div>
 </div>
-<script>
-function fnExcelReport()
-{
-    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
-    var textRange; var j=0;
-    tab = document.getElementById('headerTable'); // id of table
-
-    for(j = 0 ; j < tab.rows.length ; j++) 
-    {     
-        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-        //tab_text=tab_text+"</tr>";
-    }
-
-    tab_text=tab_text+"</table>";
-    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
-    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
-
-    var ua = window.navigator.userAgent;
-    var msie = ua.indexOf("MSIE "); 
-
-    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
-    {
-        txtArea1.document.open("txt/html","replace");
-        txtArea1.document.write(tab_text);
-        txtArea1.document.close();
-        txtArea1.focus(); 
-        sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
-    }  
-    else                 //other browser not tested on IE 11
-        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
-
-    return (sa);
-}
-</script>
 @endsection

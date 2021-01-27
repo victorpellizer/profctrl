@@ -15,6 +15,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EventoController extends Controller
 {
+    public function busca()
+    {
+        $texto_busca = $_GET['query'];
+        $eventos = Evento::where('idEvento','LIKE','%'.$texto_busca.'%')
+            ->orWhere('Docente_idDocente','LIKE','%'.$texto_busca.'%')
+            ->paginate(10);
+        return view('eventos.busca')
+            ->with(compact('eventos'));
+    }
     public function index()
     {
         $eventos = Evento::select('*')

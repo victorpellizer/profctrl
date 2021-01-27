@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Eventos')
+@section('title', 'Busca eventos')
 
 @section('content')
 <div class="container">
@@ -9,7 +9,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                    <li class="breadcrumb-item">Eventos</li>
+                    <li class="breadcrumb-item"><a href="/eventos">Eventos</a></li>
+                    <li class="breadcrumb-item">Busca</li>
                 </ol>
             </nav>
             <div class="card">
@@ -19,29 +20,20 @@
                         {{ session('status') }}
                     </div>
                     @endif
+                    
                     <div class="row p-3">
                         <div class="col-6">
                             <h3>Eventos</h3>
                         </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-12 pb-3 d-flex justify-content-end">
-                                    <form action="{{url('/eventos/busca')}}" class="w-100" type="get">
-                                        <div class="row">
-                                            <div class="col-9 text-right">
-                                                <input name="query" type="search" class="form-control" placeholder="Buscar evento">
-                                            </div>
-                                            <div class="col-3">
-                                                <button class="btn btn-primary" type="submit">Buscar</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                        <div class="col-6 d-flex justify-content-end">
+                            <form action="{{url('/eventos/busca')}}" class="w-100" type="get">
+                                <div class="row">
+                                    <div class="col-9 text-right">
+                                        <input name="query" type="search" class="form-control" placeholder="Buscar evento">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
                                 </div>
-                                <div class="col-12 text-right">
-                                    <a class="btn btn-primary" href="eventos/exportCSV">BAIXAR CSV</a>
-                                    <a class="btn btn-primary" href="eventos/exportXLSX">BAIXAR XLSX</a>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <table class="table table-striped w-100">

@@ -93,7 +93,6 @@ class ClasseController extends Controller
             $classeB = ($regra->aumentoNivelB/100) + 1;
             $classeC = $classeB * (($regra->aumentoNivelC/100) + 1);
             $classeD = $classeC * (($regra->aumentoNivelD/100) + 1);
-            //dd($regra);
 
             $clsAntiga = Classe::where('idClasse', '=', $atualClasse['Classe_idClasse'])
                 ->first();

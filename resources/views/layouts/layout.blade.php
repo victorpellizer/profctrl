@@ -55,11 +55,11 @@
                                     <a class="nav-link" href="{{action('DocenteController@index')}}">Docentes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{action('EventoController@index')}}">Eventos</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="{{action('ProgressaoController@index')}}">Dados
                                         profissionais</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{action('EventoController@index')}}">Eventos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{action('LicencaController@index')}}">Licenças</a>

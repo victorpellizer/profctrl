@@ -27,17 +27,17 @@
                         </div>
                         <div class="col-4">
                             <a class="btn btn-primary w-100"
-                                href="{{action('EventoController@index')}}">Histórico de Eventos</a>
-                        </div>
-                        <div class="col-8 my-1">
-                            <h5>- Exibe registro de todas alterações feitas no sistema</h5>
-                        </div>
-                        <div class="col-4">
-                            <a class="btn btn-primary w-100"
                                 href="{{action('ProgressaoController@index')}}">Dados profissionais</a>
                         </div>
                         <div class="col-8 my-1">
                             <h5>- Exibe informações referentes à carreira dos docentes</h5>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100"
+                                href="{{action('EventoController@index')}}">Histórico de Eventos</a>
+                        </div>
+                        <div class="col-8 my-1">
+                            <h5>- Exibe registro de todas alterações feitas no sistema</h5>
                         </div>
                         <div class="col-4">
                             <a class="btn btn-primary w-100"

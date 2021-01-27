@@ -59,23 +59,33 @@ class TituloController extends Controller
                 $newClasse = new ClasseDocente();
                 $newClasse->Classe_idClasse = $atualClasse->Classe_idClasse + 1;
                 $newClasse->Docente_idDocente = $docente->idDocente;
-                $newClasse->Usuario_idUsuario = 1;
+                $newClasse->Usuario_idUsuario = $idusuario;
                 $newClasse->save();
-    
+
                 $regra = Regra::orderBy('idRegra', 'desc')
                     ->first();
+
+                $eventoC = new Evento();
+                $eventoC->Docente_idDocente = $docente->idDocente;
+                $eventoC->TipoEvento_idTipoEvento = 1;
+                $eventoC->valorAntigo = (string)$atualClasse->Classe_idClasse;
+                $eventoC->valorNovo = (string)$newClasse->Classe_idClasse;
+                $eventoC->Regra_idRegra = $regra->idRegra;
+                $eventoC->Usuario_idUsuario = $idusuario;
+                $eventoC->save();
+
                 $base = $regra->salarioBase;
                 $base2 = $base*2;
                 $classeA = ($regra->aumentoClasse/100) + 1;
                 $classeB = ($regra->aumentoNivelB/100) + 1;
                 $classeC = $classeB * (($regra->aumentoNivelC/100) + 1);
                 $classeD = $classeC * (($regra->aumentoNivelD/100) + 1);
-                
+
                 $remuneracaoS = new Remuneracao();
                 $remuneracaoS->Docente_idDocente = $docente->idDocente;
                 $remuneracaoS->tipoBeneficio = 'S';
-                $remuneracaoS->Usuario_idUsuario = 1;
-                
+                $remuneracaoS->Usuario_idUsuario = $idusuario;
+
                 if($docente->cargaHoraria == 20){
                     if($nivel == 1) $remuneracaoS->valorBeneficio = $base * pow($classeA,($newClasse->Classe_idClasse - 1));
                     if($nivel == 2) $remuneracaoS->valorBeneficio = $base * pow($classeA,($newClasse->Classe_idClasse - 1)) * $classeB;
@@ -95,12 +105,10 @@ class TituloController extends Controller
                 $remuneracaoTS->Docente_idDocente = $docente->idDocente;
                 $remuneracaoTS->tipoBeneficio = 'TS';
                 $remuneracaoTS->valorBeneficio = $docente->tempoDeServico * (($regra->aumentoTDS/100) + 1) * $remuneracaoS->valorBeneficio / 100;
-                $remuneracaoTS->Usuario_idUsuario = 1;
+                $remuneracaoTS->Usuario_idUsuario = $idusuario;
                 $remuneracaoTS->save();
             }
-
             $docente->update();
-
         }
         if($request->hasFile('arquivo') && $request->file('arquivo')->isValid()){
             $titulo->nomeArquivo = $request->arquivo->getClientOriginalName();
@@ -151,6 +159,7 @@ class TituloController extends Controller
     }
     public function destroy($id)
     {
+        $idusuario = \Auth::user()->id;
         $titulo = Titulo::find($id);
         if($titulo->pontosDeDesempenhoT){
             $docente = Docente::find($titulo->Docente_idDocente);
@@ -169,11 +178,21 @@ class TituloController extends Controller
                 $newClasse = new ClasseDocente();
                 $newClasse->Classe_idClasse = $atualClasse->Classe_idClasse - 1;
                 $newClasse->Docente_idDocente = $docente->idDocente;
-                $newClasse->Usuario_idUsuario = 1;
+                $newClasse->Usuario_idUsuario = $idusuario;
                 $newClasse->save();
     
                 $regra = Regra::orderBy('idRegra', 'desc')
                     ->first();
+
+                $eventoC = new Evento();
+                $eventoC->Docente_idDocente = $docente->idDocente;
+                $eventoC->TipoEvento_idTipoEvento = 1;
+                $eventoC->valorAntigo = (string)$atualClasse->Classe_idClasse;
+                $eventoC->valorNovo = (string)$newClasse->Classe_idClasse;
+                $eventoC->Regra_idRegra = $regra->idRegra;
+                $eventoC->Usuario_idUsuario = $idusuario;
+                $eventoC->save();
+
                 $base = $regra->salarioBase;
                 $base2 = $base*2;
                 $classeA = ($regra->aumentoClasse/100) + 1;
@@ -184,7 +203,7 @@ class TituloController extends Controller
                 $remuneracaoS = new Remuneracao();
                 $remuneracaoS->Docente_idDocente = $docente->idDocente;
                 $remuneracaoS->tipoBeneficio = 'S';
-                $remuneracaoS->Usuario_idUsuario = 1;
+                $remuneracaoS->Usuario_idUsuario = $idusuario;
                 
                 if($docente->cargaHoraria == 20){
                     if($nivel == 1) $remuneracaoS->valorBeneficio = $base * pow($classeA,($newClasse->Classe_idClasse - 1));
@@ -205,7 +224,7 @@ class TituloController extends Controller
                 $remuneracaoTS->Docente_idDocente = $docente->idDocente;
                 $remuneracaoTS->tipoBeneficio = 'TS';
                 $remuneracaoTS->valorBeneficio = $docente->tempoDeServico * (($regra->aumentoTDS/100) + 1) * $remuneracaoS->valorBeneficio / 100;
-                $remuneracaoTS->Usuario_idUsuario = 1;
+                $remuneracaoTS->Usuario_idUsuario = $idusuario;
                 $remuneracaoTS->save();
             }
             $docente->save();
@@ -219,7 +238,7 @@ class TituloController extends Controller
         $eventoT->valorAntigo = (string)$titulo->nomeTitulo;
         $eventoT->valorNovo = (string)"N/A";
         $eventoT->Regra_idRegra = $regra->idRegra;
-        $eventoT->Usuario_idUsuario = \Auth::user()->id;
+        $eventoT->Usuario_idUsuario = $idusuario;
         $eventoT->save();
         $titulo->delete();
         return redirect()->back()->with('success', ['Titulo removido com sucesso!']);

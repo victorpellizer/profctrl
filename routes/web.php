@@ -31,8 +31,10 @@ Route::get('titulo-list', 'TituloController@tituloList')->name('tituloList');
 Route::get('docentes/create', 'DocenteController@create')->name('create'); 
 Route::get('docentes/{id}/show', 'DocenteController@show')->name('show'); 
 
-
-
+// BUSCAS
+Route::get('docentes/busca','DocenteController@busca');
+Route::get('progressao/busca','ProgressaoController@busca');
+Route::get('eventos/busca','EventoController@busca');
 
 Route::get('docentes/exportCSV/', 'DocenteController@exportCSV');
 Route::get('docentes/exportXLSX/', 'DocenteController@exportXLSX');

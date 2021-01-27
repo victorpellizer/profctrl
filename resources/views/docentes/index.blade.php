@@ -20,12 +20,29 @@
                     </div>
                     @endif
                     <div class="row p-3">
-                        <div class="col-5">
+                        <div class="col-6">
                             <h3>Docentes</h3>
-                        </div>  
-                        <div class="col-7 text-right">
-                            <a class="btn btn-primary" href="docentes/exportCSV">BAIXAR CSV</a>
-                            <a class="btn btn-primary" href="docentes/exportXLSX">BAIXAR XLSX</a>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-12 pb-3 d-flex justify-content-end">
+                                    <form action="{{url('/docentes/busca')}}" class="w-100" type="get">
+                                        <div class="row">
+                                            <div class="col-9 text-right">
+                                                <input name="query" type="search" class="form-control" placeholder="Buscar docente">
+                                            </div>
+                                            <div class="col-3">
+                                                <button class="btn btn-primary" type="submit">Buscar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-12 text-right">
+                                    <a class="btn btn-success" href="docentes/create">NOVO DOCENTE</a>
+                                    <a class="btn btn-primary" href="docentes/exportCSV">BAIXAR CSV</a>
+                                    <a class="btn btn-primary" href="docentes/exportXLSX">BAIXAR XLSX</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <table class="table table-striped w-100">
@@ -39,9 +56,9 @@
                                 <th>Tempo de Serviço</th>
                             </tr>
                         </thead>
-                    @if(isset($docentes))
+                        @if(isset($docentes))
                         <tbody>
-                        @foreach($docentes as $item)
+                            @foreach($docentes as $item)
                             <tr>
                                 <td><a href="/docentes/{{$item->idDocente}}">{{$item->nomeDocente}}</a></td>
                                 <td>{{$item->matricula}}</td>
@@ -50,13 +67,13 @@
                                 <td>{{$item->cargaHoraria}}</td>
                                 <td>{{$item->tempoDeServico}}</td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
-                    @endif
                     <div class="d-flex justify-content-center">
                         {{$docentes->links()}}
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

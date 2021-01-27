@@ -25,6 +25,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProgressaoController extends Controller
 {
+    public function busca()
+    {
+        $texto_busca = $_GET['query'];
+        $docentes = Docente::where('nomeDocente','LIKE','%'.$texto_busca.'%')
+            ->orWhere('matricula','LIKE','%'.$texto_busca.'%')
+            ->paginate(10);
+        return view('progressao.busca')
+            ->with(compact('docentes'));
+    }
     public function index() //PAGINAÇÃO
     {
         $docentes = Docente::select('idDocente', 'matricula','nomeDocente')->paginate(10);

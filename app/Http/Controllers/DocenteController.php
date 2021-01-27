@@ -30,10 +30,20 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class DocenteController extends Controller
 {
+    public function busca()
+    {
+        $texto_busca = $_GET['query'];
+        $docentes = Docente::where('nomeDocente','LIKE','%'.$texto_busca.'%')
+            ->orWhere('matricula','LIKE','%'.$texto_busca.'%')
+            ->paginate(10);
+        return view('docentes.busca')
+            ->with(compact('docentes'));
+    }
     public function index()
     {
         $docentes = Docente::select('idDocente','nomeDocente','matricula','cargo','pontosDeDesempenho','cargaHoraria','tempoDeServico')->paginate(10);
-        return view('docentes.index')->with(compact('docentes'));
+        return view('docentes.index')
+            ->with(compact('docentes'));
     }
     public function exportCSV() 
     {
@@ -69,35 +79,30 @@ class DocenteController extends Controller
         $docente->status = 1;
         $docente->pontosDeDesempenho = 0;
         $docente->save();
-		//dd($docente);
 
         $classe = new ClasseDocente();
         $classe->Classe_idClasse = (int)$request->input('classe');
         $classe->Docente_idDocente = $docente->idDocente;
         $classe->Usuario_idUsuario = $idusuario;
         $classe->save();
-        //dd($classe);
 
         $funcao = new FuncaoDocente();
         $funcao->Funcao_idFuncao = (int)$request->input('funcao');
         $funcao->Docente_idDocente = $docente->idDocente;
         $funcao->Usuario_idUsuario = $idusuario;
         $funcao->save();
-        //dd($funcao);
 
         $lotacao = new LotacaoDocente();
         $lotacao->Instituicao_idInstituicao = (int)$request->input('lotacao');
         $lotacao->Docente_idDocente = $docente->idDocente;
         $lotacao->Usuario_idUsuario = $idusuario;
         $lotacao->save();
-        //dd($lotacao);
 
         $nivel = new NivelDocente();
         $nivel->Nivel_idNivel = (int)$request->input('nivel');
         $nivel->Docente_idDocente = $docente->idDocente;
         $nivel->Usuario_idUsuario = $idusuario;
         $nivel->save();
-        //dd($nivel);
         
         $regra = Regra::orderBy('idRegra', 'desc')
             ->first();
@@ -305,7 +310,8 @@ class DocenteController extends Controller
         $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
 		
 		
-        return view('docentes.editar')->with(compact('docente'));
+        return view('docentes.editar')
+            ->with(compact('docente'));
     }
     public function update(Request $request, $id)
     {
@@ -548,13 +554,4 @@ class DocenteController extends Controller
         }
         return redirect()->back()->with('success', ['Atualizado com sucesso!']);
     }
-
-	public function docenteList()
-    {
-        $docente = DB::table('docente')->select('*');
-        return datatables()->of($docente)
-            ->make(true);
-    }
-
-
 }
