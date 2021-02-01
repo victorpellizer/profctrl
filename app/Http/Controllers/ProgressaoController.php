@@ -31,12 +31,82 @@ class ProgressaoController extends Controller
         $docentes = Docente::where('nomeDocente','LIKE','%'.$texto_busca.'%')
             ->orWhere('matricula','LIKE','%'.$texto_busca.'%')
             ->paginate(10);
+        foreach($docentes as $docente){
+            $idDocente = $docente->idDocente;
+            $var = ClasseDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioClasse', 'desc')
+                ->first();
+            $cls = Classe::where('idClasse', '=', $var['Classe_idClasse'])
+                ->first();
+            if(is_null($cls))
+                $docente->classe = "Não possui";
+            else $docente->classe = $cls['classe'];
+            $var = NivelDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioNivel', 'desc')
+                ->first();
+            $nvl = Nivel::where('idNivel', '=', $var['Nivel_idNivel'])
+                ->first();
+            if(is_null($nvl))
+                $docente->nivel = "Não possui";
+            else $docente->nivel = $nvl['nivel'];
+            $var = FuncaoDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioFuncao', 'desc')
+                ->first();
+            $func = Funcao::where('idFuncao', '=', $var['Funcao_idFuncao'])
+                ->first();
+            if(is_null($func)){
+                $docente->funcao = "Não possui";
+            } else $docente->funcao = $func['funcao'];
+
+            $var = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('dataInicioLotacao', 'desc')
+                ->first();
+            $lot = Lotacao::where('idInstituicao', '=', $var['Instituicao_idInstituicao'])
+                ->first();
+            if(is_null($lot))
+                $docente->lotacao = "Não possui";
+            else $docente->lotacao = $lot['nomeInstituicao'];
+
+            $beneficioS = Remuneracao::where('tipoBeneficio', '=', 'S')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioS))
+                $auxS = 0;
+            else $auxS = $beneficioS->valorBeneficio;
+
+            $beneficioD = Remuneracao::where('tipoBeneficio', '=', 'D')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioD))
+                $auxD = 0;
+            else $auxD = $beneficioD->valorBeneficio;
+
+            $beneficioTS = Remuneracao::where('tipoBeneficio', '=', 'TS')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioTS))
+                $auxTS = 0;
+            else $auxTS = $beneficioTS->valorBeneficio;
+
+            $beneficioG = Remuneracao::where('tipoBeneficio', '=', 'G')
+                ->where('Docente_idDocente', '=', $idDocente)
+                ->orderBy('idBeneficio', 'desc')
+                ->first();
+            if(is_null($beneficioG))
+                $auxG = 0;
+            else $auxG = $beneficioG->valorBeneficio;
+            $docente->beneficioTotal = $auxG + $auxTS + $auxD + $auxS;
+        }    
         return view('progressao.busca')
             ->with(compact('docentes'));
     }
     public function index() //PAGINAÇÃO
     {
-        $docentes = Docente::select('idDocente', 'matricula','nomeDocente')->paginate(10);
+        $docentes = Docente::select('idDocente', 'matricula','nomeDocente')
+            ->paginate(10);
         foreach($docentes as $docente){
             $idDocente = $docente->idDocente;
             $var = ClasseDocente::where('Docente_idDocente', '=', $idDocente)

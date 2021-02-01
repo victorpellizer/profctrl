@@ -20,7 +20,19 @@ class EventoController extends Controller
         $texto_busca = $_GET['query'];
         $eventos = Evento::where('idEvento','LIKE','%'.$texto_busca.'%')
             ->orWhere('Docente_idDocente','LIKE','%'.$texto_busca.'%')
-            ->paginate(10);
+            ->paginate(50);
+        foreach($eventos as $evento){
+            $tipoEvento = TipoEvento::where('idTipoEvento', '=', $evento->TipoEvento_idTipoEvento)
+                ->first();
+            $user = User::where('id', '=', $evento->Usuario_idUsuario)
+                ->first();
+            $regraVigente = Regra::select('descricao')
+                ->where('idRegra', '=', $evento->Regra_idRegra)
+                ->first();
+            $evento->Regra_idRegra = $regraVigente['descricao'];
+            $evento->Usuario_idUsuario = $user['name'];
+            $evento->TipoEvento_idTipoEvento = $tipoEvento['tipoEvento'];
+        }
         return view('eventos.busca')
             ->with(compact('eventos'));
     }
