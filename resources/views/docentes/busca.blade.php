@@ -28,7 +28,10 @@
                             <form action="{{url('/docentes/busca')}}" class="w-100" type="get">
                                 <div class="row">
                                     <div class="col-9 text-right">
-                                        <input name="query" type="search" class="form-control" placeholder="Buscar docente">
+                                        <input name="query" type="search" class="form-control"
+                                            placeholder="Buscar docente">
+                                    </div>
+                                    <div class="col-3">
                                         <button class="btn btn-primary" type="submit">Buscar</button>
                                     </div>
                                 </div>
@@ -44,6 +47,7 @@
                                 <th>Pontos de Desempenho</th>
                                 <th>Carga Horária</th>
                                 <th>Tempo de Serviço</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         @if(isset($docentes))
@@ -56,6 +60,7 @@
                                 <td>{{$item->pontosDeDesempenho}}</td>
                                 <td>{{$item->cargaHoraria}}</td>
                                 <td>{{$item->tempoDeServico}}</td>
+                                <td>{{$item->status}}</td>
                             </tr>
                             @endforeach
                         </tbody>

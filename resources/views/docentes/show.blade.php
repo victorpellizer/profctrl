@@ -147,32 +147,32 @@
                         <tr>
                             <th data-toggle="tooltip" data-placement="top"
                                 title="Soma de todas as remunerações atuais do Docente (R$).">Remuneração Total</th>
-                            <td>{{$docente->beneficioTotal}}</td>
+                            <td>R$ {{$docente->beneficioTotal}}</td>
                             <td><a href="{{action('RemuneracaoController@edit',$docente->idDocente)}}"><i
                                         class="fa fa-edit"></i></a></td>
                         </tr>
                         <tr>
                             <th data-toggle="tooltip" data-placement="top"
                                 title="Benefício de Salário do Docente (R$).">Salário</th>
-                            <td>{{$docente->beneficioS}}</td>
+                            <td>R$ {{$docente->beneficioS}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <th data-toggle="tooltip" data-placement="top"
                                 title="Benefício de Tempo de Serviço do Docente (R$).">Bônus por Tempo de Serviço</th>
-                            <td>{{$docente->beneficioTS}}</td>
+                            <td>R$ {{$docente->beneficioTS}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <th data-toggle="tooltip" data-placement="top"
                                 title="Benefício de Deslocamento do Docente (R$).">Deslocamento</th>
-                            <td>{{$docente->beneficioD}}</td>
+                            <td>R$ {{$docente->beneficioD}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <th data-toggle="tooltip" data-placement="top"
                                 title="Benefício de Gratificação do Docente (R$).">Gratificação</th>
-                            <td>{{$docente->beneficioG}}</td>
+                            <td>R$ {{$docente->beneficioG}}</td>
                             <td></td>
                         </tr>
                     </table>

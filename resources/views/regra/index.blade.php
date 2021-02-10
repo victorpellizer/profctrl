@@ -20,7 +20,7 @@
                     <tr>
                         <th scope="col" style="width: 200px" data-toggle="tooltip" data-placement="top"
                             title="Salário base do docente">Salário base</th>
-                        <td>R${{$regra->salarioBase}}</td>
+                        <td>R$ {{$regra->salarioBase}}</td>
                     </tr>
                     <tr>
                         <th data-toggle="tooltip" data-placement="top" title="Bônus por tempo de serviço">Bônus (%) por
@@ -55,37 +55,37 @@
                         <th data-toggle="tooltip" data-placement="top"
                             title="Define a porcentagem do salário base que será o adicional por deslocamento">Adicional
                             de Deslocamento</th>
-                        <td>{{$regra->deslocamento}}%, que equivale a R${{$regra->valorDeslocamento}}</td>
+                        <td>{{$regra->deslocamento}}%, que equivale a R$ {{$regra->valorDeslocamento}}</td>
                     </tr>
                     <tr>
                         <th data-toggle="tooltip" data-placement="top"
                             title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte I">
                             Gratificação (%) para instituição Porte I</th>
-                        <td>{{$regra->gratificacao1}}%, que equivale a R${{$regra->valorGratificacao1}}</td>
+                        <td>{{$regra->gratificacao1}}%, que equivale a R$ {{$regra->valorGratificacao1}}</td>
                     </tr>
                     <tr>
                         <th data-toggle="tooltip" data-placement="top"
                             title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte II">
                             Gratificação (%) para instituição Porte II</th>
-                        <td>{{$regra->gratificacao2}}%, que equivale a R${{$regra->valorGratificacao2}}</td>
+                        <td>{{$regra->gratificacao2}}%, que equivale a R$ {{$regra->valorGratificacao2}}</td>
                     </tr>
                     <tr>
                         <th data-toggle="tooltip" data-placement="top"
                             title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte III">
                             Gratificação (%) para instituição Porte III</th>
-                        <td>{{$regra->gratificacao3}}%, que equivale a R${{$regra->valorGratificacao3}}</td>
+                        <td>{{$regra->gratificacao3}}%, que equivale a R$ {{$regra->valorGratificacao3}}</td>
                     </tr>
                     <tr>
                         <th data-toggle="tooltip" data-placement="top"
                             title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte IV">
                             Gratificação (%) para instituição Porte IV</th>
-                        <td>{{$regra->gratificacao4}}%, que equivale a R${{$regra->valorGratificacao4}}</td>
+                        <td>{{$regra->gratificacao4}}%, que equivale a R$ {{$regra->valorGratificacao4}}</td>
                     </tr>
                     <tr>
                         <th data-toggle="tooltip" data-placement="top"
                             title="Define a porcentagem do salário base que será a gratificação por exercício da função de direção em instituições de porte V">
                             Gratificação (%) para instituição Porte V</th>
-                        <td>{{$regra->gratificacao5}}%, que equivale a R${{$regra->valorGratificacao5}}</td>
+                        <td>{{$regra->gratificacao5}}%, que equivale a R$ {{$regra->valorGratificacao5}}</td>
                     </tr>
                     <tr>
                         <th data-toggle="tooltip" data-placement="top" title="Regra atual foi inserida">Regra inserida

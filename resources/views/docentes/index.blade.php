@@ -54,6 +54,7 @@
                                 <th>Pontos de Desempenho</th>
                                 <th>Carga Horária</th>
                                 <th>Tempo de Serviço</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         @if(isset($docentes))
@@ -66,6 +67,7 @@
                                 <td>{{$item->pontosDeDesempenho}}</td>
                                 <td>{{$item->cargaHoraria}}</td>
                                 <td>{{$item->tempoDeServico}}</td>
+                                <td>{{$item->status}}</td>
                             </tr>
                             @endforeach
                         </tbody>

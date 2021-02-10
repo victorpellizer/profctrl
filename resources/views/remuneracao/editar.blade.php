@@ -48,11 +48,11 @@
                             </tr>
                             <tr>
                                 <td>Salário</td>
-                                <th>{{$docente->beneficioS}}</th>
+                                <th>R$ {{$docente->beneficioS}}</th>
                             </tr>
                             <tr>
                                 <td>Bonus por tempo de serviço</td>
-                                <th>{{$docente->beneficioTS}}</th>
+                                <th>R$ {{$docente->beneficioTS}}</th>
                             </tr>
                         </table>
                         <h5>Alteração de Benefícios</h5>
@@ -118,7 +118,7 @@
                             @foreach($remuneracoes as $r)
                             <tr>
                                 <td>{{$r->tipoBeneficio}}</td>
-                                <td>{{$r->valorBeneficio}}</td>
+                                <td>R$ {{$r->valorBeneficio}}</td>
                                 <td>{{$r->usuario}} em {{$r->dataInicioBeneficio}}</td>
                             </tr>
                             @endforeach

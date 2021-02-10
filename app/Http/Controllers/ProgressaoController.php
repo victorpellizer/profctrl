@@ -28,8 +28,10 @@ class ProgressaoController extends Controller
     public function busca()
     {
         $texto_busca = $_GET['query'];
-        $docentes = Docente::where('nomeDocente','LIKE','%'.$texto_busca.'%')
+        $docentes = Docente::where('status', '=', '1')
+            ->where('nomeDocente','LIKE','%'.$texto_busca.'%')
             ->orWhere('matricula','LIKE','%'.$texto_busca.'%')
+            ->orderBy('nomeDocente')
             ->paginate(10);
         foreach($docentes as $docente){
             $idDocente = $docente->idDocente;
@@ -98,7 +100,7 @@ class ProgressaoController extends Controller
             if(is_null($beneficioG))
                 $auxG = 0;
             else $auxG = $beneficioG->valorBeneficio;
-            $docente->beneficioTotal = $auxG + $auxTS + $auxD + $auxS;
+            $docente->beneficioTotal = number_format($auxG + $auxTS + $auxD + $auxS, 2, ',', '.');
         }    
         return view('progressao.busca')
             ->with(compact('docentes'));
@@ -106,6 +108,8 @@ class ProgressaoController extends Controller
     public function index() //PAGINAÇÃO
     {
         $docentes = Docente::select('idDocente', 'matricula','nomeDocente')
+            ->where('status', '=', '1')
+            ->orderBy('nomeDocente')
             ->paginate(10);
         foreach($docentes as $docente){
             $idDocente = $docente->idDocente;
@@ -174,7 +178,7 @@ class ProgressaoController extends Controller
             if(is_null($beneficioG))
                 $auxG = 0;
             else $auxG = $beneficioG->valorBeneficio;
-            $docente->beneficioTotal = $auxG + $auxTS + $auxD + $auxS;
+            $docente->beneficioTotal = number_format($auxG + $auxTS + $auxD + $auxS, 2, ',', '.');
         }
         return view('progressao.index')->with(compact('docentes'));
     }

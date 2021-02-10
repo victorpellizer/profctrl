@@ -94,7 +94,12 @@ class RemuneracaoController extends Controller
             $docente->beneficioG = 0;
         } else $docente->beneficioG = $beneficioG->valorBeneficio;
 
-        $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
+        $docente->beneficioTotal = number_format($docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS, 2, ',', '.');
+        $docente->beneficioG = number_format($docente->beneficioG, 2, ',', '.');
+        $docente->beneficioTS = number_format($docente->beneficioTS, 2, ',', '.');
+        $docente->beneficioD = number_format($docente->beneficioD, 2, ',', '.');
+        $docente->beneficioS = number_format($docente->beneficioS, 2, ',', '.');
+
 
         $remuneracoes = Remuneracao::where('Docente_idDocente', '=', $idDocente)
             ->orderBy('idBeneficio', 'desc')
@@ -102,6 +107,7 @@ class RemuneracaoController extends Controller
         foreach($remuneracoes as $remuneracao){
             $user = User::where('id', '=', $remuneracao['Usuario_idUsuario'])
                 ->first();
+            $remuneracao->valorBeneficio = number_format($remuneracao->valorBeneficio, 2, ',', '.');
             $remuneracao->usuario = $user['name'];
             if($remuneracao->tipoBeneficio == 'D'){
                 $remuneracao->tipoBeneficio = 'Deslocamento';

@@ -80,7 +80,7 @@
                                 <td>{{$item->classe}}</td>
                                 <td>{{$item->lotacao}}</td>
                                 <td>{{$item->funcao}}</td>
-                                <td>R${{$item->beneficioTotal}}</td>
+                                <td>R$ {{$item->beneficioTotal}}</td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -28,7 +28,10 @@
                             <form action="{{url('/progressao/busca')}}" class="w-100" type="get">
                                 <div class="row">
                                     <div class="col-9 text-right">
-                                        <input name="query" type="search" class="form-control" placeholder="Buscar docente">
+                                        <input name="query" type="search" class="form-control"
+                                            placeholder="Buscar docente">
+                                    </div>
+                                    <div class="col-3">
                                         <button class="btn btn-primary" type="submit">Buscar</button>
                                     </div>
                                 </div>
@@ -56,14 +59,15 @@
                                 <th title="Função do docente">
                                     Função
                                 </th>
-                                <th title="Remuneração do docente, composta por salário, tempo de serviço, gratificação e deslocamento">
+                                <th
+                                    title="Remuneração do docente, composta por salário, tempo de serviço, gratificação e deslocamento">
                                     Remuneração
                                 </th>
                             </tr>
                         </thead>
-                    @if(isset($docentes))
+                        @if(isset($docentes))
                         <tbody>
-                        @foreach($docentes as $item)
+                            @foreach($docentes as $item)
                             <tr>
                                 <td><a href="/docentes/{{$item->idDocente}}">{{$item->nomeDocente}}</a></td>
                                 <td>{{$item->matricula}}</td>
@@ -71,9 +75,9 @@
                                 <td>{{$item->classe}}</td>
                                 <td>{{$item->lotacao}}</td>
                                 <td>{{$item->funcao}}</td>
-                                <td>R${{$item->beneficioTotal}}</td>
+                                <td>R$ {{$item->beneficioTotal}}</td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">

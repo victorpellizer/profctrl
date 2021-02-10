@@ -35,13 +35,27 @@ class DocenteController extends Controller
         $texto_busca = $_GET['query'];
         $docentes = Docente::where('nomeDocente','LIKE','%'.$texto_busca.'%')
             ->orWhere('matricula','LIKE','%'.$texto_busca.'%')
+            ->orderBy('nomeDocente')
             ->paginate(10);
+        foreach($docentes as $docente){
+            if($docente->status){
+                $docente->status = "Ativo";
+            } else $docente->status = "Inativo";
+        }
         return view('docentes.busca')
             ->with(compact('docentes'));
     }
     public function index()
     {
-        $docentes = Docente::select('idDocente','nomeDocente','matricula','cargo','pontosDeDesempenho','cargaHoraria','tempoDeServico')->paginate(10);
+        $docentes = Docente::select('idDocente','nomeDocente','matricula','cargo','pontosDeDesempenho','cargaHoraria','tempoDeServico','status')
+            ->orderBy('nomeDocente')
+            ->paginate(10);
+        
+        foreach($docentes as $docente){
+            if($docente->status){
+                $docente->status = "Ativo";
+            } else $docente->status = "Inativo";
+        }
         return view('docentes.index')
             ->with(compact('docentes'));
     }
@@ -131,7 +145,6 @@ class DocenteController extends Controller
         }
         else $remuneracaoS->valorBeneficio = 0;
         $remuneracaoS->save();
-        //dd($remuneracaoS);
 
         $remuneracaoTS = new Remuneracao();
         $remuneracaoTS->Docente_idDocente = $docente->idDocente;
@@ -139,7 +152,6 @@ class DocenteController extends Controller
         $remuneracaoTS->valorBeneficio = $docente->tempoDeServico * (($regra->aumentoTDS/100) + 1) * $remuneracaoS->valorBeneficio / 100;
         $remuneracaoTS->Usuario_idUsuario = $idusuario;
         $remuneracaoTS->save();
-        //dd($remuneracaoTS);
 
         $remuneracaoG = new Remuneracao();
         $remuneracaoG->Docente_idDocente = $docente->idDocente;
@@ -147,7 +159,6 @@ class DocenteController extends Controller
         $remuneracaoG->Usuario_idUsuario = $idusuario;
         $remuneracaoG->valorBeneficio = (float)$request->input('beneficioG');
         $remuneracaoG->save();
-        //dd($remuneracaoG);
 
         $remuneracaoD = new Remuneracao();
         $remuneracaoD->Docente_idDocente = $docente->idDocente;
@@ -155,7 +166,6 @@ class DocenteController extends Controller
         $remuneracaoD->Usuario_idUsuario = $idusuario;
         $remuneracaoD->valorBeneficio = (float)$request->input('beneficioD');
         $remuneracaoD->save();
-        //dd($remuneracaoD);
         
         return redirect()->back()->with('success', ['Cadastrado com sucesso!']);
     }
@@ -227,89 +237,27 @@ class DocenteController extends Controller
             ->where('Docente_idDocente', '=', $idDocente)
             ->orderBy('idBeneficio', 'desc')
             ->first();
+
         if(is_null($beneficioG)){
             $docente->beneficioG = 0;
         } else $docente->beneficioG = $beneficioG->valorBeneficio;
-        $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
+
+        $docente->beneficioTotal = number_format($docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS, 2, ',', '.');
+        $docente->beneficioG = number_format($docente->beneficioG, 2, ',', '.');
+        $docente->beneficioTS = number_format($docente->beneficioTS, 2, ',', '.');
+        $docente->beneficioD = number_format($docente->beneficioD, 2, ',', '.');
+        $docente->beneficioS = number_format($docente->beneficioS, 2, ',', '.');
+
         if($docente->status == '1'){
                 $docente->status = "Ativo";
         } else $docente->status = "Inativo";
-        return view('docentes.show')->with(compact('docente'));
+
+        return view('docentes.show')
+            ->with(compact('docente'));
     }
     public function edit($id)
     {
         $docente = Docente::find($id);
-        $idDocente = $docente->idDocente;
-        $var = ClasseDocente::where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('dataInicioClasse', 'desc')
-            ->first();
-        $cls = Classe::where('idClasse', '=', $var['Classe_idClasse'])
-            ->first();
-        if(is_null($cls)){
-            $docente->classe = "Não possui";
-        } else $docente->classe = $cls['classe'];
-
-        $var = NivelDocente::where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('dataInicioNivel', 'desc')
-            ->first();
-        $nvl = Nivel::where('idNivel', '=', $var['Nivel_idNivel'])
-            ->first();
-        if(is_null($nvl)){
-            $docente->nivel = "Não possui";
-        } else $docente->nivel = $nvl['nivel'];
-
-        $var = FuncaoDocente::where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('dataInicioFuncao', 'desc')
-            ->first();
-        $func = Funcao::where('idFuncao', '=', $var['Funcao_idFuncao'])
-            ->first();
-        if(is_null($func)){
-                $valor = "Não possui";
-        } else $docente->funcao = $func['funcao'];
-
-        $var = LotacaoDocente::where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('dataInicioLotacao', 'desc')
-            ->first();
-        $lot = Lotacao::where('idInstituicao', '=', $var['Instituicao_idInstituicao'])
-            ->first();
-        if(is_null($lot)){
-            $valor = "Não possui";
-        } else $docente->lotacao = $lot['nomeInstituicao'];
-
-        $beneficioS = Remuneracao::where('tipoBeneficio', '=', 'S')
-            ->where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('idBeneficio', 'desc')
-            ->first();
-        if(is_null($beneficioS)){
-            $docente->beneficioS = 0;
-        } else $docente->beneficioS = $beneficioS->valorBeneficio;
-
-        $beneficioD = Remuneracao::where('tipoBeneficio', '=', 'D')
-            ->where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('idBeneficio', 'desc')
-            ->first();
-        if(is_null($beneficioD)){
-            $docente->beneficioD = 0;
-        } else $docente->beneficioD = $beneficioD->valorBeneficio;
-
-        $beneficioTS = Remuneracao::where('tipoBeneficio', '=', 'TS')
-            ->where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('idBeneficio', 'desc')
-            ->first();
-        if(is_null($beneficioTS)){
-            $docente->beneficioTS = 0;
-        } else $docente->beneficioTS = $beneficioTS->valorBeneficio;
-
-        $beneficioG = Remuneracao::where('tipoBeneficio', '=', 'G')
-            ->where('Docente_idDocente', '=', $idDocente)
-            ->orderBy('idBeneficio', 'desc')
-            ->first();
-        if(is_null($beneficioG)){
-            $docente->beneficioG = 0;
-        } else $docente->beneficioG = $beneficioG->valorBeneficio;
-        $docente->beneficioTotal = $docente->beneficioG + $docente->beneficioTS + $docente->beneficioD + $docente->beneficioS;
-		
-		
         return view('docentes.editar')
             ->with(compact('docente'));
     }
