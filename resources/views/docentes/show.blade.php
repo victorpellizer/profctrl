@@ -41,12 +41,13 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <h3>Perfil de docente - {{$docente->nomeDocente}} <i class="fa fa-info-circle btn btn-secundary"
-                            style="float: right" data-toggle="tooltip" data-placement="top" title="Aqui estão as informações cadastrais do docente  {{$docente->nomeDocente}}, 
-                            você pode clicar no botão de visualização de títulos e licenças, assim como, também 
-                            pode editar o perfil dele ou clicar nos ícones de edição de progressão de carreira 
-                            para mudar dados sobre a Progressão de Carreira do Docente. Para mais informações 
-                            sobre cada dado da tabela, posicionar o cursor do mouse sobre o dado."></i>
+                    <h3><i class="fas fa-info-circle" title="Esta tela apresenta todos os dados relacionados ao docente escolhido. Nela você pode 
+acessar os registros de títulos do docente (Clicando no botão Títulos), acessar as licenças 
+do docente (No botão Licenças), editar os dados do perfil do docente (Clicando em Editar 
+Docente), ativar ou inativar o docente (Clicando em Ativar Docente, caso ele esteja inativo, 
+e Inativar Docente, caso ele esteja ativo). Além disso você pode editar a lotação, função, 
+classe, nível e remuneração total, clicando no botão ao lado dos campos."></i> Perfil de docente - {{$docente->nomeDocente}}
+
                     </h3>
                     <hr>
 

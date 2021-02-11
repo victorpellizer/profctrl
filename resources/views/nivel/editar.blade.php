@@ -31,7 +31,9 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <h3>Editar nível - {{$docente->nomeDocente}}</h3>
+                    <h3><i class="fas fa-info-circle" title="Nesta tela você pode selecionar o nível do docente, portanto, selecione
+um nível para o docente e clique em Salvar para finalizar. Caso deseje 
+voltar, clique em Voltar."></i> Editar nível - {{$docente->nomeDocente}}</h3>
                     <hr>
                     <form method="POST" action="{{action('NivelController@update',$docente->idDocente)}}">
                         @csrf

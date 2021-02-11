@@ -14,7 +14,9 @@
                     <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
                 </ol>
 <div class="row">
+<i class="fas fa-info-circle" style="font-size:2rem" title="Esta tela contém o contato dos desenvolvedores para reportar erros ou bugs, assim como dar sugestões."></i>
                     <div class="col-xl-4 offset-xl-1">
+                    
                         <div class="box" style="text-align: center;"><img class="rounded-circle" src="assets/img/gus.jpg" width="300px">
                             <h3 class="name">Gustavo Rosas</h3>
                             <p class="title">Desenvolvedor</p>

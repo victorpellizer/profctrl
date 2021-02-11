@@ -14,7 +14,7 @@
             </nav>
             <div class="card">
                     <div class="card-body">
-                       <h3>Informações Gerais <i class="fa fa-info-circle btn btn-secundary" style="float: right" data-toggle="tooltip" data-placement="top" title="Nesta seção está listada todas as Informações que podem ser selecionadas no sistema."></i></h3>
+                       <h3><i class="fas fa-info-circle" title="Tela para visualização das informações gerais do sistema."></i> Informações Gerais</h3>
                         <hr>
             <div class="row">
                 <div class="col">

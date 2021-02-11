@@ -44,9 +44,10 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h3>Inserir nova licença de {{$docente->nomeDocente}} <i class="fa fa-info-circle btn btn-secundary"
-                            style="float: right" data-toggle="tooltip" data-placement="top"
-                            title="Para adicionar uma nova licença, insira um arquivo (Opcional) e preencha os campos corretamente e clique no botão 'Cadastrar Licença'."></i>
+                    <h3>
+                    <i class="fas fa-info-circle" title="Preencha os campos obrigatórios (indicados com *), se necessário, anexe 
+um arquivo clicando em Escolher arquivo, selecionando o arquivo e confirmando 
+a seleção."></i> Inserir nova licença de {{$docente->nomeDocente}}
                     </h3>
                     <hr>
 

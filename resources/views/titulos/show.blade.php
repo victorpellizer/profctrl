@@ -36,7 +36,9 @@
             @endif
 			
             <div class="card">
-            <div class="card-body"><h3>Títulos de {{$docente->nomeDocente}} <i class="fa fa-info-circle btn btn-secundary" style="float: right" data-toggle="tooltip" data-placement="top" title="Aqui estão dispostos todos os títulos do docente {{$docente->nomeDocente}}. Você pode excluir os títulos ao clicar no ícone 'X' ao lado de cada título. Para mais informações sobre cada dado da tabela, posicionar o cursor do mouse sobre o dado."></i></h3>
+            <div class="card-body"><h3><i class="fas fa-info-circle" title="Tela que indica todos os títulos dos docentes. Clique no nome do docente para 
+acessar seu perfil, ou então clique na imagem respectiva na coluna anexo para 
+visualizar em tela cheia o anexo."></i> Títulos de {{$docente->nomeDocente}}</h3>
                 <table class="table display responsive no-wrap table-striped">
                 	<thead>
                 	<tr>

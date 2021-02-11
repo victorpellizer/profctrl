@@ -20,16 +20,21 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    
+
                     <div class="row p-3">
                         <div class="col-6">
-                            <h3>Eventos</h3>
+                            <h3><i class="fas fa-info-circle"
+                                    title="Esta tela mostra o resultado da busca da tela de listagem de eventos."></i>
+                                Eventos</h3>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
                             <form action="{{url('/eventos/busca')}}" class="w-100" type="get">
                                 <div class="row">
                                     <div class="col-9 text-right">
-                                        <input name="query" type="search" class="form-control" placeholder="Buscar evento">
+                                        <input name="query" type="search" class="form-control"
+                                            placeholder="Buscar evento">
+                                    </div>
+                                    <div class="col-3">
                                         <button class="btn btn-primary" type="submit">Buscar</button>
                                     </div>
                                 </div>
@@ -48,9 +53,9 @@
                                 <th>Criado por</th>
                             </tr>
                         </thead>
-                    @if(isset($eventos))
+                        @if(isset($eventos))
                         <tbody>
-                        @foreach($eventos as $item)
+                            @foreach($eventos as $item)
                             <tr>
                                 <td>{{$item->idEvento}}</td>
                                 <td>{{$item->Docente_idDocente}}</td>
@@ -60,7 +65,7 @@
                                 <td>{{$item->Regra_idRegra}}</td>
                                 <td>{{$item->Usuario_idUsuario}} em {{$item->dataEvento}}</td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">

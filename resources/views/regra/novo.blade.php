@@ -32,7 +32,11 @@
 
 
                 <div class="card">
-                <div class="card-header">Cadastro de Nova Regra</div>
+                <div class="card-header" style="font-size: 1.5rem"><i class="fas fa-info-circle" title="Preencha os campos de acordo com a lei vigente do município de Carambeí. 
+Todos os campos são obrigatórios. Quando completar todos os campos, 
+clique em Cadastrar. Para mais informações, mantenha o cursor do 
+mouse sobre o dado a ser inserido. Para voltar para a visualização 
+da lei salarial vigente, clique em Voltar."></i> Cadastro de Nova Regra</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -40,9 +44,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    
 
-                    <h6>- Todos os Campos são OBRIGATÓRIOS.</h6><br>
-                    <h6>- Para mais informações, mantenha o cursor do mouse sobre o dado a ser inserido.</h6><br>
                     <form method="POST" action="{{action('RegraController@store')}}">
                         @csrf
 

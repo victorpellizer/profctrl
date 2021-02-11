@@ -21,7 +21,9 @@
                     @endif
                     <div class="row p-3">
                         <div class="col-6">
-                            <h3>Eventos</h3>
+                            <h3><i class="fas fa-info-circle" title="Tela para visualização do histórico de eventos do sistema, onde pode-se verificar 
+o identificador do evento, juntamente com a mudança feita, por quem foi feito e 
+a data e horário que foi feito."></i> Eventos</h3>
                         </div>
                         <div class="col-6">
                             <div class="row">

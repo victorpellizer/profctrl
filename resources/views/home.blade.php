@@ -8,7 +8,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-white">
-                    <h2>PROFCTRL</h2>
+                    <h2><i class="fas fa-info-circle" title="Esta é a tela principal do sistema, nela você encontra todas as funções dele. 
+Clique em um dos botões para acessar a página correspondente."></i> PROFCTRL</h2>
                     <h4>Esta é a tela principal, onde você pode acessar todas as funcionalidades do sistema
                     </h4>
                 </div>

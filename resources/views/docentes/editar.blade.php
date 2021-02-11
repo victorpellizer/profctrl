@@ -36,7 +36,9 @@
                     <form method="POST" action="{{action('DocenteController@update',$docente->idDocente)}}">
                         @csrf
                         @method('PUT')
-                        <h3>Editar docente - {{$docente->nomeDocente}}</h3>
+                        <h3><i class="fas fa-info-circle" title="Nesta tela você pode editar os dados do perfil do docente, como o nome, 
+matrícula, cargo, etc. Preencha os campos com os dados desejados e clique 
+em Salvar para terminar a edição. Caso deseja voltar, clique em Voltar."></i> Editar docente - {{$docente->nomeDocente}}</h3>
                         <hr>
                         Nome:
                         <input id="nomeDocente" style="width: 500px" type="text"

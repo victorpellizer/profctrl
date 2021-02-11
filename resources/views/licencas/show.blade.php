@@ -36,7 +36,12 @@
             @endif
 
             <div class="card">
-            <div class="card-body"><h3>Licenças de {{$docente->nomeDocente}} <i class="fa fa-info-circle btn btn-secundary" style="float: right" data-toggle="tooltip" data-placement="top" title="Aqui estão dispostos todas as licenças do docente {{$docente->nomeDocente}}. Você pode excluir as licenças ao clicar no ícone 'X' ao lado de cada licença. Para mais informações sobre cada dado da tabela, posicionar o cursor do mouse sobre o dado."></i></h3>
+            <div class="card-body">
+            <h3>
+            <i class="fas fa-info-circle" title="Tela que indica todas as licenças dos docentes. Clique no nome do docente 
+para acessar seu perfil, ou então clique na imagem respectiva na coluna 
+anexo para visualizar em tela cheia o anexo."></i> Licenças de {{$docente->nomeDocente}}
+            </h3>
                 <table class="table display responsive no-wrap table-striped">
                 	<thead>
                 	<tr>

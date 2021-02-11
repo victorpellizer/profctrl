@@ -22,7 +22,7 @@
                     @endif
                     <div class="row p-3">
                         <div class="col-6">
-                            <h3>Docentes</h3>
+                            <h3><i class="fas fa-info-circle" title="Esta tela mostra o resultado da busca da tela de listagem de docentes."></i> Docentes</h3>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
                             <form action="{{url('/docentes/busca')}}" class="w-100" type="get">

@@ -29,15 +29,17 @@
             </div>
             @endif
             <div class="card">
-                <div class="card-header">Cadastro de Docente</div>
+                <div class="card-header" style="font-size: 1.5rem"><i class="fas fa-info-circle" title="Preencha e selecione os campos corretamente e ao final clique em Cadastrar para 
+registrar o novo Docente. Todos os Campos são OBRIGATÓRIOS. Para mais informações, 
+mantenha o cursor do mouse sobre o dado a ser inserido. Caso queira voltar para 
+lista de docentes, clique em Voltar."></i> Cadastro de Docente</div>
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                     @endif
-                    <h6>- Todos os Campos são OBRIGATÓRIOS.</h6><br>
-                    <h6>- Para mais informações, mantenha o cursor do mouse sobre o dado a ser inserido.</h6><br>
+                    
                     <form method="POST" action="{{action('DocenteController@store')}}">
                         @csrf
                         <div class="form-group row">

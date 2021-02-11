@@ -7,7 +7,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registrar novo usuário') }}</div>
+                <div class="card-header">
+                {{ __('Registrar novo usuário') }} <i class="fas fa-info-circle" title="Tela utilizada para registrar um novo usuário no sistema. Preencha os campos corretamente 
+e obtenha um código de registro com um usuário ou desenvolvedor para permitir 
+que seu cadastro seja efetuado, e assim que completar todos os campos, clique 
+em Registrar usuário. Caso deseje voltar a tela de login, clique em Voltar.
+Nessa tela você pode efetuar seu login, preenchendo os campos de e-mail e 
+senha corretamente, podendo habilitar a função de lembrar o login e senha, 
+para que em um próximo acesso, seja lembrado seu login. Depois de preenchidos os 
+campos, clique em Login para efetuar o login. Também é possível acessar 
+a tela de registro, clicando no botão Registrar-se."></i>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

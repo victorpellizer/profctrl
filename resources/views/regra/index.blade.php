@@ -14,7 +14,8 @@
                     <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
                 </ol>
                 <div class="pt-2 pb-2">
-                    <h3>Lei vigente: {{$regra->descricao}}</h3>
+                    <h3><i class="fas fa-info-circle" title="Esta tela apresenta todos os dados relacionados com a lei salarial vigente 
+do município de Carambeí, para editar as informações, clique em Atualizar regra."></i> Lei vigente: {{$regra->descricao}}</h3>
                 </div>
                 <table class="table display responsive no-wrap table-striped" style="width: 600px">
                     <tr>

@@ -16,9 +16,9 @@
             </nav>
             <div class="card">
                 <div class="card-body">
-                    <h3>Lista de títulos dos docentes <i class="fa fa-info-circle btn btn-secundary"
-                            style="float: right" data-toggle="tooltip" data-placement="top"
-                            title="Todas os Títulos de todos os Docentes estão listadas abaixo. Você pode editar elas ao clicar nos nomes dos Docentes. Para adicionar um novo título, entre no perfil de um Docente, clique no botão de Títulos e depois no botão 'Adicionar Título'."></i>
+                    <h3><i class="fas fa-info-circle" title="Tela que indica todos os títulos dos docentes. Clique no nome do docente para 
+acessar seu perfil, ou então clique na imagem respectiva na coluna anexo para 
+visualizar em tela cheia o anexo."></i> Lista de títulos dos docentes
                     </h3>
                     <hr>
                     <table class="table display responsive no-wrap table-striped">

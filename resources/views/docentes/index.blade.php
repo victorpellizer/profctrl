@@ -21,7 +21,12 @@
                     @endif
                     <div class="row p-3">
                         <div class="col-6">
-                            <h3>Docentes</h3>
+                            <h3><i class="fas fa-info-circle" title="Nessa página você consegue visualizar todos os docentes que estão cadastrados, 
+estando eles ativos ou inativos, buscar um docente específico no campo de 
+pesquisa, podendo cadastrar novos docentes (clicando no botão NOVO DOCENTE), 
+e também exportar a lista em CSV ou XLSX de todos os docentes cadastrados. 
+Para acessar os dados de um docente, clique no nome do docente que deseja 
+acessar."></i> Docentes</h3>
                         </div>
                         <div class="col-6">
                             <div class="row">

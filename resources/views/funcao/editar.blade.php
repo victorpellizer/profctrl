@@ -32,7 +32,9 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <h3>Editar função - {{$docente->nomeDocente}}</h3>
+                    <h3><i class="fas fa-info-circle" title="Nesta tela você pode selecionar a função do docente, portanto, selecione 
+uma função para o docente e clique em Salvar para finalizar. Caso deseje 
+voltar, clique em Voltar."></i> Editar função - {{$docente->nomeDocente}}</h3>
                     <hr>
                     <form method="POST" action="{{action('FuncaoController@update',$docente->idDocente)}}">
                         @csrf

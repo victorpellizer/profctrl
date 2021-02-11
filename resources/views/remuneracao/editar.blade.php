@@ -33,7 +33,9 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <h3>Editar remuneração - {{$docente->nomeDocente}}</h3>
+                    <h3><i class="fas fa-info-circle" title="Nesta tela você pode editar a gratificação e deslocamento do docente, portanto, selecione 
+uma gratificação e/ou deslocamento para o docente e clique em Salvar para finalizar. Caso 
+deseje voltar, clique em Voltar."></i> Editar remuneração - {{$docente->nomeDocente}}</h3>
                     <form method="POST" action="{{action('RemuneracaoController@update',$docente->idDocente)}}">
                         @csrf
                         @method('PUT')

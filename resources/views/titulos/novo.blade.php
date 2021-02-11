@@ -41,15 +41,13 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h3>Inserir título novo de {{$docente->nomeDocente}}<i class="fa fa-info-circle btn btn-secundary"
-                            style="float: right" data-toggle="tooltip" data-placement="top"
-                            title="Para adicionar um novo título, insira um arquivo (Opcional) e preencha os campos corretamente e clique no botão 'Cadastrar Título."></i>
+                    <h3><i class="fas fa-info-circle" title="Preencha os campos obrigatórios (indicados com *), se necessário, anexe 
+um arquivo clicando em Escolher arquivo, selecionando o arquivo e confirmando 
+a seleção. Caso o título valha pontos de desempenho, basta inseri-los."></i> Inserir título novo de {{$docente->nomeDocente}}
                     </h3>
                     <hr>
                     <form method="POST" action="{{action('TituloController@store')}}" enctype="multipart/form-data">
                         @csrf
-                        <h7>- Campos com '*' são obrigatórios.</h7>
-                        <hr>
                         <input id="Docente_idDocente" type="hidden" name="Docente_idDocente"
                             value="{{$docente->idDocente}}">
                         * Descrição do Título:
