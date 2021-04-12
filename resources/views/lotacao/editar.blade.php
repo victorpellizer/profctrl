@@ -11,7 +11,8 @@
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{action('DocenteController@index')}}">Docentes</a></li>
                     <li class="breadcrumb-item"><a
-                            href="{{action('DocenteController@show',$docente->idDocente)}}">{{$docente->nomeDocente}}</a></li>
+                            href="{{action('DocenteController@show',$docente->idDocente)}}">{{$docente->nomeDocente}}</a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">Editar lotação</li>
                 </ol>
             </nav>
@@ -45,28 +46,28 @@ deseje voltar, clique em Voltar."></i> Editar lotação - {{$docente->nomeDocent
                             <option value="15" {{$docente->lotacao=="Sem Lotação" ? 'selected' : ''}}>Sem Lotação
                             </option>
                             <option value="1" {{$docente->lotacao=="Betânia" ? 'selected' : ''}}>Betânia</option>
-                            <option value="2" {{$docente->lotacao=="Tônia Harms" ? 'selected' : ''}}>Tônia Harms
-                            </option>
-                            <option value="3" {{$docente->lotacao=="Geralda Harms" ? 'selected' : ''}}>Geralda Harms
+                            <option value="14" {{$docente->lotacao=="Biblioteca" ? 'selected' : ''}}>Biblioteca</option>
+                            <option value="5" {{$docente->lotacao=="Canaã" ? 'selected' : ''}}>Canaã</option>
+                            <option value="13" {{$docente->lotacao=="Dep. Alim Esc" ? 'selected' : ''}}>Dep. Alim. Esc
                             </option>
                             <option value="4" {{$docente->lotacao=="Fátima A. Bosa" ? 'selected' : ''}}>Fátima A. Bosa
                             </option>
-                            <option value="5" {{$docente->lotacao=="Canaã" ? 'selected' : ''}}>Canaã</option>
-                            <option value="6" {{$docente->lotacao=="Limpo Grande" ? 'selected' : ''}}>Limpo Grande
-                            </option>
-                            <option value="7" {{$docente->lotacao=="São Judas Tadeu" ? 'selected' : ''}}>São Judas Tadeu
+                            <option value="3" {{$docente->lotacao=="Geralda Harms" ? 'selected' : ''}}>Geralda Harms
                             </option>
                             <option value="8" {{$docente->lotacao=="José P. N. Rosas" ? 'selected' : ''}}>José P. N.
                                 Rosas</option>
+                            <option value="6" {{$docente->lotacao=="Limpo Grande" ? 'selected' : ''}}>Limpo Grande
+                            </option>
+                            <option value="12" {{$docente->lotacao=="Santa Cruz" ? 'selected' : ''}}>Santa Cruz</option>
+                            <option value="7" {{$docente->lotacao=="São Judas Tadeu" ? 'selected' : ''}}>São Judas Tadeu
+                            </option>
                             <option value="9" {{$docente->lotacao=="SMEC" ? 'selected' : ''}}>SMEC</option>
                             <option value="10" {{$docente->lotacao=="Sta Rita de Cássia" ? 'selected' : ''}}>Sta Rita de
                                 Cassia</option>
                             <option value="11" {{$docente->lotacao=="Theresa G. Seifarth" ? 'selected' : ''}}>Theresa G.
                                 Seifarth</option>
-                            <option value="12" {{$docente->lotacao=="Santa Cruz" ? 'selected' : ''}}>Santa Cruz</option>
-                            <option value="13" {{$docente->lotacao=="Dep. Alim Esc" ? 'selected' : ''}}>Dep. Alim. Esc
+                            <option value="2" {{$docente->lotacao=="Tônia Harms" ? 'selected' : ''}}>Tônia Harms
                             </option>
-                            <option value="14" {{$docente->lotacao=="Biblioteca" ? 'selected' : ''}}>Biblioteca</option>
 
                         </select>
                         <br>

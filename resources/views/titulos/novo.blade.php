@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Adicionar Titulo')
+@section('title', 'Adicionar titulo')
 
 @section('content')
 <div class="container">
@@ -11,7 +11,8 @@
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{action('DocenteController@index')}}">Docentes</a></li>
                     <li class="breadcrumb-item"><a
-                            href="{{action('DocenteController@show',$docente->idDocente)}}">{{$docente->nomeDocente}}</a></li>
+                            href="{{action('DocenteController@show',$docente->idDocente)}}">{{$docente->nomeDocente}}</a>
+                    </li>
                     <li class="breadcrumb-item"><a
                             href="{{action('TituloController@show',$docente->idDocente)}}">Títulos</a></li>
                     <li class="breadcrumb-item">Inserir título</li>
@@ -43,7 +44,8 @@
                 <div class="card-body">
                     <h3><i class="fas fa-info-circle" title="Preencha os campos obrigatórios (indicados com *), se necessário, anexe 
 um arquivo clicando em Escolher arquivo, selecionando o arquivo e confirmando 
-a seleção. Caso o título valha pontos de desempenho, basta inseri-los."></i> Inserir título novo de {{$docente->nomeDocente}}
+a seleção. Caso o título valha pontos de desempenho, basta inseri-los."></i> Inserir título novo de
+                        {{$docente->nomeDocente}}
                     </h3>
                     <hr>
                     <form method="POST" action="{{action('TituloController@store')}}" enctype="multipart/form-data">
@@ -56,11 +58,34 @@ a seleção. Caso o título valha pontos de desempenho, basta inseri-los."></i> 
                             required autocomplete="nomeTitulo" autofocus>
                         <br>
 
-                        * Data do titulo:
-                        <input id="dataTitulo" type="date"
-                            class="form-control @error('dataTitulo') is-invalid @enderror" name="dataTitulo" value=""
-                            required autofocus>
-                        <br>
+                        
+                        <div class="entry pb-3">
+                            <label for="dataTitulo">* Data do titulo:</label>
+                            <input id="dataTitulo" name="dataTitulo" type="date" 
+                            class="form-control @error('dataTitulo') is-invalid @enderror" oninput="validDate(this.value, this)" required autofocus>
+                        </div>
+                        <script>
+                        function validDate(date, theInput) {
+                            var date = document.getElementById("dataTitulo").value;
+                            todayDate = getTodaysDate();
+                            if (date > todayDate)
+                                theInput.value = todayDate;
+                        }
+
+                        function getTodaysDate() {
+                            date = new Date();
+                            day = date.getDate();
+                            month = date.getMonth() + 1;
+                            year = date.getFullYear();
+
+                            if (month < 10) month = "0" + month;
+                            if (day < 10) day = "0" + day;
+
+                            today = year + "-" + month + "-" + day;
+
+                            return today;
+                        }
+                        </script>
                         * Tipo do Título:
                         <select class="form-control @error('tipoTitulo') is-invalid @enderror" name="tipoTitulo"
                             style="width: 200px">

@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Adicionar licenca')
+@section('title', 'Adicionar licença')
 
 @section('content')
 <div class="container">
@@ -57,17 +57,40 @@ a seleção."></i> Inserir nova licença de {{$docente->nomeDocente}}
                         <hr>
                         <input id="Docente_idDocente" type="hidden" name="Docente_idDocente"
                             value="{{$docente->idDocente}}">
-                        * Descrição da Licença:
+                        * Descrição da licença:
                         <input id="nomeLicenca" type="text"
                             class="form-control @error('nomeLicenca') is-invalid @enderror" name="nomeLicenca" value=""
                             required autocomplete="nomeLicenca" autofocus>
                         <br>
-                        
-                        * Data da Licença:
-                        <input id="dataLicenca" type="date"
-                            class="form-control @error('dataLicenca') is-invalid @enderror" name="dataLicenca" value=""
-                            required autofocus>
-                        <br>
+
+                        <div class="entry pb-3">
+                            <label for="dataLicenca">* Data do licença:</label>
+                            <input id="dataLicenca" name="dataLicenca" type="date" 
+                            class="form-control @error('dataLicenca') is-invalid @enderror" oninput="validDate(this.value, this)" required autofocus>
+                        </div>
+                        <script>
+                        function validDate(date, theInput) {
+                            var date = document.getElementById("dataLicenca").value;
+                            todayDate = getTodaysDate();
+                            if (date > todayDate)
+                                theInput.value = todayDate;
+                        }
+
+                        function getTodaysDate() {
+                            date = new Date();
+                            day = date.getDate();
+                            month = date.getMonth() + 1;
+                            year = date.getFullYear();
+
+                            if (month < 10) month = "0" + month;
+                            if (day < 10) day = "0" + day;
+
+                            today = year + "-" + month + "-" + day;
+
+                            return today;
+                        }
+                        </script>
+
                         * Tipo de Licença:
                         <select class="form-control @error('tipoTitulo') is-invalid @enderror" name="tipoLicenca"
                             style="width: 300px">

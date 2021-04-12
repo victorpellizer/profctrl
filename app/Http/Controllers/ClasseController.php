@@ -55,7 +55,7 @@ class ClasseController extends Controller
                 ->first();
             $classe->usuario = $user['name'];
             $classe->nome = $var['classe'];
-            $classe->data = $classe['dataInicioClasse'];
+            $classe->data = date('d/m/Y à\s H:i:s', strtotime($classe['dataInicioClasse']));
         }
 
         return view('classe.editar')->with(compact('docente','classes'));

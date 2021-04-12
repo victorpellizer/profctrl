@@ -51,8 +51,7 @@ class LotacaoController extends Controller
                 ->first();
             $lotacao->usuario = $user['name'];
             $lotacao->nome = $var['nomeInstituicao'];
-            $lotacao->data = $lotacao['dataInicioLotacao'];
-            
+            $lotacao->data = date('d/m/Y à\s H:i:s', strtotime($lotacao['dataInicioLotacao']));
         }
         return view('lotacao.editar')->with(compact('docente','lotacoes'));
     }

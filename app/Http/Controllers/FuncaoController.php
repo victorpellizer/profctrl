@@ -51,7 +51,7 @@ class FuncaoController extends Controller
                 ->first();
             $funcao->usuario = $user['name'];
             $funcao->nome = $var['funcao'];
-            $funcao->data = $funcao['dataInicioFuncao'];
+            $funcao->data = date('d/m/Y à\s H:i:s', strtotime($funcao['dataInicioFuncao']));
         }
 
         return view('funcao.editar')->with(compact('docente','funcoes'));

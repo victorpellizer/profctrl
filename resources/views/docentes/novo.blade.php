@@ -39,7 +39,7 @@ lista de docentes, clique em Voltar."></i> Cadastro de Docente</div>
                         {{ session('status') }}
                     </div>
                     @endif
-                    
+
                     <form method="POST" action="{{action('DocenteController@store')}}">
                         @csrf
                         <div class="form-group row">
@@ -132,19 +132,19 @@ lista de docentes, clique em Voltar."></i> Cadastro de Docente</div>
                                     name="lotacao">
                                     <option value="15">Sem Lotação</option>
                                     <option value="1">Betânia</option>
-                                    <option value="2">Tônia Harms</option>
-                                    <option value="3">Geralda Harms</option>
-                                    <option value="4">Fátima A. Bosa</option>
+                                    <option value="14">Biblioteca</option>
                                     <option value="5">Canaã</option>
-                                    <option value="6">Limpo Grande</option>
-                                    <option value="7">São Judas Tadeu</option>
+                                    <option value="13">Dep. Alim. Esc</option>
+                                    <option value="4">Fátima A. Bosa</option>
+                                    <option value="3">Geralda Harms</option>
                                     <option value="8">José P. N. Rosas</option>
+                                    <option value="6">Limpo Grande</option>
+                                    <option value="12">Santa Cruz</option>
+                                    <option value="7">São Judas Tadeu</option>
                                     <option value="9">SMEC</option>
                                     <option value="10">Sta Rita de Cassia</option>
                                     <option value="11">Theresa G. Seifarth</option>
-                                    <option value="12">Santa Cruz</option>
-                                    <option value="13">Dep. Alim. Esc</option>
-                                    <option value="14">Biblioteca</option>
+                                    <option value="2">Tônia Harms</option>
                                 </select>
                             </div>
                         </div>
@@ -253,13 +253,13 @@ lista de docentes, clique em Voltar."></i> Cadastro de Docente</div>
                         <div class="form-group row">
                             <label for="valorDeslocamento" class="col-md-4 col-form-label text-md-right"
                                 data-toggle="tooltip" data-placement="right"
-                                title="Benefício de Deslocamento em Reais (R$).">Deslocamento (R$):</label>
+                                title="Benefício de Deslocamento em Reais (R$).">Auxílio deslocamento:</label>
 
                             <div class="col-md-2">
                                 <select class="form-control @error('beneficioD') is-invalid @enderror"
                                     name="beneficioD">
-                                    <option value="0.00">0,00</option>
-                                    <option value="191.83">191,83</option>
+                                    <option value="0.00">Não</option>
+                                    <option value="191.83">Sim</option>
                                 </select>
                                 <!--
                                 <input id="valorDeslocamento" type="number" class="form-control @error('valorDeslocamento') is-invalid @enderror" name="valorDeslocamento" value="" required autocomplete="valorDeslocamento" autofocus>

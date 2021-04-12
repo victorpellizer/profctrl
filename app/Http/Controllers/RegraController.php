@@ -33,7 +33,7 @@ class RegraController extends Controller
                 ->first();
             $r->usuario = $user['name'];
             $r->nome = $regra['descricao'];
-            $r->data = $regra['dataRegra'];
+            $r->data = date('d/m/Y à\s H:i:s', strtotime($regra['dataRegra']));
         }
         return view('regra.index')->with(compact('regra','regras'));
     }

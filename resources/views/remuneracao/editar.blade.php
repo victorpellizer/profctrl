@@ -89,11 +89,11 @@ deseje voltar, clique em Voltar."></i> Editar remuneração - {{$docente->nomeDo
                         </div>
 
                         <div class="col-md-6">
-                            Deslocamento (R$):
+                            Auxílio deslocamento:
                             <select class="form-control @error('beneficioD') is-invalid @enderror" name="beneficioD"
                                 style="width: 200px">
-                                <option value="0.00" {{$docente->beneficioD==0.00 ? 'selected' : ''}}>0,00</option>
-                                <option value="191.83" {{$docente->beneficioD==191.83 ? 'selected' : ''}}>191,83
+                                <option value="0.00" {{$docente->beneficioD==0.00 ? 'selected' : ''}}>Não</option>
+                                <option value="191.83" {{$docente->beneficioD==191.83 ? 'selected' : ''}}>Sim
                                 </option>
                             </select>
                             <!--
@@ -121,7 +121,7 @@ deseje voltar, clique em Voltar."></i> Editar remuneração - {{$docente->nomeDo
                             <tr>
                                 <td>{{$r->tipoBeneficio}}</td>
                                 <td>R$ {{$r->valorBeneficio}}</td>
-                                <td>{{$r->usuario}} em {{$r->dataInicioBeneficio}}</td>
+                                <td>{{$r->usuario}} em {{$r->data}}</td>
                             </tr>
                             @endforeach
                         </tbody>

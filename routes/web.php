@@ -35,6 +35,7 @@ Route::get('docentes/{id}/show', 'DocenteController@show')->name('show');
 Route::get('docentes/busca','DocenteController@busca');
 Route::get('progressao/busca','ProgressaoController@busca');
 Route::get('eventos/busca','EventoController@busca');
+Route::get('eventos/filtro','EventoController@filtro');
 
 Route::get('docentes/exportCSV/', 'DocenteController@exportCSV');
 Route::get('docentes/exportXLSX/', 'DocenteController@exportXLSX');

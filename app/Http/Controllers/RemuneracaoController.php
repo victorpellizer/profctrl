@@ -121,6 +121,7 @@ class RemuneracaoController extends Controller
             if($remuneracao->tipoBeneficio == 'TS'){
                 $remuneracao->tipoBeneficio = 'Bônus por T. de Serviço';
             }
+            $remuneracao->data = date('d/m/Y à\s H:i:s', strtotime($remuneracao['dataInicioBeneficio']));
         }
         return view('remuneracao.editar')->with(compact('docente','remuneracoes'));
     }

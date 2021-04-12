@@ -14,7 +14,30 @@ use App\Exports\EventosExportXLSX;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EventoController extends Controller
-{
+{   
+    public function filtro()
+    {
+        $mes = $_GET['mes'];
+        $ano = $_GET['ano'];
+        $eventos = Evento::whereMonth('dataEvento', $mes)
+            ->whereYear('dataEvento',$ano)
+            ->paginate(50);
+        foreach($eventos as $evento){
+            $tipoEvento = TipoEvento::where('idTipoEvento', '=', $evento->TipoEvento_idTipoEvento)
+                ->first();
+            $user = User::where('id', '=', $evento->Usuario_idUsuario)
+                ->first();
+            $regraVigente = Regra::select('descricao')
+                ->where('idRegra', '=', $evento->Regra_idRegra)
+                ->first();
+            $evento->Regra_idRegra = $regraVigente['descricao'];
+            $evento->Usuario_idUsuario = $user['name'];
+            $evento->TipoEvento_idTipoEvento = $tipoEvento['tipoEvento'];
+        }
+        return view('eventos.filtro')
+            ->with(compact('eventos'));
+
+    }
     public function busca()
     {
         $texto_busca = $_GET['query'];

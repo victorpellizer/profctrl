@@ -54,7 +54,7 @@ class NivelController extends Controller
                 ->first();
             $nivel->usuario = $user['name'];
             $nivel->nome = $var['nivel'];
-            $nivel->data = $nivel['dataInicioNivel'];
+            $nivel->data = date('d/m/Y à\s H:i:s', strtotime($nivel['dataInicioNivel']));
         }
 
         return view('nivel.editar')->with(compact('docente','niveis'));
